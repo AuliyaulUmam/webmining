@@ -1,0 +1,4292 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Analisa Clustering dengan menggunakan K-means &#8212; My sample book</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Peringkasan berita online menggunakan metode PageRank" href="uts-nomor2.html" />
+    <link rel="prev" title="Term Frequency, K-Means, Feature Selection, Information Gain" href="term-frequency.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">My sample book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="crawl-data-pta.html">
+   Data Crawling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="crawl-data-tweet.html">
+   Crawling Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="prepro-tweet.html">
+   PreProcessing Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="term-frequency.html">
+   Term Frequency, K-Means, Feature Selection, Information Gain
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Analisa Clustering dengan menggunakan K-means
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="uts-nomor2.html">
+   Peringkasan berita online menggunakan metode PageRank
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/uts-nomor1.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/AuliyaulUmam/webmining"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/uts-nomor1.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#crawling-data">
+   Crawling Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tweepy">
+     Tweepy
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pandas">
+     Pandas
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#import-module-pandas-numpy-dan-tweepy">
+       Import Module pandas, numpy dan tweepy
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#memasukkan-api-token">
+   Memasukkan API token
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#memasuukan-tweet-yg-dicari-serta-jumlah">
+     Memasuukan Tweet yg dicari serta jumlah
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menampilkan-data-dalam-bentuk-dataframe">
+     Menampilkan data dalam bentuk dataframe
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menyimpan-data">
+     Menyimpan Data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#preprocessing-data">
+   PreProcessing Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sastrawi">
+     Sastrawi
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#swifter">
+     Swifter
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#natural-language-toolkit-nltk">
+     Natural Language Toolkit (NLTK)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#membaca-data-dari-file-yg-disimpan">
+     Membaca data dari file yg disimpan
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#case-folding">
+     Case Folding
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menghapus-karakter-spesial">
+     Menghapus Karakter Spesial
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menghapus-angka">
+     Menghapus Angka
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menghapus-tanda-baca">
+     Menghapus Tanda Baca
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menghapus-spasi">
+     Menghapus Spasi
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menghapus-huruf-tunggal">
+     Menghapus huruf Tunggal
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tokenizing">
+     Tokenizing
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#filtering">
+     Filtering
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stemming">
+     Stemming
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menyimpan-hasil-ke-csv">
+     Menyimpan Hasil ke CSV
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#term-frequency-tf">
+   Term Frequency (TF)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#k-means">
+   K-Means
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Analisa Clustering dengan menggunakan K-means</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#crawling-data">
+   Crawling Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tweepy">
+     Tweepy
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pandas">
+     Pandas
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#import-module-pandas-numpy-dan-tweepy">
+       Import Module pandas, numpy dan tweepy
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#memasukkan-api-token">
+   Memasukkan API token
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#memasuukan-tweet-yg-dicari-serta-jumlah">
+     Memasuukan Tweet yg dicari serta jumlah
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menampilkan-data-dalam-bentuk-dataframe">
+     Menampilkan data dalam bentuk dataframe
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menyimpan-data">
+     Menyimpan Data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#preprocessing-data">
+   PreProcessing Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sastrawi">
+     Sastrawi
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#swifter">
+     Swifter
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#natural-language-toolkit-nltk">
+     Natural Language Toolkit (NLTK)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#membaca-data-dari-file-yg-disimpan">
+     Membaca data dari file yg disimpan
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#case-folding">
+     Case Folding
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menghapus-karakter-spesial">
+     Menghapus Karakter Spesial
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menghapus-angka">
+     Menghapus Angka
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menghapus-tanda-baca">
+     Menghapus Tanda Baca
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menghapus-spasi">
+     Menghapus Spasi
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menghapus-huruf-tunggal">
+     Menghapus huruf Tunggal
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tokenizing">
+     Tokenizing
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#filtering">
+     Filtering
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stemming">
+     Stemming
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menyimpan-hasil-ke-csv">
+     Menyimpan Hasil ke CSV
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#term-frequency-tf">
+   Term Frequency (TF)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#k-means">
+   K-Means
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="analisa-clustering-dengan-menggunakan-k-means">
+<h1>Analisa Clustering dengan menggunakan K-means<a class="headerlink" href="#analisa-clustering-dengan-menggunakan-k-means" title="Permalink to this headline">#</a></h1>
+<section id="crawling-data">
+<h2>Crawling Data<a class="headerlink" href="#crawling-data" title="Permalink to this headline">#</a></h2>
+<p>Data crawling atau perayapan data adalah proses pengambilan data yang tersedia secara online untuk umum. Proses ini kemudian mengimpor informasi atau data yang telah ditemukan ke dalam file lokal di komputer Anda.</p>
+<section id="tweepy">
+<h3>Tweepy<a class="headerlink" href="#tweepy" title="Permalink to this headline">#</a></h3>
+<p>library tweepy adalah suatu API yang disediakan oleh pihak Twitter untuk dapat mengakses dan mengambil data-data yang ada di dalam Twitter menggunakan bahasa pemrograman Phyton.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install tweepy
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+Requirement already satisfied: tweepy in /usr/local/lib/python3.7/dist-packages (3.10.0)
+Requirement already satisfied: requests[socks]&gt;=2.11.1 in /usr/local/lib/python3.7/dist-packages (from tweepy) (2.23.0)
+Requirement already satisfied: six&gt;=1.10.0 in /usr/local/lib/python3.7/dist-packages (from tweepy) (1.15.0)
+Requirement already satisfied: requests-oauthlib&gt;=0.7.0 in /usr/local/lib/python3.7/dist-packages (from tweepy) (1.3.1)
+Requirement already satisfied: oauthlib&gt;=3.0.0 in /usr/local/lib/python3.7/dist-packages (from requests-oauthlib&gt;=0.7.0-&gt;tweepy) (3.2.1)
+Requirement already satisfied: urllib3!=1.25.0,!=1.25.1,&lt;1.26,&gt;=1.21.1 in /usr/local/lib/python3.7/dist-packages (from requests[socks]&gt;=2.11.1-&gt;tweepy) (1.24.3)
+Requirement already satisfied: idna&lt;3,&gt;=2.5 in /usr/local/lib/python3.7/dist-packages (from requests[socks]&gt;=2.11.1-&gt;tweepy) (2.10)
+Requirement already satisfied: chardet&lt;4,&gt;=3.0.2 in /usr/local/lib/python3.7/dist-packages (from requests[socks]&gt;=2.11.1-&gt;tweepy) (3.0.4)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.7/dist-packages (from requests[socks]&gt;=2.11.1-&gt;tweepy) (2022.9.24)
+Requirement already satisfied: PySocks!=1.5.7,&gt;=1.5.6 in /usr/local/lib/python3.7/dist-packages (from requests[socks]&gt;=2.11.1-&gt;tweepy) (1.7.1)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="pandas">
+<h3>Pandas<a class="headerlink" href="#pandas" title="Permalink to this headline">#</a></h3>
+<p>Pandas adalah sebuah library di Python yang berlisensi BSD dan open source yang menyediakan struktur data dan analisis data yang mudah digunakan. Pandas biasa digunakan untuk membuat tabel, mengubah dimensi data, mengecek data, dan lain sebagainya. Struktur data dasar pada Pandas dinamakan DataFrame, yang memudahkan kita untuk membaca sebuah file dengan banyak jenis format seperti file .txt, .csv, dan .tsv. Fitur ini akan menjadikannya table dan juga dapat mengolah suatu data dengan menggunakan operasi seperti join, distinct, group by, agregasi, dan teknik lainnya yang terdapat pada SQL.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install pandas
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+Requirement already satisfied: pandas in /usr/local/lib/python3.7/dist-packages (1.3.5)
+Requirement already satisfied: python-dateutil&gt;=2.7.3 in /usr/local/lib/python3.7/dist-packages (from pandas) (2.8.2)
+Requirement already satisfied: numpy&gt;=1.17.3 in /usr/local/lib/python3.7/dist-packages (from pandas) (1.21.6)
+Requirement already satisfied: pytz&gt;=2017.3 in /usr/local/lib/python3.7/dist-packages (from pandas) (2022.4)
+Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.7/dist-packages (from python-dateutil&gt;=2.7.3-&gt;pandas) (1.15.0)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="import-module-pandas-numpy-dan-tweepy">
+<h4>Import Module pandas, numpy dan tweepy<a class="headerlink" href="#import-module-pandas-numpy-dan-tweepy" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tweepy</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="memasukkan-api-token">
+<h2>Memasukkan API token<a class="headerlink" href="#memasukkan-api-token" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">api_key</span> <span class="o">=</span> <span class="s2">&quot;lqgLBXUJ5tJhVYO7az2B8vUIp&quot;</span>
+<span class="n">api_secret_key</span> <span class="o">=</span> <span class="s2">&quot;pFWM22HPhrCVL62mnoIa7ieZHAWTryul1roDijtRqcRBUG6Cys&quot;</span>
+<span class="n">access_token</span> <span class="o">=</span> <span class="s2">&quot;1569722764730441728-KrphYI34NI8l7HBLOVTCMKaVdELURf&quot;</span>
+<span class="n">access_token_secret</span> <span class="o">=</span> <span class="s2">&quot;RyJBUD5UoWpunYeS6u9G4NwKnvS8VSkPa7fOIy6AgGEAy&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">auth</span> <span class="o">=</span> <span class="n">tweepy</span><span class="o">.</span><span class="n">OAuthHandler</span><span class="p">(</span><span class="n">api_key</span><span class="p">,</span> <span class="n">api_secret_key</span><span class="p">)</span>
+<span class="n">auth</span><span class="o">.</span><span class="n">set_access_token</span><span class="p">(</span><span class="n">access_token</span><span class="p">,</span> <span class="n">access_token_secret</span><span class="p">)</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">tweepy</span><span class="o">.</span><span class="n">API</span><span class="p">(</span><span class="n">auth</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="memasuukan-tweet-yg-dicari-serta-jumlah">
+<h3>Memasuukan Tweet yg dicari serta jumlah<a class="headerlink" href="#memasuukan-tweet-yg-dicari-serta-jumlah" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">search</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">q</span><span class="o">=</span><span class="s2">&quot;#kanjuruhan&quot;</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">tweet</span> <span class="ow">in</span> <span class="n">search</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">tweet</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+  <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tweet</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RT @republikaonline: Penghapusan dilakukan beberapa saat setelah peristiwa terjadi. #Kanjuruhan #CCTV #TGIPF https://t.co/wqrlKoclOW
+RT @republikaonline: Penghapusan dilakukan beberapa saat setelah peristiwa terjadi. #Kanjuruhan #CCTV #TGIPF https://t.co/wqrlKoclOW
+RT @republikaonline: Penghapusan dilakukan beberapa saat setelah peristiwa terjadi. #Kanjuruhan #CCTV #TGIPF https://t.co/wqrlKoclOW
+RT @Shohifah_Shf: Semoga cepat ketemu orang ini😶⤵️
+#UsutTuntasTragediKanjuruhan #kanjuruhan #AremaniaBerduka #KanjuruhanBerdukaCita #provok…
+RT @republikaonline: Penghapusan dilakukan beberapa saat setelah peristiwa terjadi. #Kanjuruhan #CCTV #TGIPF https://t.co/wqrlKoclOW
+RT @LaNyallaAcademy: @OkaSaptono2 @LaNyallaMM1 @mohmahfudmd @DivHumas_Polri TPF Aremania Simpulkan, Tragedi Kanjuruhan Bukan Kerusuhan, Tet…
+Presiden Republik Indonesia, Joko Widodo, menyampaikan bahwa, Stadion Kanjuruhan Malang akan diruntuhkan. Simak inf… https://t.co/CKUkq5NUJ4
+RT @republikaonline: Penghapusan dilakukan beberapa saat setelah peristiwa terjadi. #Kanjuruhan #CCTV #TGIPF https://t.co/wqrlKoclOW
+RT @republikaonline: Penghapusan dilakukan beberapa saat setelah peristiwa terjadi. #Kanjuruhan #CCTV #TGIPF https://t.co/wqrlKoclOW
+RT @GOAL_ID: Direktur operasional PT Liga Indonesia Baru (LIB) Sudjarno, angkat bicara terkait pertemuan dengan Kapolres Malang membahas la…
+RT @GOAL_ID: Stadion Kanjuruhan yang menjadi tempat tragedi pada 1 Oktober lalu, akan dirobohkan oleh pemerintah dalam waktu dekat.
+
+#Kanju…
+RT @GOAL_ID: Jumlah korban jiwa akibat tragedi Kanjuruhan di Malang bertambah satu orang, dengan demikian total 133 telah dinyatakan mening…
+Lagi, Korban Tragedi Kanjuruhan Bertambah Jadi 133 Orang https://t.co/Ss8TL5akys lewat @KanalnewsC #Kanjuruhan #TRAGEDIKANJURUHAN
+JOKOWI : STADION KANJURUHAN AKAN KITA ROBOHKAN DAN DIBANGUN KEMBALI SESUAI STANDAR FIFA #jokowi… https://t.co/mpQk5sJdhk
+RT @GOAL_ID: Stadion Kanjuruhan yang menjadi tempat tragedi pada 1 Oktober lalu, akan dirobohkan oleh pemerintah dalam waktu dekat.
+
+#Kanju…
+RT @MCAOps: KPPPA mengungkapkan jumlah anak yang menjadi korban meninggal dunia dalam tragedi di Stadion Kanjuruhan, Kabupaten Malang, Jawa…
+RT @republikaonline: Penghapusan dilakukan beberapa saat setelah peristiwa terjadi. #Kanjuruhan #CCTV #TGIPF https://t.co/wqrlKoclOW
+RT @republikaonline: Penghapusan dilakukan beberapa saat setelah peristiwa terjadi. #Kanjuruhan #CCTV #TGIPF https://t.co/wqrlKoclOW
+RT @republikaonline: Penghapusan dilakukan beberapa saat setelah peristiwa terjadi. #Kanjuruhan #CCTV #TGIPF https://t.co/wqrlKoclOW
+Tragedi #Kanjuruhan dikarenakan ada gosokan PSI via penjual es dawet dan oleh sebab itu mari kita bongkar stadionny… https://t.co/CtI0MLWVnS
+RT @republikaonline: Penghapusan dilakukan beberapa saat setelah peristiwa terjadi. #Kanjuruhan #CCTV #TGIPF https://t.co/wqrlKoclOW
+RT @dw_indonesia: Setelah bertemu Presiden @FIFAcom Gianni Infantino, Presiden @jokowi hari Selasa (18/10) memastikan bahwa Stadion #Kanjur…
+Ibuku pernh cerita klu dulu para buyut uda doain buat ank turunannya ; &quot;jgn sampe ank cucu ku ada yg jadi p*lis*/ni… https://t.co/kViFtDq7Rg
+Korban Meninggal Dunia Tragedi Kanjuruhan Bertambah 1, Ini Luka yang Dialaminya
+#kanjuruhan https://t.co/b5xwDaJ4KA
+RT @republikaonline: Penghapusan dilakukan beberapa saat setelah peristiwa terjadi. #Kanjuruhan #CCTV #TGIPF https://t.co/wqrlKoclOW
+Piala Dunia U-20, Jokowi dan Presiden FIFA Sepakat Kaji Ulang Sepak Bola Indonesia #Jokowi #GianniInfantino… https://t.co/sCmyziaWaq
+RT @republikaonline: Penghapusan dilakukan beberapa saat setelah peristiwa terjadi. #Kanjuruhan #CCTV #TGIPF https://t.co/wqrlKoclOW
+ERICK THOHIR INGATKAN AGAR TRAGEDI KANJURUHAN JANGAN SAMPAI TERULANG KEMBALI 
+#erickthohir #erickthohirsolusirakyat… https://t.co/Yy22OWT8DD
+RT @MCAOps: KPPPA mengungkapkan jumlah anak yang menjadi korban meninggal dunia dalam tragedi di Stadion Kanjuruhan, Kabupaten Malang, Jawa…
+RT @republikaonline: Penghapusan dilakukan beberapa saat setelah peristiwa terjadi. #Kanjuruhan #CCTV #TGIPF https://t.co/wqrlKoclOW
+RT @republikaonline: Penghapusan dilakukan beberapa saat setelah peristiwa terjadi. #Kanjuruhan #CCTV #TGIPF https://t.co/wqrlKoclOW
+RT @republikaonline: Penghapusan dilakukan beberapa saat setelah peristiwa terjadi. #Kanjuruhan #CCTV #TGIPF https://t.co/wqrlKoclOW
+RT @republikaonline: Penghapusan dilakukan beberapa saat setelah peristiwa terjadi. #Kanjuruhan #CCTV #TGIPF https://t.co/wqrlKoclOW
+Presiden Jokowi bertemu dengan Presiden FIFA Gianni Infantino di Istana Merdeka, Selasa (18/10/2022) siang. Ada beb… https://t.co/DvLV8rdVLE
+RT @republikaonline: Penghapusan dilakukan beberapa saat setelah peristiwa terjadi. #Kanjuruhan #CCTV #TGIPF https://t.co/wqrlKoclOW
+RT @GOAL_ID: Stadion Kanjuruhan yang menjadi tempat tragedi pada 1 Oktober lalu, akan dirobohkan oleh pemerintah dalam waktu dekat.
+
+#Kanju…
+Selengkapnya, klik link kumparan berikut.
+https://t.co/KL4KHIFNBT
+
+#berita #kanjuruhan #tragedikanjuruhan… https://t.co/tEIY0UwbEg
+RT @republikaonline: Penghapusan dilakukan beberapa saat setelah peristiwa terjadi. #Kanjuruhan #CCTV #TGIPF https://t.co/wqrlKoclOW
+Stadion Kanjuruhan tak henti hentinya menjadi topik yang terus disorot oleh masyarakat karena meninggalkan duka yan… https://t.co/a25LAXQam1
+Jokowi Konfirmasi Bakal Rubuhkan Stadion Kanjuruhan Usai Konsultasi dengan Presiden FIFA https://t.co/37218ZnXdT ba… https://t.co/5pXe2uQZXj
+@jokowi Salut sih sama diplomasi pemerintah Indonesia terhadap FIFA tp please benahi dulu pak sepakbolanya, dimulai dari PSSI. #Kanjuruhan
+RT @republikaonline: Penghapusan dilakukan beberapa saat setelah peristiwa terjadi. #Kanjuruhan #CCTV #TGIPF https://t.co/wqrlKoclOW
+RT @MCAOps: KPPPA mengungkapkan jumlah anak yang menjadi korban meninggal dunia dalam tragedi di Stadion Kanjuruhan, Kabupaten Malang, Jawa…
+RT @MCAOps: KPPPA mengungkapkan jumlah anak yang menjadi korban meninggal dunia dalam tragedi di Stadion Kanjuruhan, Kabupaten Malang, Jawa…
+RT @republikaonline: Penghapusan dilakukan beberapa saat setelah peristiwa terjadi. #Kanjuruhan #CCTV #TGIPF https://t.co/wqrlKoclOW
+RT @LaNyallaAcademy: @OkaSaptono2 @LaNyallaMM1 @mohmahfudmd @DivHumas_Polri TPF Aremania Simpulkan, Tragedi Kanjuruhan Bukan Kerusuhan, Tet…
+RT @LaNyallaAcademy: @OkaSaptono2 @LaNyallaMM1 @mohmahfudmd @DivHumas_Polri TPF Aremania Simpulkan, Tragedi Kanjuruhan Bukan Kerusuhan, Tet…
+RT @LaNyallaAcademy: @OkaSaptono2 @LaNyallaMM1 @mohmahfudmd @DivHumas_Polri TPF Aremania Simpulkan, Tragedi Kanjuruhan Bukan Kerusuhan, Tet…
+RT @LaNyallaAcademy: @OkaSaptono2 @LaNyallaMM1 @mohmahfudmd @DivHumas_Polri TPF Aremania Simpulkan, Tragedi Kanjuruhan Bukan Kerusuhan, Tet…
+RT @LaNyallaAcademy: @OkaSaptono2 @LaNyallaMM1 @mohmahfudmd @DivHumas_Polri TPF Aremania Simpulkan, Tragedi Kanjuruhan Bukan Kerusuhan, Tet…
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menampilkan-data-dalam-bentuk-dataframe">
+<h3>Menampilkan data dalam bentuk dataframe<a class="headerlink" href="#menampilkan-data-dalam-bentuk-dataframe" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print(data)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-e9284119-05fb-4c3a-a6f4-aa752f15303a">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>RT @Shohifah_Shf: Semoga cepat ketemu orang in...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>RT @LaNyallaAcademy: @OkaSaptono2 @LaNyallaMM1...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Presiden Republik Indonesia, Joko Widodo, meny...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>RT @GOAL_ID: Direktur operasional PT Liga Indo...</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>RT @GOAL_ID: Stadion Kanjuruhan yang menjadi t...</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>RT @GOAL_ID: Jumlah korban jiwa akibat tragedi...</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Lagi, Korban Tragedi Kanjuruhan Bertambah Jadi...</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>JOKOWI : STADION KANJURUHAN AKAN KITA ROBOHKAN...</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>RT @GOAL_ID: Stadion Kanjuruhan yang menjadi t...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>RT @MCAOps: KPPPA mengungkapkan jumlah anak ya...</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Tragedi #Kanjuruhan dikarenakan ada gosokan PS...</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>RT @dw_indonesia: Setelah bertemu Presiden @FI...</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Ibuku pernh cerita klu dulu para buyut uda doa...</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Korban Meninggal Dunia Tragedi Kanjuruhan Bert...</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Piala Dunia U-20, Jokowi dan Presiden FIFA Sep...</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>ERICK THOHIR INGATKAN AGAR TRAGEDI KANJURUHAN ...</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>RT @MCAOps: KPPPA mengungkapkan jumlah anak ya...</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>Presiden Jokowi bertemu dengan Presiden FIFA G...</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>RT @GOAL_ID: Stadion Kanjuruhan yang menjadi t...</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>Selengkapnya, klik link kumparan berikut.\nhtt...</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>Stadion Kanjuruhan tak henti hentinya menjadi ...</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>Jokowi Konfirmasi Bakal Rubuhkan Stadion Kanju...</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>@jokowi Salut sih sama diplomasi pemerintah In...</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>RT @MCAOps: KPPPA mengungkapkan jumlah anak ya...</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>RT @MCAOps: KPPPA mengungkapkan jumlah anak ya...</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>RT @LaNyallaAcademy: @OkaSaptono2 @LaNyallaMM1...</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>RT @LaNyallaAcademy: @OkaSaptono2 @LaNyallaMM1...</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>RT @LaNyallaAcademy: @OkaSaptono2 @LaNyallaMM1...</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>RT @LaNyallaAcademy: @OkaSaptono2 @LaNyallaMM1...</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>RT @LaNyallaAcademy: @OkaSaptono2 @LaNyallaMM1...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-e9284119-05fb-4c3a-a6f4-aa752f15303a')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-e9284119-05fb-4c3a-a6f4-aa752f15303a button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-e9284119-05fb-4c3a-a6f4-aa752f15303a');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
+  </div>
+</div></div>
+</div>
+</section>
+<section id="menyimpan-data">
+<h3>Menyimpan Data<a class="headerlink" href="#menyimpan-data" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;kanjuruhan.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="preprocessing-data">
+<h2>PreProcessing Data<a class="headerlink" href="#preprocessing-data" title="Permalink to this headline">#</a></h2>
+<p>Data preprocessing adalah proses yang mengubah data mentah ke dalam bentuk yang lebih mudah dipahami. Proses ini penting dilakukan karena data mentah sering kali tidak memiliki format yang teratur. Selain itu, data mining juga tidak dapat memproses data mentah, sehingga proses ini sangat penting dilakukan untuk mempermudah proses berikutnya, yakni analisis data.</p>
+<section id="sastrawi">
+<h3>Sastrawi<a class="headerlink" href="#sastrawi" title="Permalink to this headline">#</a></h3>
+<p>Python Sastrawi adalah pengembangan dari proyek PHP Sastrawi. Python Sastrawi merupakan library sederhana yang dapat mengubah kata berimbuhan bahasa Indonesia menjadi bentuk dasarnya.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install Sastrawi
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+Requirement already satisfied: Sastrawi in /usr/local/lib/python3.7/dist-packages (1.0.1)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="swifter">
+<h3>Swifter<a class="headerlink" href="#swifter" title="Permalink to this headline">#</a></h3>
+<p>Swifter adalah Paket yang secara efisien menerapkan fungsi apa pun ke kerangka data atau seri panda dengan cara tercepat yang tersedia</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install swifter
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+Requirement already satisfied: swifter in /usr/local/lib/python3.7/dist-packages (1.3.4)
+Requirement already satisfied: psutil&gt;=5.6.6 in /usr/local/lib/python3.7/dist-packages (from swifter) (5.9.2)
+Requirement already satisfied: ipywidgets&gt;=7.0.0 in /usr/local/lib/python3.7/dist-packages (from swifter) (7.7.1)
+Requirement already satisfied: tqdm&gt;=4.33.0 in /usr/local/lib/python3.7/dist-packages (from swifter) (4.64.1)
+Requirement already satisfied: pandas&gt;=1.0.0 in /usr/local/lib/python3.7/dist-packages (from swifter) (1.3.5)
+Requirement already satisfied: parso&gt;0.4.0 in /usr/local/lib/python3.7/dist-packages (from swifter) (0.8.3)
+Requirement already satisfied: bleach&gt;=3.1.1 in /usr/local/lib/python3.7/dist-packages (from swifter) (5.0.1)
+Requirement already satisfied: cloudpickle&gt;=0.2.2 in /usr/local/lib/python3.7/dist-packages (from swifter) (1.5.0)
+Requirement already satisfied: dask[dataframe]&gt;=2.10.0 in /usr/local/lib/python3.7/dist-packages (from swifter) (2022.2.0)
+Requirement already satisfied: six&gt;=1.9.0 in /usr/local/lib/python3.7/dist-packages (from bleach&gt;=3.1.1-&gt;swifter) (1.15.0)
+Requirement already satisfied: webencodings in /usr/local/lib/python3.7/dist-packages (from bleach&gt;=3.1.1-&gt;swifter) (0.5.1)
+Requirement already satisfied: toolz&gt;=0.8.2 in /usr/local/lib/python3.7/dist-packages (from dask[dataframe]&gt;=2.10.0-&gt;swifter) (0.12.0)
+Requirement already satisfied: packaging&gt;=20.0 in /usr/local/lib/python3.7/dist-packages (from dask[dataframe]&gt;=2.10.0-&gt;swifter) (21.3)
+Requirement already satisfied: partd&gt;=0.3.10 in /usr/local/lib/python3.7/dist-packages (from dask[dataframe]&gt;=2.10.0-&gt;swifter) (1.3.0)
+Requirement already satisfied: pyyaml&gt;=5.3.1 in /usr/local/lib/python3.7/dist-packages (from dask[dataframe]&gt;=2.10.0-&gt;swifter) (6.0)
+Requirement already satisfied: fsspec&gt;=0.6.0 in /usr/local/lib/python3.7/dist-packages (from dask[dataframe]&gt;=2.10.0-&gt;swifter) (2022.8.2)
+Requirement already satisfied: numpy&gt;=1.18 in /usr/local/lib/python3.7/dist-packages (from dask[dataframe]&gt;=2.10.0-&gt;swifter) (1.21.6)
+Requirement already satisfied: jupyterlab-widgets&gt;=1.0.0 in /usr/local/lib/python3.7/dist-packages (from ipywidgets&gt;=7.0.0-&gt;swifter) (3.0.3)
+Requirement already satisfied: ipykernel&gt;=4.5.1 in /usr/local/lib/python3.7/dist-packages (from ipywidgets&gt;=7.0.0-&gt;swifter) (5.3.4)
+Requirement already satisfied: widgetsnbextension~=3.6.0 in /usr/local/lib/python3.7/dist-packages (from ipywidgets&gt;=7.0.0-&gt;swifter) (3.6.1)
+Requirement already satisfied: traitlets&gt;=4.3.1 in /usr/local/lib/python3.7/dist-packages (from ipywidgets&gt;=7.0.0-&gt;swifter) (5.1.1)
+Requirement already satisfied: ipython-genutils~=0.2.0 in /usr/local/lib/python3.7/dist-packages (from ipywidgets&gt;=7.0.0-&gt;swifter) (0.2.0)
+Requirement already satisfied: ipython&gt;=4.0.0 in /usr/local/lib/python3.7/dist-packages (from ipywidgets&gt;=7.0.0-&gt;swifter) (7.9.0)
+Requirement already satisfied: tornado&gt;=4.2 in /usr/local/lib/python3.7/dist-packages (from ipykernel&gt;=4.5.1-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (6.2)
+Requirement already satisfied: jupyter-client in /usr/local/lib/python3.7/dist-packages (from ipykernel&gt;=4.5.1-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (6.1.12)
+Requirement already satisfied: jedi&gt;=0.10 in /usr/local/lib/python3.7/dist-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.18.1)
+Requirement already satisfied: pygments in /usr/local/lib/python3.7/dist-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (2.6.1)
+Requirement already satisfied: pexpect in /usr/local/lib/python3.7/dist-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (4.8.0)
+Requirement already satisfied: decorator in /usr/local/lib/python3.7/dist-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (4.4.2)
+Requirement already satisfied: prompt-toolkit&lt;2.1.0,&gt;=2.0.0 in /usr/local/lib/python3.7/dist-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (2.0.10)
+Requirement already satisfied: backcall in /usr/local/lib/python3.7/dist-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.2.0)
+Requirement already satisfied: pickleshare in /usr/local/lib/python3.7/dist-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.7.5)
+Requirement already satisfied: setuptools&gt;=18.5 in /usr/local/lib/python3.7/dist-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (57.4.0)
+Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /usr/local/lib/python3.7/dist-packages (from packaging&gt;=20.0-&gt;dask[dataframe]&gt;=2.10.0-&gt;swifter) (3.0.9)
+Requirement already satisfied: pytz&gt;=2017.3 in /usr/local/lib/python3.7/dist-packages (from pandas&gt;=1.0.0-&gt;swifter) (2022.4)
+Requirement already satisfied: python-dateutil&gt;=2.7.3 in /usr/local/lib/python3.7/dist-packages (from pandas&gt;=1.0.0-&gt;swifter) (2.8.2)
+Requirement already satisfied: locket in /usr/local/lib/python3.7/dist-packages (from partd&gt;=0.3.10-&gt;dask[dataframe]&gt;=2.10.0-&gt;swifter) (1.0.0)
+Requirement already satisfied: wcwidth in /usr/local/lib/python3.7/dist-packages (from prompt-toolkit&lt;2.1.0,&gt;=2.0.0-&gt;ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.2.5)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: notebook&gt;=4.4.1 in /usr/local/lib/python3.7/dist-packages (from widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (5.5.0)
+Requirement already satisfied: pyzmq&gt;=17 in /usr/local/lib/python3.7/dist-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (23.2.1)
+Requirement already satisfied: terminado&gt;=0.8.1 in /usr/local/lib/python3.7/dist-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.13.3)
+Requirement already satisfied: nbconvert in /usr/local/lib/python3.7/dist-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (6.5.4)
+Requirement already satisfied: nbformat in /usr/local/lib/python3.7/dist-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (5.7.0)
+Requirement already satisfied: jinja2 in /usr/local/lib/python3.7/dist-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (3.1.2)
+Requirement already satisfied: Send2Trash in /usr/local/lib/python3.7/dist-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (1.8.0)
+Requirement already satisfied: jupyter-core&gt;=4.4.0 in /usr/local/lib/python3.7/dist-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (4.11.1)
+Requirement already satisfied: ptyprocess in /usr/local/lib/python3.7/dist-packages (from terminado&gt;=0.8.1-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.7.0)
+Requirement already satisfied: MarkupSafe&gt;=2.0 in /usr/local/lib/python3.7/dist-packages (from jinja2-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (2.0.1)
+Requirement already satisfied: entrypoints&gt;=0.2.2 in /usr/local/lib/python3.7/dist-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.4)
+Requirement already satisfied: beautifulsoup4 in /usr/local/lib/python3.7/dist-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (4.6.3)
+Requirement already satisfied: jupyterlab-pygments in /usr/local/lib/python3.7/dist-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.2.2)
+Requirement already satisfied: mistune&lt;2,&gt;=0.8.1 in /usr/local/lib/python3.7/dist-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.8.4)
+Requirement already satisfied: defusedxml in /usr/local/lib/python3.7/dist-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.7.1)
+Requirement already satisfied: pandocfilters&gt;=1.4.1 in /usr/local/lib/python3.7/dist-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (1.5.0)
+Requirement already satisfied: lxml in /usr/local/lib/python3.7/dist-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (4.9.1)
+Requirement already satisfied: nbclient&gt;=0.5.0 in /usr/local/lib/python3.7/dist-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.5.13)
+Requirement already satisfied: tinycss2 in /usr/local/lib/python3.7/dist-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (1.2.1)
+Requirement already satisfied: nest-asyncio in /usr/local/lib/python3.7/dist-packages (from nbclient&gt;=0.5.0-&gt;nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (1.5.6)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: fastjsonschema in /usr/local/lib/python3.7/dist-packages (from nbformat-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (2.16.2)
+Requirement already satisfied: importlib-metadata&gt;=3.6 in /usr/local/lib/python3.7/dist-packages (from nbformat-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (4.13.0)
+Requirement already satisfied: jsonschema&gt;=2.6 in /usr/local/lib/python3.7/dist-packages (from nbformat-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (3.2.0)
+Requirement already satisfied: typing-extensions&gt;=3.6.4 in /usr/local/lib/python3.7/dist-packages (from importlib-metadata&gt;=3.6-&gt;nbformat-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (4.1.1)
+Requirement already satisfied: zipp&gt;=0.5 in /usr/local/lib/python3.7/dist-packages (from importlib-metadata&gt;=3.6-&gt;nbformat-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (3.9.0)
+Requirement already satisfied: pyrsistent&gt;=0.14.0 in /usr/local/lib/python3.7/dist-packages (from jsonschema&gt;=2.6-&gt;nbformat-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.18.1)
+Requirement already satisfied: attrs&gt;=17.4.0 in /usr/local/lib/python3.7/dist-packages (from jsonschema&gt;=2.6-&gt;nbformat-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (21.4.0)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="natural-language-toolkit-nltk">
+<h3>Natural Language Toolkit (NLTK)<a class="headerlink" href="#natural-language-toolkit-nltk" title="Permalink to this headline">#</a></h3>
+<p>Natural Language Toolkit (NLTK) adalah sebuah platform yang digunakan untuk membangun program analisis teks. Platform ini awalnya dirilis oleh Steven Bird dan Edward Loper dalam kaitannya dengan mata kuliah komputasi linguistik di Universitas Pennsylvania pada tahun 2001. Ada sebuah buku pegangan untuk platform tersebut dengan judul Natural Language Processing dengan Python.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install nltk
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+Requirement already satisfied: nltk in /usr/local/lib/python3.7/dist-packages (3.7)
+Requirement already satisfied: click in /usr/local/lib/python3.7/dist-packages (from nltk) (7.1.2)
+Requirement already satisfied: joblib in /usr/local/lib/python3.7/dist-packages (from nltk) (1.2.0)
+Requirement already satisfied: tqdm in /usr/local/lib/python3.7/dist-packages (from nltk) (4.64.1)
+Requirement already satisfied: regex&gt;=2021.8.3 in /usr/local/lib/python3.7/dist-packages (from nltk) (2022.6.2)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="membaca-data-dari-file-yg-disimpan">
+<h3>Membaca data dari file yg disimpan<a class="headerlink" href="#membaca-data-dari-file-yg-disimpan" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;kanjuruhan.csv&quot;</span><span class="p">)</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-fd9941fa-bab1-4543-a72a-a60e285edb65">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>RT @Shohifah_Shf: Semoga cepat ketemu orang in...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>RT @LaNyallaAcademy: @OkaSaptono2 @LaNyallaMM1...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Presiden Republik Indonesia, Joko Widodo, meny...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>RT @GOAL_ID: Direktur operasional PT Liga Indo...</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>RT @GOAL_ID: Stadion Kanjuruhan yang menjadi t...</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>RT @GOAL_ID: Jumlah korban jiwa akibat tragedi...</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Lagi, Korban Tragedi Kanjuruhan Bertambah Jadi...</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>JOKOWI : STADION KANJURUHAN AKAN KITA ROBOHKAN...</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>RT @GOAL_ID: Stadion Kanjuruhan yang menjadi t...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>RT @MCAOps: KPPPA mengungkapkan jumlah anak ya...</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Tragedi #Kanjuruhan dikarenakan ada gosokan PS...</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>RT @dw_indonesia: Setelah bertemu Presiden @FI...</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Ibuku pernh cerita klu dulu para buyut uda doa...</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Korban Meninggal Dunia Tragedi Kanjuruhan Bert...</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Piala Dunia U-20, Jokowi dan Presiden FIFA Sep...</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>ERICK THOHIR INGATKAN AGAR TRAGEDI KANJURUHAN ...</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>RT @MCAOps: KPPPA mengungkapkan jumlah anak ya...</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>Presiden Jokowi bertemu dengan Presiden FIFA G...</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>RT @GOAL_ID: Stadion Kanjuruhan yang menjadi t...</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>Selengkapnya, klik link kumparan berikut.\nhtt...</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>Stadion Kanjuruhan tak henti hentinya menjadi ...</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>Jokowi Konfirmasi Bakal Rubuhkan Stadion Kanju...</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>@jokowi Salut sih sama diplomasi pemerintah In...</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>RT @MCAOps: KPPPA mengungkapkan jumlah anak ya...</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>RT @MCAOps: KPPPA mengungkapkan jumlah anak ya...</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>RT @republikaonline: Penghapusan dilakukan beb...</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>RT @LaNyallaAcademy: @OkaSaptono2 @LaNyallaMM1...</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>RT @LaNyallaAcademy: @OkaSaptono2 @LaNyallaMM1...</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>RT @LaNyallaAcademy: @OkaSaptono2 @LaNyallaMM1...</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>RT @LaNyallaAcademy: @OkaSaptono2 @LaNyallaMM1...</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>RT @LaNyallaAcademy: @OkaSaptono2 @LaNyallaMM1...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-fd9941fa-bab1-4543-a72a-a60e285edb65')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-fd9941fa-bab1-4543-a72a-a60e285edb65 button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-fd9941fa-bab1-4543-a72a-a60e285edb65');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
+  </div>
+</div></div>
+</div>
+</section>
+<section id="case-folding">
+<h3>Case Folding<a class="headerlink" href="#case-folding" title="Permalink to this headline">#</a></h3>
+<p>Tahap untuk merubah teks yang memiliki huruf kapital menjadi huruf kecil</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     rt @republikaonline: penghapusan dilakukan beb...
+1     rt @republikaonline: penghapusan dilakukan beb...
+2     rt @republikaonline: penghapusan dilakukan beb...
+3     rt @shohifah_shf: semoga cepat ketemu orang in...
+4     rt @republikaonline: penghapusan dilakukan beb...
+5     rt @lanyallaacademy: @okasaptono2 @lanyallamm1...
+6     presiden republik indonesia, joko widodo, meny...
+7     rt @republikaonline: penghapusan dilakukan beb...
+8     rt @republikaonline: penghapusan dilakukan beb...
+9     rt @goal_id: direktur operasional pt liga indo...
+10    rt @goal_id: stadion kanjuruhan yang menjadi t...
+11    rt @goal_id: jumlah korban jiwa akibat tragedi...
+12    lagi, korban tragedi kanjuruhan bertambah jadi...
+13    jokowi : stadion kanjuruhan akan kita robohkan...
+14    rt @goal_id: stadion kanjuruhan yang menjadi t...
+15    rt @mcaops: kpppa mengungkapkan jumlah anak ya...
+16    rt @republikaonline: penghapusan dilakukan beb...
+17    rt @republikaonline: penghapusan dilakukan beb...
+18    rt @republikaonline: penghapusan dilakukan beb...
+19    tragedi #kanjuruhan dikarenakan ada gosokan ps...
+20    rt @republikaonline: penghapusan dilakukan beb...
+21    rt @dw_indonesia: setelah bertemu presiden @fi...
+22    ibuku pernh cerita klu dulu para buyut uda doa...
+23    korban meninggal dunia tragedi kanjuruhan bert...
+24    rt @republikaonline: penghapusan dilakukan beb...
+25    piala dunia u-20, jokowi dan presiden fifa sep...
+26    rt @republikaonline: penghapusan dilakukan beb...
+27    erick thohir ingatkan agar tragedi kanjuruhan ...
+28    rt @mcaops: kpppa mengungkapkan jumlah anak ya...
+29    rt @republikaonline: penghapusan dilakukan beb...
+30    rt @republikaonline: penghapusan dilakukan beb...
+31    rt @republikaonline: penghapusan dilakukan beb...
+32    rt @republikaonline: penghapusan dilakukan beb...
+33    presiden jokowi bertemu dengan presiden fifa g...
+34    rt @republikaonline: penghapusan dilakukan beb...
+35    rt @goal_id: stadion kanjuruhan yang menjadi t...
+36    selengkapnya, klik link kumparan berikut.\nhtt...
+37    rt @republikaonline: penghapusan dilakukan beb...
+38    stadion kanjuruhan tak henti hentinya menjadi ...
+39    jokowi konfirmasi bakal rubuhkan stadion kanju...
+40    @jokowi salut sih sama diplomasi pemerintah in...
+41    rt @republikaonline: penghapusan dilakukan beb...
+42    rt @mcaops: kpppa mengungkapkan jumlah anak ya...
+43    rt @mcaops: kpppa mengungkapkan jumlah anak ya...
+44    rt @republikaonline: penghapusan dilakukan beb...
+45    rt @lanyallaacademy: @okasaptono2 @lanyallamm1...
+46    rt @lanyallaacademy: @okasaptono2 @lanyallamm1...
+47    rt @lanyallaacademy: @okasaptono2 @lanyallamm1...
+48    rt @lanyallaacademy: @okasaptono2 @lanyallamm1...
+49    rt @lanyallaacademy: @okasaptono2 @lanyallamm1...
+Name: 0, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menghapus-karakter-spesial">
+<h3>Menghapus Karakter Spesial<a class="headerlink" href="#menghapus-karakter-spesial" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">string</span> 
+<span class="kn">import</span> <span class="nn">re</span> <span class="c1">#regex library</span>
+<span class="c1"># import word_tokenize &amp; FreqDist from NLTK</span>
+
+<span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">word_tokenize</span> 
+<span class="kn">from</span> <span class="nn">nltk.probability</span> <span class="kn">import</span> <span class="n">FreqDist</span>
+
+<span class="c1"># ------ Tokenizing ---------</span>
+
+<span class="k">def</span> <span class="nf">remove_special</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="c1"># remove tab, new line, ans back slice</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">t&#39;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">n&#39;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">u&#39;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">f&#39;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">r&#39;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="c1"># remove non ASCII (emoticon, chinese word, .etc)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;replace&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
+    <span class="c1"># remove mention, link, hashtag</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;([@#][A-Za-z0-9]+)|(\w+:\/\/\S+)&quot;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="c1"># remove incomplete URL</span>
+    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;http://&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;https://&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+                
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">remove_special</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     rt : penghapusan dilakukan beberapa saat setel...
+1     rt : penghapusan dilakukan beberapa saat setel...
+2     rt : penghapusan dilakukan beberapa saat setel...
+3           rt _shf: semoga cepat ketemu orang ini??? ?
+4     rt : penghapusan dilakukan beberapa saat setel...
+5     rt : _polri tpf aremania simpulkan, tragedi ka...
+6     presiden republik indonesia, joko widodo, meny...
+7     rt : penghapusan dilakukan beberapa saat setel...
+8     rt : penghapusan dilakukan beberapa saat setel...
+9     rt _id: direktur operasional pt liga indonesia...
+10    rt _id: stadion kanjuruhan yang menjadi tempat...
+11    rt _id: jumlah korban jiwa akibat tragedi kanj...
+12    lagi, korban tragedi kanjuruhan bertambah jadi...
+13    jokowi : stadion kanjuruhan akan kita robohkan...
+14    rt _id: stadion kanjuruhan yang menjadi tempat...
+15    rt : kpppa mengungkapkan jumlah anak yang menj...
+16    rt : penghapusan dilakukan beberapa saat setel...
+17    rt : penghapusan dilakukan beberapa saat setel...
+18    rt : penghapusan dilakukan beberapa saat setel...
+19    tragedi dikarenakan ada gosokan psi via penjua...
+20    rt : penghapusan dilakukan beberapa saat setel...
+21    rt _indonesia: setelah bertemu presiden gianni...
+22    ibuku pernh cerita klu dulu para buyut uda doa...
+23    korban meninggal dunia tragedi kanjuruhan bert...
+24    rt : penghapusan dilakukan beberapa saat setel...
+25    piala dunia u-20, jokowi dan presiden fifa sep...
+26    rt : penghapusan dilakukan beberapa saat setel...
+27    erick thohir ingatkan agar tragedi kanjuruhan ...
+28    rt : kpppa mengungkapkan jumlah anak yang menj...
+29    rt : penghapusan dilakukan beberapa saat setel...
+30    rt : penghapusan dilakukan beberapa saat setel...
+31    rt : penghapusan dilakukan beberapa saat setel...
+32    rt : penghapusan dilakukan beberapa saat setel...
+33    presiden jokowi bertemu dengan presiden fifa g...
+34    rt : penghapusan dilakukan beberapa saat setel...
+35    rt _id: stadion kanjuruhan yang menjadi tempat...
+36          selengkapnya, klik link kumparan berikut. ?
+37    rt : penghapusan dilakukan beberapa saat setel...
+38    stadion kanjuruhan tak henti hentinya menjadi ...
+39    jokowi konfirmasi bakal rubuhkan stadion kanju...
+40    salut sih sama diplomasi pemerintah indonesia ...
+41    rt : penghapusan dilakukan beberapa saat setel...
+42    rt : kpppa mengungkapkan jumlah anak yang menj...
+43    rt : kpppa mengungkapkan jumlah anak yang menj...
+44    rt : penghapusan dilakukan beberapa saat setel...
+45    rt : _polri tpf aremania simpulkan, tragedi ka...
+46    rt : _polri tpf aremania simpulkan, tragedi ka...
+47    rt : _polri tpf aremania simpulkan, tragedi ka...
+48    rt : _polri tpf aremania simpulkan, tragedi ka...
+49    rt : _polri tpf aremania simpulkan, tragedi ka...
+Name: 0, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menghapus-angka">
+<h3>Menghapus Angka<a class="headerlink" href="#menghapus-angka" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">remove_number</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span>  <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\d+&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">remove_number</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     rt : penghapusan dilakukan beberapa saat setel...
+1     rt : penghapusan dilakukan beberapa saat setel...
+2     rt : penghapusan dilakukan beberapa saat setel...
+3           rt _shf: semoga cepat ketemu orang ini??? ?
+4     rt : penghapusan dilakukan beberapa saat setel...
+5     rt : _polri tpf aremania simpulkan, tragedi ka...
+6     presiden republik indonesia, joko widodo, meny...
+7     rt : penghapusan dilakukan beberapa saat setel...
+8     rt : penghapusan dilakukan beberapa saat setel...
+9     rt _id: direktur operasional pt liga indonesia...
+10    rt _id: stadion kanjuruhan yang menjadi tempat...
+11    rt _id: jumlah korban jiwa akibat tragedi kanj...
+12    lagi, korban tragedi kanjuruhan bertambah jadi...
+13    jokowi : stadion kanjuruhan akan kita robohkan...
+14    rt _id: stadion kanjuruhan yang menjadi tempat...
+15    rt : kpppa mengungkapkan jumlah anak yang menj...
+16    rt : penghapusan dilakukan beberapa saat setel...
+17    rt : penghapusan dilakukan beberapa saat setel...
+18    rt : penghapusan dilakukan beberapa saat setel...
+19    tragedi dikarenakan ada gosokan psi via penjua...
+20    rt : penghapusan dilakukan beberapa saat setel...
+21    rt _indonesia: setelah bertemu presiden gianni...
+22    ibuku pernh cerita klu dulu para buyut uda doa...
+23    korban meninggal dunia tragedi kanjuruhan bert...
+24    rt : penghapusan dilakukan beberapa saat setel...
+25    piala dunia u-, jokowi dan presiden fifa sepak...
+26    rt : penghapusan dilakukan beberapa saat setel...
+27    erick thohir ingatkan agar tragedi kanjuruhan ...
+28    rt : kpppa mengungkapkan jumlah anak yang menj...
+29    rt : penghapusan dilakukan beberapa saat setel...
+30    rt : penghapusan dilakukan beberapa saat setel...
+31    rt : penghapusan dilakukan beberapa saat setel...
+32    rt : penghapusan dilakukan beberapa saat setel...
+33    presiden jokowi bertemu dengan presiden fifa g...
+34    rt : penghapusan dilakukan beberapa saat setel...
+35    rt _id: stadion kanjuruhan yang menjadi tempat...
+36          selengkapnya, klik link kumparan berikut. ?
+37    rt : penghapusan dilakukan beberapa saat setel...
+38    stadion kanjuruhan tak henti hentinya menjadi ...
+39    jokowi konfirmasi bakal rubuhkan stadion kanju...
+40    salut sih sama diplomasi pemerintah indonesia ...
+41    rt : penghapusan dilakukan beberapa saat setel...
+42    rt : kpppa mengungkapkan jumlah anak yang menj...
+43    rt : kpppa mengungkapkan jumlah anak yang menj...
+44    rt : penghapusan dilakukan beberapa saat setel...
+45    rt : _polri tpf aremania simpulkan, tragedi ka...
+46    rt : _polri tpf aremania simpulkan, tragedi ka...
+47    rt : _polri tpf aremania simpulkan, tragedi ka...
+48    rt : _polri tpf aremania simpulkan, tragedi ka...
+49    rt : _polri tpf aremania simpulkan, tragedi ka...
+Name: 0, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menghapus-tanda-baca">
+<h3>Menghapus Tanda Baca<a class="headerlink" href="#menghapus-tanda-baca" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">remove_punctuation</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">))</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">remove_punctuation</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     rt  penghapusan dilakukan beberapa saat setela...
+1     rt  penghapusan dilakukan beberapa saat setela...
+2     rt  penghapusan dilakukan beberapa saat setela...
+3                 rt shf semoga cepat ketemu orang ini 
+4     rt  penghapusan dilakukan beberapa saat setela...
+5     rt  polri tpf aremania simpulkan tragedi kanju...
+6     presiden republik indonesia joko widodo menyam...
+7     rt  penghapusan dilakukan beberapa saat setela...
+8     rt  penghapusan dilakukan beberapa saat setela...
+9     rt id direktur operasional pt liga indonesia b...
+10    rt id stadion kanjuruhan yang menjadi tempat t...
+11    rt id jumlah korban jiwa akibat tragedi kanjur...
+12    lagi korban tragedi kanjuruhan bertambah jadi ...
+13    jokowi  stadion kanjuruhan akan kita robohkan ...
+14    rt id stadion kanjuruhan yang menjadi tempat t...
+15    rt  kpppa mengungkapkan jumlah anak yang menja...
+16    rt  penghapusan dilakukan beberapa saat setela...
+17    rt  penghapusan dilakukan beberapa saat setela...
+18    rt  penghapusan dilakukan beberapa saat setela...
+19    tragedi dikarenakan ada gosokan psi via penjua...
+20    rt  penghapusan dilakukan beberapa saat setela...
+21    rt indonesia setelah bertemu presiden gianni i...
+22    ibuku pernh cerita klu dulu para buyut uda doa...
+23    korban meninggal dunia tragedi kanjuruhan bert...
+24    rt  penghapusan dilakukan beberapa saat setela...
+25    piala dunia u jokowi dan presiden fifa sepakat...
+26    rt  penghapusan dilakukan beberapa saat setela...
+27    erick thohir ingatkan agar tragedi kanjuruhan ...
+28    rt  kpppa mengungkapkan jumlah anak yang menja...
+29    rt  penghapusan dilakukan beberapa saat setela...
+30    rt  penghapusan dilakukan beberapa saat setela...
+31    rt  penghapusan dilakukan beberapa saat setela...
+32    rt  penghapusan dilakukan beberapa saat setela...
+33    presiden jokowi bertemu dengan presiden fifa g...
+34    rt  penghapusan dilakukan beberapa saat setela...
+35    rt id stadion kanjuruhan yang menjadi tempat t...
+36             selengkapnya klik link kumparan berikut 
+37    rt  penghapusan dilakukan beberapa saat setela...
+38    stadion kanjuruhan tak henti hentinya menjadi ...
+39    jokowi konfirmasi bakal rubuhkan stadion kanju...
+40    salut sih sama diplomasi pemerintah indonesia ...
+41    rt  penghapusan dilakukan beberapa saat setela...
+42    rt  kpppa mengungkapkan jumlah anak yang menja...
+43    rt  kpppa mengungkapkan jumlah anak yang menja...
+44    rt  penghapusan dilakukan beberapa saat setela...
+45    rt  polri tpf aremania simpulkan tragedi kanju...
+46    rt  polri tpf aremania simpulkan tragedi kanju...
+47    rt  polri tpf aremania simpulkan tragedi kanju...
+48    rt  polri tpf aremania simpulkan tragedi kanju...
+49    rt  polri tpf aremania simpulkan tragedi kanju...
+Name: 0, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menghapus-spasi">
+<h3>Menghapus Spasi<a class="headerlink" href="#menghapus-spasi" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#remove whitespace leading &amp; trailing</span>
+<span class="k">def</span> <span class="nf">remove_whitespace_LT</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">remove_whitespace_LT</span><span class="p">)</span>
+
+
+<span class="c1">#remove multiple whitespace into single whitespace</span>
+<span class="k">def</span> <span class="nf">remove_whitespace_multiple</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="n">text</span><span class="p">)</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">remove_whitespace_multiple</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     rt penghapusan dilakukan beberapa saat setelah...
+1     rt penghapusan dilakukan beberapa saat setelah...
+2     rt penghapusan dilakukan beberapa saat setelah...
+3                  rt shf semoga cepat ketemu orang ini
+4     rt penghapusan dilakukan beberapa saat setelah...
+5     rt polri tpf aremania simpulkan tragedi kanjur...
+6     presiden republik indonesia joko widodo menyam...
+7     rt penghapusan dilakukan beberapa saat setelah...
+8     rt penghapusan dilakukan beberapa saat setelah...
+9     rt id direktur operasional pt liga indonesia b...
+10    rt id stadion kanjuruhan yang menjadi tempat t...
+11    rt id jumlah korban jiwa akibat tragedi kanjur...
+12    lagi korban tragedi kanjuruhan bertambah jadi ...
+13    jokowi stadion kanjuruhan akan kita robohkan d...
+14    rt id stadion kanjuruhan yang menjadi tempat t...
+15    rt kpppa mengungkapkan jumlah anak yang menjad...
+16    rt penghapusan dilakukan beberapa saat setelah...
+17    rt penghapusan dilakukan beberapa saat setelah...
+18    rt penghapusan dilakukan beberapa saat setelah...
+19    tragedi dikarenakan ada gosokan psi via penjua...
+20    rt penghapusan dilakukan beberapa saat setelah...
+21    rt indonesia setelah bertemu presiden gianni i...
+22    ibuku pernh cerita klu dulu para buyut uda doa...
+23    korban meninggal dunia tragedi kanjuruhan bert...
+24    rt penghapusan dilakukan beberapa saat setelah...
+25    piala dunia u jokowi dan presiden fifa sepakat...
+26    rt penghapusan dilakukan beberapa saat setelah...
+27    erick thohir ingatkan agar tragedi kanjuruhan ...
+28    rt kpppa mengungkapkan jumlah anak yang menjad...
+29    rt penghapusan dilakukan beberapa saat setelah...
+30    rt penghapusan dilakukan beberapa saat setelah...
+31    rt penghapusan dilakukan beberapa saat setelah...
+32    rt penghapusan dilakukan beberapa saat setelah...
+33    presiden jokowi bertemu dengan presiden fifa g...
+34    rt penghapusan dilakukan beberapa saat setelah...
+35    rt id stadion kanjuruhan yang menjadi tempat t...
+36              selengkapnya klik link kumparan berikut
+37    rt penghapusan dilakukan beberapa saat setelah...
+38    stadion kanjuruhan tak henti hentinya menjadi ...
+39    jokowi konfirmasi bakal rubuhkan stadion kanju...
+40    salut sih sama diplomasi pemerintah indonesia ...
+41    rt penghapusan dilakukan beberapa saat setelah...
+42    rt kpppa mengungkapkan jumlah anak yang menjad...
+43    rt kpppa mengungkapkan jumlah anak yang menjad...
+44    rt penghapusan dilakukan beberapa saat setelah...
+45    rt polri tpf aremania simpulkan tragedi kanjur...
+46    rt polri tpf aremania simpulkan tragedi kanjur...
+47    rt polri tpf aremania simpulkan tragedi kanjur...
+48    rt polri tpf aremania simpulkan tragedi kanjur...
+49    rt polri tpf aremania simpulkan tragedi kanjur...
+Name: 0, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menghapus-huruf-tunggal">
+<h3>Menghapus huruf Tunggal<a class="headerlink" href="#menghapus-huruf-tunggal" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># remove single char</span>
+<span class="k">def</span> <span class="nf">remove_singl_char</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\b[a-zA-Z]\b&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">remove_singl_char</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     rt penghapusan dilakukan beberapa saat setelah...
+1     rt penghapusan dilakukan beberapa saat setelah...
+2     rt penghapusan dilakukan beberapa saat setelah...
+3                  rt shf semoga cepat ketemu orang ini
+4     rt penghapusan dilakukan beberapa saat setelah...
+5     rt polri tpf aremania simpulkan tragedi kanjur...
+6     presiden republik indonesia joko widodo menyam...
+7     rt penghapusan dilakukan beberapa saat setelah...
+8     rt penghapusan dilakukan beberapa saat setelah...
+9     rt id direktur operasional pt liga indonesia b...
+10    rt id stadion kanjuruhan yang menjadi tempat t...
+11    rt id jumlah korban jiwa akibat tragedi kanjur...
+12    lagi korban tragedi kanjuruhan bertambah jadi ...
+13    jokowi stadion kanjuruhan akan kita robohkan d...
+14    rt id stadion kanjuruhan yang menjadi tempat t...
+15    rt kpppa mengungkapkan jumlah anak yang menjad...
+16    rt penghapusan dilakukan beberapa saat setelah...
+17    rt penghapusan dilakukan beberapa saat setelah...
+18    rt penghapusan dilakukan beberapa saat setelah...
+19    tragedi dikarenakan ada gosokan psi via penjua...
+20    rt penghapusan dilakukan beberapa saat setelah...
+21    rt indonesia setelah bertemu presiden gianni i...
+22    ibuku pernh cerita klu dulu para buyut uda doa...
+23    korban meninggal dunia tragedi kanjuruhan bert...
+24    rt penghapusan dilakukan beberapa saat setelah...
+25    piala dunia   jokowi dan presiden fifa sepakat...
+26    rt penghapusan dilakukan beberapa saat setelah...
+27    erick thohir ingatkan agar tragedi kanjuruhan ...
+28    rt kpppa mengungkapkan jumlah anak yang menjad...
+29    rt penghapusan dilakukan beberapa saat setelah...
+30    rt penghapusan dilakukan beberapa saat setelah...
+31    rt penghapusan dilakukan beberapa saat setelah...
+32    rt penghapusan dilakukan beberapa saat setelah...
+33    presiden jokowi bertemu dengan presiden fifa g...
+34    rt penghapusan dilakukan beberapa saat setelah...
+35    rt id stadion kanjuruhan yang menjadi tempat t...
+36              selengkapnya klik link kumparan berikut
+37    rt penghapusan dilakukan beberapa saat setelah...
+38    stadion kanjuruhan tak henti hentinya menjadi ...
+39    jokowi konfirmasi bakal rubuhkan stadion kanju...
+40    salut sih sama diplomasi pemerintah indonesia ...
+41    rt penghapusan dilakukan beberapa saat setelah...
+42    rt kpppa mengungkapkan jumlah anak yang menjad...
+43    rt kpppa mengungkapkan jumlah anak yang menjad...
+44    rt penghapusan dilakukan beberapa saat setelah...
+45    rt polri tpf aremania simpulkan tragedi kanjur...
+46    rt polri tpf aremania simpulkan tragedi kanjur...
+47    rt polri tpf aremania simpulkan tragedi kanjur...
+48    rt polri tpf aremania simpulkan tragedi kanjur...
+49    rt polri tpf aremania simpulkan tragedi kanjur...
+Name: 0, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tokenizing">
+<h3>Tokenizing<a class="headerlink" href="#tokenizing" title="Permalink to this headline">#</a></h3>
+<p>Tokenizing adalah proses pemisahan teks menjadi potongan-potongan yang disebut sebagai token untuk kemudian di analisa. Kata, angka, simbol, tanda baca dan entitas penting lainnya dapat dianggap sebagai token</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nltk</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;punkt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[nltk_data] Downloading package punkt to /root/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># NLTK word Tokenize </span>
+<span class="k">def</span> <span class="nf">word_tokenize_wrapper</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">word_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">word_tokenize_wrapper</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     [rt, penghapusan, dilakukan, beberapa, saat, s...
+1     [rt, penghapusan, dilakukan, beberapa, saat, s...
+2     [rt, penghapusan, dilakukan, beberapa, saat, s...
+3          [rt, shf, semoga, cepat, ketemu, orang, ini]
+4     [rt, penghapusan, dilakukan, beberapa, saat, s...
+5     [rt, polri, tpf, aremania, simpulkan, tragedi,...
+6     [presiden, republik, indonesia, joko, widodo, ...
+7     [rt, penghapusan, dilakukan, beberapa, saat, s...
+8     [rt, penghapusan, dilakukan, beberapa, saat, s...
+9     [rt, id, direktur, operasional, pt, liga, indo...
+10    [rt, id, stadion, kanjuruhan, yang, menjadi, t...
+11    [rt, id, jumlah, korban, jiwa, akibat, tragedi...
+12    [lagi, korban, tragedi, kanjuruhan, bertambah,...
+13    [jokowi, stadion, kanjuruhan, akan, kita, robo...
+14    [rt, id, stadion, kanjuruhan, yang, menjadi, t...
+15    [rt, kpppa, mengungkapkan, jumlah, anak, yang,...
+16    [rt, penghapusan, dilakukan, beberapa, saat, s...
+17    [rt, penghapusan, dilakukan, beberapa, saat, s...
+18    [rt, penghapusan, dilakukan, beberapa, saat, s...
+19    [tragedi, dikarenakan, ada, gosokan, psi, via,...
+20    [rt, penghapusan, dilakukan, beberapa, saat, s...
+21    [rt, indonesia, setelah, bertemu, presiden, gi...
+22    [ibuku, pernh, cerita, klu, dulu, para, buyut,...
+23    [korban, meninggal, dunia, tragedi, kanjuruhan...
+24    [rt, penghapusan, dilakukan, beberapa, saat, s...
+25    [piala, dunia, jokowi, dan, presiden, fifa, se...
+26    [rt, penghapusan, dilakukan, beberapa, saat, s...
+27    [erick, thohir, ingatkan, agar, tragedi, kanju...
+28    [rt, kpppa, mengungkapkan, jumlah, anak, yang,...
+29    [rt, penghapusan, dilakukan, beberapa, saat, s...
+30    [rt, penghapusan, dilakukan, beberapa, saat, s...
+31    [rt, penghapusan, dilakukan, beberapa, saat, s...
+32    [rt, penghapusan, dilakukan, beberapa, saat, s...
+33    [presiden, jokowi, bertemu, dengan, presiden, ...
+34    [rt, penghapusan, dilakukan, beberapa, saat, s...
+35    [rt, id, stadion, kanjuruhan, yang, menjadi, t...
+36        [selengkapnya, klik, link, kumparan, berikut]
+37    [rt, penghapusan, dilakukan, beberapa, saat, s...
+38    [stadion, kanjuruhan, tak, henti, hentinya, me...
+39    [jokowi, konfirmasi, bakal, rubuhkan, stadion,...
+40    [salut, sih, sama, diplomasi, pemerintah, indo...
+41    [rt, penghapusan, dilakukan, beberapa, saat, s...
+42    [rt, kpppa, mengungkapkan, jumlah, anak, yang,...
+43    [rt, kpppa, mengungkapkan, jumlah, anak, yang,...
+44    [rt, penghapusan, dilakukan, beberapa, saat, s...
+45    [rt, polri, tpf, aremania, simpulkan, tragedi,...
+46    [rt, polri, tpf, aremania, simpulkan, tragedi,...
+47    [rt, polri, tpf, aremania, simpulkan, tragedi,...
+48    [rt, polri, tpf, aremania, simpulkan, tragedi,...
+49    [rt, polri, tpf, aremania, simpulkan, tragedi,...
+Name: 0, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="filtering">
+<h3>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">#</a></h3>
+<p>Proses untuk menghapus kata hubung atau kata yang tidak memiliki makna</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nltk</span>
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;stopwords&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[nltk_data] Downloading package stopwords to /root/nltk_data...
+[nltk_data]   Package stopwords is already up-to-date!
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">list_stopwords</span> <span class="o">=</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;indonesian&#39;</span><span class="p">)</span>
+
+<span class="c1">#Menghapus Stopword dari list token</span>
+<span class="k">def</span> <span class="nf">stopwords_removal</span><span class="p">(</span><span class="n">words</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span> <span class="k">if</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">list_stopwords</span><span class="p">]</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">stopwords_removal</span><span class="p">)</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0                          [rt, penghapusan, peristiwa]
+1                          [rt, penghapusan, peristiwa]
+2                          [rt, penghapusan, peristiwa]
+3               [rt, shf, semoga, cepat, ketemu, orang]
+4                          [rt, penghapusan, peristiwa]
+5     [rt, polri, tpf, aremania, simpulkan, tragedi,...
+6     [presiden, republik, indonesia, joko, widodo, ...
+7                          [rt, penghapusan, peristiwa]
+8                          [rt, penghapusan, peristiwa]
+9     [rt, id, direktur, operasional, pt, liga, indo...
+10    [rt, id, stadion, kanjuruhan, tragedi, oktober...
+11    [rt, id, korban, jiwa, akibat, tragedi, kanjur...
+12      [korban, tragedi, kanjuruhan, bertambah, orang]
+13    [jokowi, stadion, kanjuruhan, robohkan, dibang...
+14    [rt, id, stadion, kanjuruhan, tragedi, oktober...
+15    [rt, kpppa, anak, korban, meninggal, dunia, tr...
+16                         [rt, penghapusan, peristiwa]
+17                         [rt, penghapusan, peristiwa]
+18                         [rt, penghapusan, peristiwa]
+19    [tragedi, gosokan, psi, via, penjual, es, dawe...
+20                         [rt, penghapusan, peristiwa]
+21    [rt, indonesia, bertemu, presiden, gianni, inf...
+22    [ibuku, pernh, cerita, klu, buyut, uda, doain,...
+23    [korban, meninggal, dunia, tragedi, kanjuruhan...
+24                         [rt, penghapusan, peristiwa]
+25    [piala, dunia, jokowi, presiden, fifa, sepakat...
+26                         [rt, penghapusan, peristiwa]
+27    [erick, thohir, ingatkan, tragedi, kanjuruhan,...
+28    [rt, kpppa, anak, korban, meninggal, dunia, tr...
+29                         [rt, penghapusan, peristiwa]
+30                         [rt, penghapusan, peristiwa]
+31                         [rt, penghapusan, peristiwa]
+32                         [rt, penghapusan, peristiwa]
+33    [presiden, jokowi, bertemu, presiden, fifa, gi...
+34                         [rt, penghapusan, peristiwa]
+35    [rt, id, stadion, kanjuruhan, tragedi, oktober...
+36                 [selengkapnya, klik, link, kumparan]
+37                         [rt, penghapusan, peristiwa]
+38    [stadion, kanjuruhan, henti, hentinya, topik, ...
+39    [jokowi, konfirmasi, rubuhkan, stadion, kanjur...
+40    [salut, sih, diplomasi, pemerintah, indonesia,...
+41                         [rt, penghapusan, peristiwa]
+42    [rt, kpppa, anak, korban, meninggal, dunia, tr...
+43    [rt, kpppa, anak, korban, meninggal, dunia, tr...
+44                         [rt, penghapusan, peristiwa]
+45    [rt, polri, tpf, aremania, simpulkan, tragedi,...
+46    [rt, polri, tpf, aremania, simpulkan, tragedi,...
+47    [rt, polri, tpf, aremania, simpulkan, tragedi,...
+48    [rt, polri, tpf, aremania, simpulkan, tragedi,...
+49    [rt, polri, tpf, aremania, simpulkan, tragedi,...
+Name: 0, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="stemming">
+<h3>Stemming<a class="headerlink" href="#stemming" title="Permalink to this headline">#</a></h3>
+<p>Data training hasil dari filtering akan dilakukan pengecekan atau pencarian kata-kata yang sesuai dengan kamus umum. Apabila data training hasil filtering sesuai dengan kamus umum maka kata akan dikeluarkan sementara, karena sudah dianggap sebagai kata dasar. Apabila masih terdapat kata yang tidak termasuk dalam kata dasar maka tahap selanjutnya adalah menghapus inflection suffixes yang merupakan akhiran pertama. Kata yang memiliki akhiran partticles seperti “-pun”, “-kah”, “-tah”, “- lah” dan akhiran possessive pronoun seperti “-mu”, “-ku” dan “-nya” dihilangkan. Setelah dilakukan proses case folding, tokenezing, dan filtering, proses selanjutnya yaitu stemming. Stemming yang digunakan pada penelitian ini menggunakan algoritma Enhanced Confix Stipping Stemmer, terdiri dari beberapa langkah: Data training hasil dari filtering akan dilakukan pengecekan atau pencarian kata-kata yang sesuai dengan kamus umum. Apabila data training hasil filtering sesuai dengan kamus umum maka kata akan dikeluarkan sementara, karena sudah dianggap sebagai kata dasar. Apabila masih terdapat kata yang tidak termasuk dalam kata dasar maka tahap selanjutnya adalah menghapus inflection suffixes yang merupakan akhiran pertama. Kata yang memiliki akhiran partticles seperti “-pun”, “-kah”, “-tah”, “- lah” dan akhiran possessive pronoun seperti “-mu”, “-ku” dan “-nya” dihilangkan.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Sastrawi.Stemmer.StemmerFactory</span> <span class="kn">import</span> <span class="n">StemmerFactory</span>
+<span class="kn">import</span> <span class="nn">swifter</span>
+
+<span class="c1"># create stemmer</span>
+<span class="n">factory</span> <span class="o">=</span> <span class="n">StemmerFactory</span><span class="p">()</span>
+<span class="n">stemmer</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">create_stemmer</span><span class="p">()</span>
+
+<span class="c1"># stemmed</span>
+<span class="k">def</span> <span class="nf">stemmed_wrapper</span><span class="p">(</span><span class="n">term</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+
+<span class="n">term_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">document</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">term</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">term_dict</span><span class="p">:</span>
+            <span class="n">term_dict</span><span class="p">[</span><span class="n">term</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span>
+            
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">term_dict</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;------------------------&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">term_dict</span><span class="p">:</span>
+    <span class="n">term_dict</span><span class="p">[</span><span class="n">term</span><span class="p">]</span> <span class="o">=</span> <span class="n">stemmed_wrapper</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">term</span><span class="p">,</span><span class="s2">&quot;:&quot;</span> <span class="p">,</span><span class="n">term_dict</span><span class="p">[</span><span class="n">term</span><span class="p">])</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="n">term_dict</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;------------------------&quot;</span><span class="p">)</span>
+
+<span class="c1"># apply stemmed term to dataframe</span>
+<span class="k">def</span> <span class="nf">get_stemmed_term</span><span class="p">(</span><span class="n">document</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">term_dict</span><span class="p">[</span><span class="n">term</span><span class="p">]</span> <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">document</span><span class="p">]</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">swifter</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">get_stemmed_term</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>130
+------------------------
+rt : rt
+penghapusan : hapus
+peristiwa : peristiwa
+shf : shf
+semoga : moga
+cepat : cepat
+ketemu : ketemu
+orang : orang
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>polri : polri
+tpf : tpf
+aremania : aremania
+simpulkan : simpul
+tragedi : tragedi
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kanjuruhan : kanjuruhan
+kerusuhan : rusuh
+tet : tet
+presiden : presiden
+republik : republik
+indonesia : indonesia
+joko : joko
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>widodo : widodo
+stadion : stadion
+malang : malang
+diruntuhkan : runtuh
+simak : simak
+inf : inf
+id : id
+direktur : direktur
+operasional : operasional
+pt : pt
+liga : liga
+lib : lib
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sudjarno : sudjarno
+angkat : angkat
+bicara : bicara
+terkait : kait
+pertemuan : temu
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kapolres : kapolres
+membahas : bahas
+la : la
+oktober : oktober
+dirobohkan : roboh
+pemerintah : perintah
+korban : korban
+jiwa : jiwa
+akibat : akibat
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bertambah : tambah
+total : total
+dinyatakan : nyata
+mening : ning
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>jokowi : jokowi
+robohkan : roboh
+dibangun : bangun
+sesuai : sesuai
+standar : standar
+fifa : fifa
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kpppa : kpppa
+anak : anak
+meninggal : tinggal
+dunia : dunia
+kabupaten : kabupaten
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>jawa : jawa
+gosokan : gosok
+psi : psi
+via : via
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>penjual : jual
+es : es
+dawet : dawet
+mari : mari
+bongkar : bongkar
+stadionny : stadionny
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bertemu : temu
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gianni : gianni
+infantino : infantino
+selasa : selasa
+ibuku : ibu
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pernh : pernh
+cerita : cerita
+klu : klu
+buyut : buyut
+uda : uda
+doain : doain
+ank : ank
+turunannya : turun
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>jgn : jgn
+sampe : sampe
+cucu : cucu
+ku : ku
+yg : yg
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>plisni : plisni
+luka : luka
+dialaminya : alam
+piala : piala
+sepakat : sepakat
+kaji : kaji
+ulang : ulang
+sepak : sepak
+bola : bola
+erick : erick
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>thohir : thohir
+ingatkan : ingat
+terulang : ulang
+istana : istana
+merdeka : merdeka
+siang : siang
+beb : beb
+selengkapnya : lengkap
+klik : klik
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>link : link
+kumparan : kumpar
+henti : henti
+hentinya : henti
+topik : topik
+disorot : sorot
+masyarakat : masyarakat
+meninggalkan : tinggal
+duka : duka
+yan : yan
+konfirmasi : konfirmasi
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>rubuhkan : rubuhkan
+konsultasi : konsultasi
+ba : ba
+salut : salut
+sih : sih
+diplomasi : diplomasi
+tp : tp
+please : please
+benahi :
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> benah
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sepakbolanya : sepakbolanya
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pssi : pssi
+{&#39;rt&#39;: &#39;rt&#39;, &#39;penghapusan&#39;: &#39;hapus&#39;, &#39;peristiwa&#39;: &#39;peristiwa&#39;, &#39;shf&#39;: &#39;shf&#39;, &#39;semoga&#39;: &#39;moga&#39;, &#39;cepat&#39;: &#39;cepat&#39;, &#39;ketemu&#39;: &#39;ketemu&#39;, &#39;orang&#39;: &#39;orang&#39;, &#39;polri&#39;: &#39;polri&#39;, &#39;tpf&#39;: &#39;tpf&#39;, &#39;aremania&#39;: &#39;aremania&#39;, &#39;simpulkan&#39;: &#39;simpul&#39;, &#39;tragedi&#39;: &#39;tragedi&#39;, &#39;kanjuruhan&#39;: &#39;kanjuruhan&#39;, &#39;kerusuhan&#39;: &#39;rusuh&#39;, &#39;tet&#39;: &#39;tet&#39;, &#39;presiden&#39;: &#39;presiden&#39;, &#39;republik&#39;: &#39;republik&#39;, &#39;indonesia&#39;: &#39;indonesia&#39;, &#39;joko&#39;: &#39;joko&#39;, &#39;widodo&#39;: &#39;widodo&#39;, &#39;stadion&#39;: &#39;stadion&#39;, &#39;malang&#39;: &#39;malang&#39;, &#39;diruntuhkan&#39;: &#39;runtuh&#39;, &#39;simak&#39;: &#39;simak&#39;, &#39;inf&#39;: &#39;inf&#39;, &#39;id&#39;: &#39;id&#39;, &#39;direktur&#39;: &#39;direktur&#39;, &#39;operasional&#39;: &#39;operasional&#39;, &#39;pt&#39;: &#39;pt&#39;, &#39;liga&#39;: &#39;liga&#39;, &#39;lib&#39;: &#39;lib&#39;, &#39;sudjarno&#39;: &#39;sudjarno&#39;, &#39;angkat&#39;: &#39;angkat&#39;, &#39;bicara&#39;: &#39;bicara&#39;, &#39;terkait&#39;: &#39;kait&#39;, &#39;pertemuan&#39;: &#39;temu&#39;, &#39;kapolres&#39;: &#39;kapolres&#39;, &#39;membahas&#39;: &#39;bahas&#39;, &#39;la&#39;: &#39;la&#39;, &#39;oktober&#39;: &#39;oktober&#39;, &#39;dirobohkan&#39;: &#39;roboh&#39;, &#39;pemerintah&#39;: &#39;perintah&#39;, &#39;korban&#39;: &#39;korban&#39;, &#39;jiwa&#39;: &#39;jiwa&#39;, &#39;akibat&#39;: &#39;akibat&#39;, &#39;bertambah&#39;: &#39;tambah&#39;, &#39;total&#39;: &#39;total&#39;, &#39;dinyatakan&#39;: &#39;nyata&#39;, &#39;mening&#39;: &#39;ning&#39;, &#39;jokowi&#39;: &#39;jokowi&#39;, &#39;robohkan&#39;: &#39;roboh&#39;, &#39;dibangun&#39;: &#39;bangun&#39;, &#39;sesuai&#39;: &#39;sesuai&#39;, &#39;standar&#39;: &#39;standar&#39;, &#39;fifa&#39;: &#39;fifa&#39;, &#39;kpppa&#39;: &#39;kpppa&#39;, &#39;anak&#39;: &#39;anak&#39;, &#39;meninggal&#39;: &#39;tinggal&#39;, &#39;dunia&#39;: &#39;dunia&#39;, &#39;kabupaten&#39;: &#39;kabupaten&#39;, &#39;jawa&#39;: &#39;jawa&#39;, &#39;gosokan&#39;: &#39;gosok&#39;, &#39;psi&#39;: &#39;psi&#39;, &#39;via&#39;: &#39;via&#39;, &#39;penjual&#39;: &#39;jual&#39;, &#39;es&#39;: &#39;es&#39;, &#39;dawet&#39;: &#39;dawet&#39;, &#39;mari&#39;: &#39;mari&#39;, &#39;bongkar&#39;: &#39;bongkar&#39;, &#39;stadionny&#39;: &#39;stadionny&#39;, &#39;bertemu&#39;: &#39;temu&#39;, &#39;gianni&#39;: &#39;gianni&#39;, &#39;infantino&#39;: &#39;infantino&#39;, &#39;selasa&#39;: &#39;selasa&#39;, &#39;ibuku&#39;: &#39;ibu&#39;, &#39;pernh&#39;: &#39;pernh&#39;, &#39;cerita&#39;: &#39;cerita&#39;, &#39;klu&#39;: &#39;klu&#39;, &#39;buyut&#39;: &#39;buyut&#39;, &#39;uda&#39;: &#39;uda&#39;, &#39;doain&#39;: &#39;doain&#39;, &#39;ank&#39;: &#39;ank&#39;, &#39;turunannya&#39;: &#39;turun&#39;, &#39;jgn&#39;: &#39;jgn&#39;, &#39;sampe&#39;: &#39;sampe&#39;, &#39;cucu&#39;: &#39;cucu&#39;, &#39;ku&#39;: &#39;ku&#39;, &#39;yg&#39;: &#39;yg&#39;, &#39;plisni&#39;: &#39;plisni&#39;, &#39;luka&#39;: &#39;luka&#39;, &#39;dialaminya&#39;: &#39;alam&#39;, &#39;piala&#39;: &#39;piala&#39;, &#39;sepakat&#39;: &#39;sepakat&#39;, &#39;kaji&#39;: &#39;kaji&#39;, &#39;ulang&#39;: &#39;ulang&#39;, &#39;sepak&#39;: &#39;sepak&#39;, &#39;bola&#39;: &#39;bola&#39;, &#39;erick&#39;: &#39;erick&#39;, &#39;thohir&#39;: &#39;thohir&#39;, &#39;ingatkan&#39;: &#39;ingat&#39;, &#39;terulang&#39;: &#39;ulang&#39;, &#39;istana&#39;: &#39;istana&#39;, &#39;merdeka&#39;: &#39;merdeka&#39;, &#39;siang&#39;: &#39;siang&#39;, &#39;beb&#39;: &#39;beb&#39;, &#39;selengkapnya&#39;: &#39;lengkap&#39;, &#39;klik&#39;: &#39;klik&#39;, &#39;link&#39;: &#39;link&#39;, &#39;kumparan&#39;: &#39;kumpar&#39;, &#39;henti&#39;: &#39;henti&#39;, &#39;hentinya&#39;: &#39;henti&#39;, &#39;topik&#39;: &#39;topik&#39;, &#39;disorot&#39;: &#39;sorot&#39;, &#39;masyarakat&#39;: &#39;masyarakat&#39;, &#39;meninggalkan&#39;: &#39;tinggal&#39;, &#39;duka&#39;: &#39;duka&#39;, &#39;yan&#39;: &#39;yan&#39;, &#39;konfirmasi&#39;: &#39;konfirmasi&#39;, &#39;rubuhkan&#39;: &#39;rubuhkan&#39;, &#39;konsultasi&#39;: &#39;konsultasi&#39;, &#39;ba&#39;: &#39;ba&#39;, &#39;salut&#39;: &#39;salut&#39;, &#39;sih&#39;: &#39;sih&#39;, &#39;diplomasi&#39;: &#39;diplomasi&#39;, &#39;tp&#39;: &#39;tp&#39;, &#39;please&#39;: &#39;please&#39;, &#39;benahi&#39;: &#39;benah&#39;, &#39;sepakbolanya&#39;: &#39;sepakbolanya&#39;, &#39;pssi&#39;: &#39;pssi&#39;}
+------------------------
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "f09efe4751f043f1af2e61b69e1428ea"}
+</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0                                [rt, hapus, peristiwa]
+1                                [rt, hapus, peristiwa]
+2                                [rt, hapus, peristiwa]
+3                 [rt, shf, moga, cepat, ketemu, orang]
+4                                [rt, hapus, peristiwa]
+5     [rt, polri, tpf, aremania, simpul, tragedi, ka...
+6     [presiden, republik, indonesia, joko, widodo, ...
+7                                [rt, hapus, peristiwa]
+8                                [rt, hapus, peristiwa]
+9     [rt, id, direktur, operasional, pt, liga, indo...
+10    [rt, id, stadion, kanjuruhan, tragedi, oktober...
+11    [rt, id, korban, jiwa, akibat, tragedi, kanjur...
+12         [korban, tragedi, kanjuruhan, tambah, orang]
+13    [jokowi, stadion, kanjuruhan, roboh, bangun, s...
+14    [rt, id, stadion, kanjuruhan, tragedi, oktober...
+15    [rt, kpppa, anak, korban, tinggal, dunia, trag...
+16                               [rt, hapus, peristiwa]
+17                               [rt, hapus, peristiwa]
+18                               [rt, hapus, peristiwa]
+19    [tragedi, gosok, psi, via, jual, es, dawet, ma...
+20                               [rt, hapus, peristiwa]
+21    [rt, indonesia, temu, presiden, gianni, infant...
+22    [ibu, pernh, cerita, klu, buyut, uda, doain, a...
+23    [korban, tinggal, dunia, tragedi, kanjuruhan, ...
+24                               [rt, hapus, peristiwa]
+25    [piala, dunia, jokowi, presiden, fifa, sepakat...
+26                               [rt, hapus, peristiwa]
+27    [erick, thohir, ingat, tragedi, kanjuruhan, ul...
+28    [rt, kpppa, anak, korban, tinggal, dunia, trag...
+29                               [rt, hapus, peristiwa]
+30                               [rt, hapus, peristiwa]
+31                               [rt, hapus, peristiwa]
+32                               [rt, hapus, peristiwa]
+33    [presiden, jokowi, temu, presiden, fifa, giann...
+34                               [rt, hapus, peristiwa]
+35    [rt, id, stadion, kanjuruhan, tragedi, oktober...
+36                        [lengkap, klik, link, kumpar]
+37                               [rt, hapus, peristiwa]
+38    [stadion, kanjuruhan, henti, henti, topik, sor...
+39    [jokowi, konfirmasi, rubuhkan, stadion, kanjur...
+40    [salut, sih, diplomasi, perintah, indonesia, f...
+41                               [rt, hapus, peristiwa]
+42    [rt, kpppa, anak, korban, tinggal, dunia, trag...
+43    [rt, kpppa, anak, korban, tinggal, dunia, trag...
+44                               [rt, hapus, peristiwa]
+45    [rt, polri, tpf, aremania, simpul, tragedi, ka...
+46    [rt, polri, tpf, aremania, simpul, tragedi, ka...
+47    [rt, polri, tpf, aremania, simpul, tragedi, ka...
+48    [rt, polri, tpf, aremania, simpul, tragedi, ka...
+49    [rt, polri, tpf, aremania, simpul, tragedi, ka...
+Name: 0, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menyimpan-hasil-ke-csv">
+<h3>Menyimpan Hasil ke CSV<a class="headerlink" href="#menyimpan-hasil-ke-csv" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;preproKanjuruhan.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="term-frequency-tf">
+<h2>Term Frequency (TF)<a class="headerlink" href="#term-frequency-tf" title="Permalink to this headline">#</a></h2>
+<p>TF(Term Frequency) : Istilah frekuensi kata dalam dokumen. Ada beberapa cara untuk menghitung frekuensi ini, dengan cara yang paling sederhana adalah dengan menghitung jumlah kata yang muncul dalam dokumen. Lalu, ada cara untuk menyesuaikan frekuensi, berdasarkan panjang dokumen, atau dengan frekuensi mentah kata yang paling sering muncul dalam dokumen.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfTransformer</span><span class="p">,</span> <span class="n">TfidfVectorizer</span><span class="p">,</span> <span class="n">CountVectorizer</span>
+<span class="c1">#Membuat Dataframe</span>
+<span class="n">dataTextPre</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;preproKanjuruhan.csv&#39;</span><span class="p">)</span>
+<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">min_df</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">bag</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">dataTextPre</span><span class="p">[</span><span class="s2">&quot;0&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">matrik_vsm</span><span class="o">=</span><span class="n">bag</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="c1">#print(matrik_vsm)</span>
+<span class="n">matrik_vsm</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(50, 125)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">matrik_vsm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matrik_vsm</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]))</span>
+<span class="c1">#dfb =pd.DataFrame(data=matrik_vsm,index=df,columns=[a])</span>
+<span class="n">dataTF</span> <span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">matrik_vsm</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrik_vsm</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="p">)),</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">a</span><span class="p">])</span>
+<span class="n">dataTF</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>50
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-c93f82be-3790-4754-9c14-8e19a0a21b95">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>akibat</th>
+      <th>alam</th>
+      <th>anak</th>
+      <th>angkat</th>
+      <th>ank</th>
+      <th>aremania</th>
+      <th>ba</th>
+      <th>bahas</th>
+      <th>bangun</th>
+      <th>beb</th>
+      <th>...</th>
+      <th>tp</th>
+      <th>tpf</th>
+      <th>tragedi</th>
+      <th>turun</th>
+      <th>uda</th>
+      <th>ulang</th>
+      <th>via</th>
+      <th>widodo</th>
+      <th>yan</th>
+      <th>yg</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>50 rows × 125 columns</p>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-c93f82be-3790-4754-9c14-8e19a0a21b95')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-c93f82be-3790-4754-9c14-8e19a0a21b95 button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-c93f82be-3790-4754-9c14-8e19a0a21b95');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
+  </div>
+</div></div>
+</div>
+</section>
+<section id="k-means">
+<h2>K-Means<a class="headerlink" href="#k-means" title="Permalink to this headline">#</a></h2>
+<p>K-Means Clustering adalah suatu metode penganalisaan data atau metode Data Mining yang melakukan proses pemodelan unssupervised learning dan menggunakan metode yang mengelompokan data berbagai partisi.</p>
+<p>K Means Clustering memiliki objective yaitu meminimalisasi object function yang telah di atur pada proses clasterisasi. Dengan cara minimalisasi variasi antar 1 cluster dengan maksimalisasi variasi dengan data di cluster lainnya.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+
+<span class="n">kmeans</span> <span class="o">=</span><span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">kmeans</span><span class="o">=</span><span class="n">kmeans</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataTF</span><span class="p">)</span>
+<span class="n">prediksi</span><span class="o">=</span><span class="n">kmeans</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dataTF</span><span class="p">)</span>
+<span class="n">centroids</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">cluster_centers_</span>
+
+<span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">prediksi</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Cluster&quot;</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-ffbd911f-2bae-4105-96f1-9c597ecb2462">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cluster</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-ffbd911f-2bae-4105-96f1-9c597ecb2462')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-ffbd911f-2bae-4105-96f1-9c597ecb2462 button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-ffbd911f-2bae-4105-96f1-9c597ecb2462');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
+  </div>
+</div></div>
+</div>
+</section>
+</section>
+
+
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {"2f4b4ad70bde47499eb9fc044fa1cd19": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "c358583ea186442783ea9097b30a72b3": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "c717a51b4b3d4575a73e616f75b96968": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_2f4b4ad70bde47499eb9fc044fa1cd19", "max": 50.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_c358583ea186442783ea9097b30a72b3", "value": 50.0}}, "97d8a6c7c79f4c70928d6bc0018afcc7": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "a1868dd9d6384cdf8c3bc2568272b98d": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "d978b514d2fd49d08669004198e5502c": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_97d8a6c7c79f4c70928d6bc0018afcc7", "placeholder": "\u200b", "style": "IPY_MODEL_a1868dd9d6384cdf8c3bc2568272b98d", "value": "Pandas Apply: 100%"}}, "5b823a07992548e5b2811d24a0c631e8": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "1a03ac48d54f4264a879c40f6832a492": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "46b06b6360604442b89566bb79274a72": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_5b823a07992548e5b2811d24a0c631e8", "placeholder": "\u200b", "style": "IPY_MODEL_1a03ac48d54f4264a879c40f6832a492", "value": " 50/50 [00:00&lt;00:00, 1349.70it/s]"}}, "42604aaeb2cd4a3480f85c5c8193c13e": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "f09efe4751f043f1af2e61b69e1428ea": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_d978b514d2fd49d08669004198e5502c", "IPY_MODEL_c717a51b4b3d4575a73e616f75b96968", "IPY_MODEL_46b06b6360604442b89566bb79274a72"], "layout": "IPY_MODEL_42604aaeb2cd4a3480f85c5c8193c13e"}}}, "version_major": 2, "version_minor": 0}
+</script>
+
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="term-frequency.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Term Frequency, K-Means, Feature Selection, Information Gain</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="uts-nomor2.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Peringkasan berita online menggunakan metode PageRank</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Jupyter Book Community<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

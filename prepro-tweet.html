@@ -1,0 +1,1890 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>PreProcessing Data &#8212; My sample book</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Term Frequency, K-Means, Feature Selection, Information Gain" href="term-frequency.html" />
+    <link rel="prev" title="Crawling Data" href="crawl-data-tweet.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">My sample book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="crawl-data-pta.html">
+   Data Crawling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="crawl-data-tweet.html">
+   Crawling Data
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   PreProcessing Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="term-frequency.html">
+   Term Frequency, K-Means, Feature Selection, Information Gain
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="uts-nomor1.html">
+   Analisa Clustering dengan menggunakan K-means
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="uts-nomor2.html">
+   Peringkasan berita online menggunakan metode PageRank
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/prepro-tweet.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/AuliyaulUmam/webmining"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/prepro-tweet.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pandas">
+   Pandas
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#install-pandas">
+     Install Pandas
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#import-pandas">
+     Import Pandas
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sastrawi">
+   Sastrawi
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#install-sastrawi">
+     Install Sastrawi
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#swifter">
+   Swifter
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#install-swifter">
+     Install Swifter
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#natural-language-toolkit-nltk">
+   Natural Language Toolkit (NLTK)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#install-nltk">
+     Install NLTK
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#mengambil-data-dari-gdrive">
+   Mengambil Data dari gDrive
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#case-folding">
+   Case Folding
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#menghapus-karakter-spesial">
+   Menghapus Karakter Spesial
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#menghapus-angka">
+   Menghapus Angka
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#menghapus-tanda-baca">
+   Menghapus Tanda Baca
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#menghapus-spasi">
+   Menghapus Spasi
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#menghapus-huruf-tunggal">
+   Menghapus huruf Tunggal
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tokenizing">
+   Tokenizing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#filtering">
+   Filtering
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#stemming">
+   Stemming
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#menyimpan-ke-file-csv">
+   Menyimpan ke File CSV
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>PreProcessing Data</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pandas">
+   Pandas
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#install-pandas">
+     Install Pandas
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#import-pandas">
+     Import Pandas
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sastrawi">
+   Sastrawi
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#install-sastrawi">
+     Install Sastrawi
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#swifter">
+   Swifter
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#install-swifter">
+     Install Swifter
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#natural-language-toolkit-nltk">
+   Natural Language Toolkit (NLTK)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#install-nltk">
+     Install NLTK
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#mengambil-data-dari-gdrive">
+   Mengambil Data dari gDrive
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#case-folding">
+   Case Folding
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#menghapus-karakter-spesial">
+   Menghapus Karakter Spesial
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#menghapus-angka">
+   Menghapus Angka
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#menghapus-tanda-baca">
+   Menghapus Tanda Baca
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#menghapus-spasi">
+   Menghapus Spasi
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#menghapus-huruf-tunggal">
+   Menghapus huruf Tunggal
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tokenizing">
+   Tokenizing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#filtering">
+   Filtering
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#stemming">
+   Stemming
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#menyimpan-ke-file-csv">
+   Menyimpan ke File CSV
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="preprocessing-data">
+<h1>PreProcessing Data<a class="headerlink" href="#preprocessing-data" title="Permalink to this headline">#</a></h1>
+<p>Data preprocessing adalah proses yang mengubah data mentah ke dalam bentuk yang lebih mudah dipahami. Proses ini penting dilakukan karena data mentah sering kali tidak memiliki format yang teratur. Selain itu, data mining juga tidak dapat memproses data mentah, sehingga proses ini sangat penting dilakukan untuk mempermudah proses berikutnya, yakni analisis data.</p>
+<section id="pandas">
+<h2>Pandas<a class="headerlink" href="#pandas" title="Permalink to this headline">#</a></h2>
+<p>Pandas adalah sebuah library di Python yang berlisensi BSD dan open source yang menyediakan struktur data dan analisis data yang mudah digunakan. Pandas biasa digunakan untuk membuat tabel, mengubah dimensi data, mengecek data, dan lain sebagainya. Struktur data dasar pada Pandas dinamakan DataFrame, yang memudahkan kita untuk membaca sebuah file dengan banyak jenis format seperti file .txt, .csv, dan .tsv. Fitur ini akan menjadikannya table dan juga dapat mengolah suatu data dengan menggunakan operasi seperti join, distinct, group by, agregasi, dan teknik lainnya yang terdapat pada SQL.</p>
+<section id="install-pandas">
+<h3>Install Pandas<a class="headerlink" href="#install-pandas" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install pandas
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+Requirement already satisfied: pandas in /usr/local/lib/python3.7/dist-packages (1.3.5)
+Requirement already satisfied: numpy&gt;=1.17.3 in /usr/local/lib/python3.7/dist-packages (from pandas) (1.21.6)
+Requirement already satisfied: python-dateutil&gt;=2.7.3 in /usr/local/lib/python3.7/dist-packages (from pandas) (2.8.2)
+Requirement already satisfied: pytz&gt;=2017.3 in /usr/local/lib/python3.7/dist-packages (from pandas) (2022.4)
+Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.7/dist-packages (from python-dateutil&gt;=2.7.3-&gt;pandas) (1.15.0)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="import-pandas">
+<h3>Import Pandas<a class="headerlink" href="#import-pandas" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sastrawi">
+<h2>Sastrawi<a class="headerlink" href="#sastrawi" title="Permalink to this headline">#</a></h2>
+<p>Python Sastrawi adalah pengembangan dari proyek PHP Sastrawi. Python Sastrawi merupakan library sederhana yang dapat mengubah kata berimbuhan bahasa Indonesia menjadi bentuk dasarnya.</p>
+<section id="install-sastrawi">
+<h3>Install Sastrawi<a class="headerlink" href="#install-sastrawi" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install Sastrawi
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting Sastrawi
+  Downloading Sastrawi-1.0.1-py2.py3-none-any.whl (209 kB)
+?25l
+     |█▋                              | 10 kB 17.0 MB/s eta 0:00:01
+     |███▏                            | 20 kB 5.2 MB/s eta 0:00:01
+     |████▊                           | 30 kB 7.4 MB/s eta 0:00:01
+     |██████▎                         | 40 kB 3.4 MB/s eta 0:00:01
+     |███████▉                        | 51 kB 3.7 MB/s eta 0:00:01
+     |█████████▍                      | 61 kB 4.4 MB/s eta 0:00:01
+     |███████████                     | 71 kB 4.4 MB/s eta 0:00:01
+     |████████████▌                   | 81 kB 4.9 MB/s eta 0:00:01
+     |██████████████                  | 92 kB 5.1 MB/s eta 0:00:01
+     |███████████████▋                | 102 kB 4.1 MB/s eta 0:00:01
+     |█████████████████▏              | 112 kB 4.1 MB/s eta 0:00:01
+     |██████████████████▊             | 122 kB 4.1 MB/s eta 0:00:01
+     |████████████████████▎           | 133 kB 4.1 MB/s eta 0:00:01
+     |█████████████████████▉          | 143 kB 4.1 MB/s eta 0:00:01
+     |███████████████████████▍        | 153 kB 4.1 MB/s eta 0:00:01
+     |█████████████████████████       | 163 kB 4.1 MB/s eta 0:00:01
+     |██████████████████████████▋     | 174 kB 4.1 MB/s eta 0:00:01
+     |████████████████████████████▏   | 184 kB 4.1 MB/s eta 0:00:01
+     |█████████████████████████████▊  | 194 kB 4.1 MB/s eta 0:00:01
+     |███████████████████████████████▎| 204 kB 4.1 MB/s eta 0:00:01
+     |████████████████████████████████| 209 kB 4.1 MB/s 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25hInstalling collected packages: Sastrawi
+Successfully installed Sastrawi-1.0.1
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="swifter">
+<h2>Swifter<a class="headerlink" href="#swifter" title="Permalink to this headline">#</a></h2>
+<p>Swifter adalah Paket yang secara efisien menerapkan fungsi apa pun ke kerangka data atau seri panda dengan cara tercepat yang tersedia</p>
+<section id="install-swifter">
+<h3>Install Swifter<a class="headerlink" href="#install-swifter" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install swifter
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting swifter
+  Downloading swifter-1.3.4.tar.gz (830 kB)
+?25l
+     |▍                               | 10 kB 18.0 MB/s eta 0:00:01
+     |▉                               | 20 kB 5.0 MB/s eta 0:00:01
+     |█▏                              | 30 kB 7.2 MB/s eta 0:00:01
+     |█▋                              | 40 kB 3.5 MB/s eta 0:00:01
+     |██                              | 51 kB 3.5 MB/s eta 0:00:01
+     |██▍                             | 61 kB 4.2 MB/s eta 0:00:01
+     |██▊                             | 71 kB 4.4 MB/s eta 0:00:01
+     |███▏                            | 81 kB 5.0 MB/s eta 0:00:01
+     |███▌                            | 92 kB 3.7 MB/s eta 0:00:01
+     |████                            | 102 kB 4.1 MB/s eta 0:00:01
+     |████▍                           | 112 kB 4.1 MB/s eta 0:00:01
+     |████▊                           | 122 kB 4.1 MB/s eta 0:00:01
+     |█████▏                          | 133 kB 4.1 MB/s eta 0:00:01
+     |█████▌                          | 143 kB 4.1 MB/s eta 0:00:01
+     |██████                          | 153 kB 4.1 MB/s eta 0:00:01
+     |██████▎                         | 163 kB 4.1 MB/s eta 0:00:01
+     |██████▊                         | 174 kB 4.1 MB/s eta 0:00:01
+     |███████                         | 184 kB 4.1 MB/s eta 0:00:01
+     |███████▌                        | 194 kB 4.1 MB/s eta 0:00:01
+     |███████▉                        | 204 kB 4.1 MB/s eta 0:00:01
+     |████████▎                       | 215 kB 4.1 MB/s eta 0:00:01
+     |████████▊                       | 225 kB 4.1 MB/s eta 0:00:01
+     |█████████                       | 235 kB 4.1 MB/s eta 0:00:01
+     |█████████▌                      | 245 kB 4.1 MB/s eta 0:00:01
+     |█████████▉                      | 256 kB 4.1 MB/s eta 0:00:01
+     |██████████▎                     | 266 kB 4.1 MB/s eta 0:00:01
+     |██████████▋                     | 276 kB 4.1 MB/s eta 0:00:01
+     |███████████                     | 286 kB 4.1 MB/s eta 0:00:01
+     |███████████▍                    | 296 kB 4.1 MB/s eta 0:00:01
+     |███████████▉                    | 307 kB 4.1 MB/s eta 0:00:01
+     |████████████▎                   | 317 kB 4.1 MB/s eta 0:00:01
+     |████████████▋                   | 327 kB 4.1 MB/s eta 0:00:01
+     |█████████████                   | 337 kB 4.1 MB/s eta 0:00:01
+     |█████████████▍                  | 348 kB 4.1 MB/s eta 0:00:01
+     |█████████████▉                  | 358 kB 4.1 MB/s eta 0:00:01
+     |██████████████▏                 | 368 kB 4.1 MB/s eta 0:00:01
+     |██████████████▋                 | 378 kB 4.1 MB/s eta 0:00:01
+     |███████████████                 | 389 kB 4.1 MB/s eta 0:00:01
+     |███████████████▍                | 399 kB 4.1 MB/s eta 0:00:01
+     |███████████████▊                | 409 kB 4.1 MB/s eta 0:00:01
+     |████████████████▏               | 419 kB 4.1 MB/s eta 0:00:01
+     |████████████████▋               | 430 kB 4.1 MB/s eta 0:00:01
+     |█████████████████               | 440 kB 4.1 MB/s eta 0:00:01
+     |█████████████████▍              | 450 kB 4.1 MB/s eta 0:00:01
+     |█████████████████▊              | 460 kB 4.1 MB/s eta 0:00:01
+     |██████████████████▏             | 471 kB 4.1 MB/s eta 0:00:01
+     |██████████████████▌             | 481 kB 4.1 MB/s eta 0:00:01
+     |███████████████████             | 491 kB 4.1 MB/s eta 0:00:01
+     |███████████████████▎            | 501 kB 4.1 MB/s eta 0:00:01
+     |███████████████████▊            | 512 kB 4.1 MB/s eta 0:00:01
+     |████████████████████▏           | 522 kB 4.1 MB/s eta 0:00:01
+     |████████████████████▌           | 532 kB 4.1 MB/s eta 0:00:01
+     |█████████████████████           | 542 kB 4.1 MB/s eta 0:00:01
+     |█████████████████████▎          | 552 kB 4.1 MB/s eta 0:00:01
+     |█████████████████████▊          | 563 kB 4.1 MB/s eta 0:00:01
+     |██████████████████████          | 573 kB 4.1 MB/s eta 0:00:01
+     |██████████████████████▌         | 583 kB 4.1 MB/s eta 0:00:01
+     |██████████████████████▉         | 593 kB 4.1 MB/s eta 0:00:01
+     |███████████████████████▎        | 604 kB 4.1 MB/s eta 0:00:01
+     |███████████████████████▋        | 614 kB 4.1 MB/s eta 0:00:01
+     |████████████████████████        | 624 kB 4.1 MB/s eta 0:00:01
+     |████████████████████████▌       | 634 kB 4.1 MB/s eta 0:00:01
+     |████████████████████████▉       | 645 kB 4.1 MB/s eta 0:00:01
+     |█████████████████████████▎      | 655 kB 4.1 MB/s eta 0:00:01
+     |█████████████████████████▋      | 665 kB 4.1 MB/s eta 0:00:01
+     |██████████████████████████      | 675 kB 4.1 MB/s eta 0:00:01
+     |██████████████████████████▍     | 686 kB 4.1 MB/s eta 0:00:01
+     |██████████████████████████▉     | 696 kB 4.1 MB/s eta 0:00:01
+     |███████████████████████████▏    | 706 kB 4.1 MB/s eta 0:00:01
+     |███████████████████████████▋    | 716 kB 4.1 MB/s eta 0:00:01
+     |████████████████████████████    | 727 kB 4.1 MB/s eta 0:00:01
+     |████████████████████████████▍   | 737 kB 4.1 MB/s eta 0:00:01
+     |████████████████████████████▉   | 747 kB 4.1 MB/s eta 0:00:01
+     |█████████████████████████████▏  | 757 kB 4.1 MB/s eta 0:00:01
+     |█████████████████████████████▋  | 768 kB 4.1 MB/s eta 0:00:01
+     |██████████████████████████████  | 778 kB 4.1 MB/s eta 0:00:01
+     |██████████████████████████████▍ | 788 kB 4.1 MB/s eta 0:00:01
+     |██████████████████████████████▊ | 798 kB 4.1 MB/s eta 0:00:01
+     |███████████████████████████████▏| 808 kB 4.1 MB/s eta 0:00:01
+     |███████████████████████████████▌| 819 kB 4.1 MB/s eta 0:00:01
+     |████████████████████████████████| 829 kB 4.1 MB/s eta 0:00:01
+     |████████████████████████████████| 830 kB 4.1 MB/s 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25hRequirement already satisfied: pandas&gt;=1.0.0 in /usr/local/lib/python3.7/dist-packages (from swifter) (1.3.5)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting psutil&gt;=5.6.6
+  Downloading psutil-5.9.2-cp37-cp37m-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (281 kB)
+?25l
+     |█▏                              | 10 kB 25.0 MB/s eta 0:00:01
+     |██▎                             | 20 kB 31.2 MB/s eta 0:00:01
+     |███▌                            | 30 kB 40.1 MB/s eta 0:00:01
+     |████▋                           | 40 kB 47.4 MB/s eta 0:00:01
+     |█████▉                          | 51 kB 51.5 MB/s eta 0:00:01
+     |███████                         | 61 kB 56.9 MB/s eta 0:00:01
+     |████████▏                       | 71 kB 60.5 MB/s eta 0:00:01
+     |█████████▎                      | 81 kB 63.5 MB/s eta 0:00:01
+     |██████████▌                     | 92 kB 66.6 MB/s eta 0:00:01
+     |███████████▋                    | 102 kB 69.6 MB/s eta 0:00:01
+     |████████████▉                   | 112 kB 69.6 MB/s eta 0:00:01
+     |██████████████                  | 122 kB 69.6 MB/s eta 0:00:01
+     |███████████████▏                | 133 kB 69.6 MB/s eta 0:00:01
+     |████████████████▎               | 143 kB 69.6 MB/s eta 0:00:01
+     |█████████████████▌              | 153 kB 69.6 MB/s eta 0:00:01
+     |██████████████████▋             | 163 kB 69.6 MB/s eta 0:00:01
+     |███████████████████▉            | 174 kB 69.6 MB/s eta 0:00:01
+     |█████████████████████           | 184 kB 69.6 MB/s eta 0:00:01
+     |██████████████████████▏         | 194 kB 69.6 MB/s eta 0:00:01
+     |███████████████████████▎        | 204 kB 69.6 MB/s eta 0:00:01
+     |████████████████████████▌       | 215 kB 69.6 MB/s eta 0:00:01
+     |█████████████████████████▋      | 225 kB 69.6 MB/s eta 0:00:01
+     |██████████████████████████▉     | 235 kB 69.6 MB/s eta 0:00:01
+     |████████████████████████████    | 245 kB 69.6 MB/s eta 0:00:01
+     |█████████████████████████████▏  | 256 kB 69.6 MB/s eta 0:00:01
+     |██████████████████████████████▎ | 266 kB 69.6 MB/s eta 0:00:01
+     |███████████████████████████████▌| 276 kB 69.6 MB/s eta 0:00:01
+     |████████████████████████████████| 281 kB 69.6 MB/s 
+?25hRequirement already satisfied: dask[dataframe]&gt;=2.10.0 in /usr/local/lib/python3.7/dist-packages (from swifter) (2022.2.0)
+Requirement already satisfied: tqdm&gt;=4.33.0 in /usr/local/lib/python3.7/dist-packages (from swifter) (4.64.1)
+Requirement already satisfied: ipywidgets&gt;=7.0.0 in /usr/local/lib/python3.7/dist-packages (from swifter) (7.7.1)
+Requirement already satisfied: cloudpickle&gt;=0.2.2 in /usr/local/lib/python3.7/dist-packages (from swifter) (1.5.0)
+Requirement already satisfied: parso&gt;0.4.0 in /usr/local/lib/python3.7/dist-packages (from swifter) (0.8.3)
+Requirement already satisfied: bleach&gt;=3.1.1 in /usr/local/lib/python3.7/dist-packages (from swifter) (5.0.1)
+Requirement already satisfied: webencodings in /usr/local/lib/python3.7/dist-packages (from bleach&gt;=3.1.1-&gt;swifter) (0.5.1)
+Requirement already satisfied: six&gt;=1.9.0 in /usr/local/lib/python3.7/dist-packages (from bleach&gt;=3.1.1-&gt;swifter) (1.15.0)
+Requirement already satisfied: fsspec&gt;=0.6.0 in /usr/local/lib/python3.7/dist-packages (from dask[dataframe]&gt;=2.10.0-&gt;swifter) (2022.8.2)
+Requirement already satisfied: partd&gt;=0.3.10 in /usr/local/lib/python3.7/dist-packages (from dask[dataframe]&gt;=2.10.0-&gt;swifter) (1.3.0)
+Requirement already satisfied: toolz&gt;=0.8.2 in /usr/local/lib/python3.7/dist-packages (from dask[dataframe]&gt;=2.10.0-&gt;swifter) (0.12.0)
+Requirement already satisfied: pyyaml&gt;=5.3.1 in /usr/local/lib/python3.7/dist-packages (from dask[dataframe]&gt;=2.10.0-&gt;swifter) (6.0)
+Requirement already satisfied: packaging&gt;=20.0 in /usr/local/lib/python3.7/dist-packages (from dask[dataframe]&gt;=2.10.0-&gt;swifter) (21.3)
+Requirement already satisfied: numpy&gt;=1.18 in /usr/local/lib/python3.7/dist-packages (from dask[dataframe]&gt;=2.10.0-&gt;swifter) (1.21.6)
+Requirement already satisfied: ipython-genutils~=0.2.0 in /usr/local/lib/python3.7/dist-packages (from ipywidgets&gt;=7.0.0-&gt;swifter) (0.2.0)
+Requirement already satisfied: jupyterlab-widgets&gt;=1.0.0 in /usr/local/lib/python3.7/dist-packages (from ipywidgets&gt;=7.0.0-&gt;swifter) (3.0.3)
+Requirement already satisfied: traitlets&gt;=4.3.1 in /usr/local/lib/python3.7/dist-packages (from ipywidgets&gt;=7.0.0-&gt;swifter) (5.1.1)
+Requirement already satisfied: ipykernel&gt;=4.5.1 in /usr/local/lib/python3.7/dist-packages (from ipywidgets&gt;=7.0.0-&gt;swifter) (5.3.4)
+Requirement already satisfied: ipython&gt;=4.0.0 in /usr/local/lib/python3.7/dist-packages (from ipywidgets&gt;=7.0.0-&gt;swifter) (7.9.0)
+Requirement already satisfied: widgetsnbextension~=3.6.0 in /usr/local/lib/python3.7/dist-packages (from ipywidgets&gt;=7.0.0-&gt;swifter) (3.6.1)
+Requirement already satisfied: tornado&gt;=4.2 in /usr/local/lib/python3.7/dist-packages (from ipykernel&gt;=4.5.1-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (6.2)
+Requirement already satisfied: jupyter-client in /usr/local/lib/python3.7/dist-packages (from ipykernel&gt;=4.5.1-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (6.1.12)
+Requirement already satisfied: pygments in /usr/local/lib/python3.7/dist-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (2.6.1)
+Requirement already satisfied: setuptools&gt;=18.5 in /usr/local/lib/python3.7/dist-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (57.4.0)
+Requirement already satisfied: prompt-toolkit&lt;2.1.0,&gt;=2.0.0 in /usr/local/lib/python3.7/dist-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (2.0.10)
+Requirement already satisfied: pickleshare in /usr/local/lib/python3.7/dist-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.7.5)
+Requirement already satisfied: jedi&gt;=0.10 in /usr/local/lib/python3.7/dist-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.18.1)
+Requirement already satisfied: pexpect in /usr/local/lib/python3.7/dist-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (4.8.0)
+Requirement already satisfied: decorator in /usr/local/lib/python3.7/dist-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (4.4.2)
+Requirement already satisfied: backcall in /usr/local/lib/python3.7/dist-packages (from ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.2.0)
+Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /usr/local/lib/python3.7/dist-packages (from packaging&gt;=20.0-&gt;dask[dataframe]&gt;=2.10.0-&gt;swifter) (3.0.9)
+Requirement already satisfied: pytz&gt;=2017.3 in /usr/local/lib/python3.7/dist-packages (from pandas&gt;=1.0.0-&gt;swifter) (2022.4)
+Requirement already satisfied: python-dateutil&gt;=2.7.3 in /usr/local/lib/python3.7/dist-packages (from pandas&gt;=1.0.0-&gt;swifter) (2.8.2)
+Requirement already satisfied: locket in /usr/local/lib/python3.7/dist-packages (from partd&gt;=0.3.10-&gt;dask[dataframe]&gt;=2.10.0-&gt;swifter) (1.0.0)
+Requirement already satisfied: wcwidth in /usr/local/lib/python3.7/dist-packages (from prompt-toolkit&lt;2.1.0,&gt;=2.0.0-&gt;ipython&gt;=4.0.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.2.5)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: notebook&gt;=4.4.1 in /usr/local/lib/python3.7/dist-packages (from widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (5.5.0)
+Requirement already satisfied: nbformat in /usr/local/lib/python3.7/dist-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (5.7.0)
+Requirement already satisfied: terminado&gt;=0.8.1 in /usr/local/lib/python3.7/dist-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.13.3)
+Requirement already satisfied: pyzmq&gt;=17 in /usr/local/lib/python3.7/dist-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (23.2.1)
+Requirement already satisfied: Send2Trash in /usr/local/lib/python3.7/dist-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (1.8.0)
+Requirement already satisfied: nbconvert in /usr/local/lib/python3.7/dist-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (6.5.4)
+Requirement already satisfied: jinja2 in /usr/local/lib/python3.7/dist-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (3.1.2)
+Requirement already satisfied: jupyter-core&gt;=4.4.0 in /usr/local/lib/python3.7/dist-packages (from notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (4.11.1)
+Requirement already satisfied: ptyprocess in /usr/local/lib/python3.7/dist-packages (from terminado&gt;=0.8.1-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.7.0)
+Requirement already satisfied: MarkupSafe&gt;=2.0 in /usr/local/lib/python3.7/dist-packages (from jinja2-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (2.0.1)
+Requirement already satisfied: nbclient&gt;=0.5.0 in /usr/local/lib/python3.7/dist-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.5.13)
+Requirement already satisfied: defusedxml in /usr/local/lib/python3.7/dist-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.7.1)
+Requirement already satisfied: entrypoints&gt;=0.2.2 in /usr/local/lib/python3.7/dist-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.4)
+Requirement already satisfied: jupyterlab-pygments in /usr/local/lib/python3.7/dist-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.2.2)
+Requirement already satisfied: beautifulsoup4 in /usr/local/lib/python3.7/dist-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (4.6.3)
+Requirement already satisfied: mistune&lt;2,&gt;=0.8.1 in /usr/local/lib/python3.7/dist-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.8.4)
+Requirement already satisfied: pandocfilters&gt;=1.4.1 in /usr/local/lib/python3.7/dist-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (1.5.0)
+Requirement already satisfied: lxml in /usr/local/lib/python3.7/dist-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (4.9.1)
+Requirement already satisfied: tinycss2 in /usr/local/lib/python3.7/dist-packages (from nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (1.2.1)
+Requirement already satisfied: nest-asyncio in /usr/local/lib/python3.7/dist-packages (from nbclient&gt;=0.5.0-&gt;nbconvert-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (1.5.6)
+Requirement already satisfied: importlib-metadata&gt;=3.6 in /usr/local/lib/python3.7/dist-packages (from nbformat-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (4.13.0)
+Requirement already satisfied: jsonschema&gt;=2.6 in /usr/local/lib/python3.7/dist-packages (from nbformat-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (3.2.0)
+Requirement already satisfied: fastjsonschema in /usr/local/lib/python3.7/dist-packages (from nbformat-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (2.16.2)
+Requirement already satisfied: zipp&gt;=0.5 in /usr/local/lib/python3.7/dist-packages (from importlib-metadata&gt;=3.6-&gt;nbformat-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (3.9.0)
+Requirement already satisfied: typing-extensions&gt;=3.6.4 in /usr/local/lib/python3.7/dist-packages (from importlib-metadata&gt;=3.6-&gt;nbformat-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (4.1.1)
+Requirement already satisfied: attrs&gt;=17.4.0 in /usr/local/lib/python3.7/dist-packages (from jsonschema&gt;=2.6-&gt;nbformat-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (21.4.0)
+Requirement already satisfied: pyrsistent&gt;=0.14.0 in /usr/local/lib/python3.7/dist-packages (from jsonschema&gt;=2.6-&gt;nbformat-&gt;notebook&gt;=4.4.1-&gt;widgetsnbextension~=3.6.0-&gt;ipywidgets&gt;=7.0.0-&gt;swifter) (0.18.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Building wheels for collected packages: swifter
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Building wheel for swifter (setup.py) ... ?25l?25hdone
+  Created wheel for swifter: filename=swifter-1.3.4-py3-none-any.whl size=16322 sha256=655af65acd37a32b6c5aad76298b0d37892ba13c1664e84f9b91e1284944a64e
+  Stored in directory: /root/.cache/pip/wheels/29/a7/0e/3a8f17ac69d759e1e93647114bc9bdc95957e5b0cbfd405205
+Successfully built swifter
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: psutil, swifter
+  Attempting uninstall: psutil
+    Found existing installation: psutil 5.4.8
+    Uninstalling psutil-5.4.8:
+      Successfully uninstalled psutil-5.4.8
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed psutil-5.9.2 swifter-1.3.4
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="natural-language-toolkit-nltk">
+<h2>Natural Language Toolkit (NLTK)<a class="headerlink" href="#natural-language-toolkit-nltk" title="Permalink to this headline">#</a></h2>
+<p>Natural Language Toolkit (NLTK) adalah sebuah platform yang digunakan untuk membangun program analisis teks. Platform ini awalnya dirilis oleh Steven Bird dan Edward Loper dalam kaitannya dengan mata kuliah komputasi linguistik di Universitas Pennsylvania pada tahun 2001. Ada sebuah buku pegangan untuk platform tersebut dengan judul Natural Language Processing dengan Python.</p>
+<section id="install-nltk">
+<h3>Install NLTK<a class="headerlink" href="#install-nltk" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install nltk
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+Requirement already satisfied: nltk in /usr/local/lib/python3.7/dist-packages (3.7)
+Requirement already satisfied: click in /usr/local/lib/python3.7/dist-packages (from nltk) (7.1.2)
+Requirement already satisfied: regex&gt;=2021.8.3 in /usr/local/lib/python3.7/dist-packages (from nltk) (2022.6.2)
+Requirement already satisfied: joblib in /usr/local/lib/python3.7/dist-packages (from nltk) (1.2.0)
+Requirement already satisfied: tqdm in /usr/local/lib/python3.7/dist-packages (from nltk) (4.64.1)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="mengambil-data-dari-gdrive">
+<h2>Mengambil Data dari gDrive<a class="headerlink" href="#mengambil-data-dari-gdrive" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;twint/utm.csv&quot;</span><span class="p">)</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-31f232a1-c49a-4837-8871-af056c061f48">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tweet</th>
+      <th>label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>PENANDATANGANAN NOTA KESEPAHAMAN DAN PERJANJIA...</td>
+      <td>pro</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>DESA BINAAN  BERBASIS POTENSI LOKAL  “ PENTING...</td>
+      <td>pro</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Download Logo Universitas Trunojoyo Madura Vec...</td>
+      <td>pro</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>[Unit Kegiatan Mahasiswa Universitas Trunojoyo...</td>
+      <td>pro</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>KONGRES IKATAN ALUMNI FAKULTAS HUKUM UNIVERSIT...</td>
+      <td>pro</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>[UKM PADUAN SUARA GOLDEN UNIVERSITAS TRUNOJOYO...</td>
+      <td>pro</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>BEDAH BUKU BIOGRAFI SYAICHONA MOH. CHOLIL GURU...</td>
+      <td>pro</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>@sbmptnfess Universitas trunojoyo madura</td>
+      <td>pro</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Anggota kelompok : -Mohammad Afrizal (22011110...</td>
+      <td>pro</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Anggota kelompok : -Mohammad Afrizal (22011110...</td>
+      <td>pro</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>@convomfs UTM. Universitas Trunojoyo Madura mu...</td>
+      <td>pro</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>[UKM PADUAN SUARA GOLDEN UNIVERSITAS TRUNOJOYO...</td>
+      <td>pro</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Baru saja mengirim foto @ Universitas Trunojoy...</td>
+      <td>pro</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>universitas Trunojoyo madura. ukt paling tingg...</td>
+      <td>kontra</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Apakah langkah Partai Nasdem terlalu cepat ?  ...</td>
+      <td>kontra</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>1. Wakil Ketua MK Aswanto memberikan ceramah d...</td>
+      <td>pro</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>[UKM PADUAN SUARA GOLDEN UNIVERSITAS TRUNOJOYO...</td>
+      <td>pro</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>[UKM PADUAN SUARA GOLDEN UNIVERSITAS TRUNOJOYO...</td>
+      <td>pro</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-31f232a1-c49a-4837-8871-af056c061f48')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-31f232a1-c49a-4837-8871-af056c061f48 button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-31f232a1-c49a-4837-8871-af056c061f48');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
+  </div>
+</div></div>
+</div>
+</section>
+<section id="case-folding">
+<h2>Case Folding<a class="headerlink" href="#case-folding" title="Permalink to this headline">#</a></h2>
+<p>Tahap untuk merubah teks yang memiliki huruf kapital menjadi huruf kecil</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     penandatanganan nota kesepahaman dan perjanjia...
+1     desa binaan  berbasis potensi lokal  “ penting...
+2     download logo universitas trunojoyo madura vec...
+3     [unit kegiatan mahasiswa universitas trunojoyo...
+4     kongres ikatan alumni fakultas hukum universit...
+5     [ukm paduan suara golden universitas trunojoyo...
+6     bedah buku biografi syaichona moh. cholil guru...
+7              @sbmptnfess universitas trunojoyo madura
+8     anggota kelompok : -mohammad afrizal (22011110...
+9     anggota kelompok : -mohammad afrizal (22011110...
+10    @convomfs utm. universitas trunojoyo madura mu...
+11    [ukm paduan suara golden universitas trunojoyo...
+12    baru saja mengirim foto @ universitas trunojoy...
+13    universitas trunojoyo madura. ukt paling tingg...
+14    apakah langkah partai nasdem terlalu cepat ?  ...
+15    1. wakil ketua mk aswanto memberikan ceramah d...
+16    [ukm paduan suara golden universitas trunojoyo...
+17    [ukm paduan suara golden universitas trunojoyo...
+Name: tweet, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menghapus-karakter-spesial">
+<h2>Menghapus Karakter Spesial<a class="headerlink" href="#menghapus-karakter-spesial" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">string</span> 
+<span class="kn">import</span> <span class="nn">re</span> <span class="c1">#regex library</span>
+<span class="c1"># import word_tokenize &amp; FreqDist from NLTK</span>
+
+<span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">word_tokenize</span> 
+<span class="kn">from</span> <span class="nn">nltk.probability</span> <span class="kn">import</span> <span class="n">FreqDist</span>
+
+<span class="c1"># ------ Tokenizing ---------</span>
+
+<span class="k">def</span> <span class="nf">remove_special</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="c1"># remove tab, new line, ans back slice</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">t&#39;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">n&#39;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">u&#39;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">f&#39;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">r&#39;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="c1"># remove non ASCII (emoticon, chinese word, .etc)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;replace&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
+    <span class="c1"># remove mention, link, hashtag</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;([@#][A-Za-z0-9]+)|(\w+:\/\/\S+)&quot;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="c1"># remove incomplete URL</span>
+    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;http://&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;https://&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+                
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">remove_special</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     penandatanganan nota kesepahaman dan perjanjia...
+1     desa binaan berbasis potensi lokal ? pentingny...
+2     download logo universitas trunojoyo madura vector
+3     [unit kegiatan mahasiswa universitas trunojoyo...
+4     kongres ikatan alumni fakultas hukum universit...
+5     [ukm paduan suara golden universitas trunojoyo...
+6     bedah buku biografi syaichona moh. cholil guru...
+7                          universitas trunojoyo madura
+8     anggota kelompok : -mohammad afrizal (22011110...
+9     anggota kelompok : -mohammad afrizal (22011110...
+10    utm. universitas trunojoyo madura murceee. ukt...
+11    [ukm paduan suara golden universitas trunojoyo...
+12    baru saja mengirim foto @ universitas trunojoy...
+13    universitas trunojoyo madura. ukt paling tingg...
+14    apakah langkah partai nasdem terlalu cepat ? l...
+15    1. wakil ketua mk aswanto memberikan ceramah d...
+16    [ukm paduan suara golden universitas trunojoyo...
+17    [ukm paduan suara golden universitas trunojoyo...
+Name: tweet, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menghapus-angka">
+<h2>Menghapus Angka<a class="headerlink" href="#menghapus-angka" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">remove_number</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span>  <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\d+&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">remove_number</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     penandatanganan nota kesepahaman dan perjanjia...
+1     desa binaan berbasis potensi lokal ? pentingny...
+2     download logo universitas trunojoyo madura vector
+3     [unit kegiatan mahasiswa universitas trunojoyo...
+4     kongres ikatan alumni fakultas hukum universit...
+5     [ukm paduan suara golden universitas trunojoyo...
+6     bedah buku biografi syaichona moh. cholil guru...
+7                          universitas trunojoyo madura
+8     anggota kelompok : -mohammad afrizal () - novi...
+9     anggota kelompok : -mohammad afrizal () - novi...
+10    utm. universitas trunojoyo madura murceee. ukt...
+11    [ukm paduan suara golden universitas trunojoyo...
+12    baru saja mengirim foto @ universitas trunojoy...
+13    universitas trunojoyo madura. ukt paling tingg...
+14    apakah langkah partai nasdem terlalu cepat ? l...
+15    . wakil ketua mk aswanto memberikan ceramah da...
+16    [ukm paduan suara golden universitas trunojoyo...
+17    [ukm paduan suara golden universitas trunojoyo...
+Name: tweet, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menghapus-tanda-baca">
+<h2>Menghapus Tanda Baca<a class="headerlink" href="#menghapus-tanda-baca" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">remove_punctuation</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">))</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">remove_punctuation</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     penandatanganan nota kesepahaman dan perjanjia...
+1     desa binaan berbasis potensi lokal  pentingnya...
+2     download logo universitas trunojoyo madura vector
+3     unit kegiatan mahasiswa universitas trunojoyo ...
+4     kongres ikatan alumni fakultas hukum universit...
+5     ukm paduan suara golden universitas trunojoyo ...
+6     bedah buku biografi syaichona moh cholil guru ...
+7                          universitas trunojoyo madura
+8     anggota kelompok  mohammad afrizal   novi tri ...
+9     anggota kelompok  mohammad afrizal   novi tri ...
+10    utm universitas trunojoyo madura murceee ukt t...
+11    ukm paduan suara golden universitas trunojoyo ...
+12    baru saja mengirim foto  universitas trunojoyo...
+13    universitas trunojoyo madura ukt paling tinggi...
+14    apakah langkah partai nasdem terlalu cepat  li...
+15     wakil ketua mk aswanto memberikan ceramah dal...
+16    ukm paduan suara golden universitas trunojoyo ...
+17    ukm paduan suara golden universitas trunojoyo ...
+Name: tweet, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menghapus-spasi">
+<h2>Menghapus Spasi<a class="headerlink" href="#menghapus-spasi" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#remove whitespace leading &amp; trailing</span>
+<span class="k">def</span> <span class="nf">remove_whitespace_LT</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">remove_whitespace_LT</span><span class="p">)</span>
+
+
+<span class="c1">#remove multiple whitespace into single whitespace</span>
+<span class="k">def</span> <span class="nf">remove_whitespace_multiple</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="n">text</span><span class="p">)</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">remove_whitespace_multiple</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     penandatanganan nota kesepahaman dan perjanjia...
+1     desa binaan berbasis potensi lokal pentingnya ...
+2     download logo universitas trunojoyo madura vector
+3     unit kegiatan mahasiswa universitas trunojoyo ...
+4     kongres ikatan alumni fakultas hukum universit...
+5     ukm paduan suara golden universitas trunojoyo ...
+6     bedah buku biografi syaichona moh cholil guru ...
+7                          universitas trunojoyo madura
+8     anggota kelompok mohammad afrizal novi tri ulf...
+9     anggota kelompok mohammad afrizal novi tri ulf...
+10    utm universitas trunojoyo madura murceee ukt t...
+11    ukm paduan suara golden universitas trunojoyo ...
+12    baru saja mengirim foto universitas trunojoyo ...
+13    universitas trunojoyo madura ukt paling tinggi...
+14    apakah langkah partai nasdem terlalu cepat liv...
+15    wakil ketua mk aswanto memberikan ceramah dala...
+16    ukm paduan suara golden universitas trunojoyo ...
+17    ukm paduan suara golden universitas trunojoyo ...
+Name: tweet, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menghapus-huruf-tunggal">
+<h2>Menghapus huruf Tunggal<a class="headerlink" href="#menghapus-huruf-tunggal" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># remove single char</span>
+<span class="k">def</span> <span class="nf">remove_singl_char</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\b[a-zA-Z]\b&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">remove_singl_char</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     penandatanganan nota kesepahaman dan perjanjia...
+1     desa binaan berbasis potensi lokal pentingnya ...
+2     download logo universitas trunojoyo madura vector
+3     unit kegiatan mahasiswa universitas trunojoyo ...
+4     kongres ikatan alumni fakultas hukum universit...
+5     ukm paduan suara golden universitas trunojoyo ...
+6     bedah buku biografi syaichona moh cholil guru ...
+7                          universitas trunojoyo madura
+8     anggota kelompok mohammad afrizal novi tri ulf...
+9     anggota kelompok mohammad afrizal novi tri ulf...
+10    utm universitas trunojoyo madura murceee ukt t...
+11    ukm paduan suara golden universitas trunojoyo ...
+12    baru saja mengirim foto universitas trunojoyo ...
+13    universitas trunojoyo madura ukt paling tinggi...
+14    apakah langkah partai nasdem terlalu cepat liv...
+15    wakil ketua mk aswanto memberikan ceramah dala...
+16    ukm paduan suara golden universitas trunojoyo ...
+17    ukm paduan suara golden universitas trunojoyo ...
+Name: tweet, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tokenizing">
+<h2>Tokenizing<a class="headerlink" href="#tokenizing" title="Permalink to this headline">#</a></h2>
+<p>Tokenizing adalah proses pemisahan teks menjadi potongan-potongan yang disebut sebagai token untuk kemudian di analisa. Kata, angka, simbol, tanda baca dan entitas penting lainnya dapat dianggap sebagai token</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nltk</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;punkt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[nltk_data] Downloading package punkt to /root/nltk_data...
+[nltk_data]   Unzipping tokenizers/punkt.zip.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># NLTK word Tokenize </span>
+<span class="k">def</span> <span class="nf">word_tokenize_wrapper</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">word_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">word_tokenize_wrapper</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     [penandatanganan, nota, kesepahaman, dan, perj...
+1     [desa, binaan, berbasis, potensi, lokal, penti...
+2     [download, logo, universitas, trunojoyo, madur...
+3     [unit, kegiatan, mahasiswa, universitas, truno...
+4     [kongres, ikatan, alumni, fakultas, hukum, uni...
+5     [ukm, paduan, suara, golden, universitas, trun...
+6     [bedah, buku, biografi, syaichona, moh, cholil...
+7                      [universitas, trunojoyo, madura]
+8     [anggota, kelompok, mohammad, afrizal, novi, t...
+9     [anggota, kelompok, mohammad, afrizal, novi, t...
+10    [utm, universitas, trunojoyo, madura, murceee,...
+11    [ukm, paduan, suara, golden, universitas, trun...
+12    [baru, saja, mengirim, foto, universitas, trun...
+13    [universitas, trunojoyo, madura, ukt, paling, ...
+14    [apakah, langkah, partai, nasdem, terlalu, cep...
+15    [wakil, ketua, mk, aswanto, memberikan, cerama...
+16    [ukm, paduan, suara, golden, universitas, trun...
+17    [ukm, paduan, suara, golden, universitas, trun...
+Name: tweet, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="filtering">
+<h2>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">#</a></h2>
+<p>Proses untuk menghapus kata hubung atau kata yang tidak memiliki makna</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nltk</span>
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;stopwords&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[nltk_data] Downloading package stopwords to /root/nltk_data...
+[nltk_data]   Unzipping corpora/stopwords.zip.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">list_stopwords</span> <span class="o">=</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;indonesian&#39;</span><span class="p">)</span>
+
+<span class="c1">#Menghapus Stopword dari list token</span>
+<span class="k">def</span> <span class="nf">stopwords_removal</span><span class="p">(</span><span class="n">words</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span> <span class="k">if</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">list_stopwords</span><span class="p">]</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">stopwords_removal</span><span class="p">)</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     [penandatanganan, nota, kesepahaman, perjanjia...
+1     [desa, binaan, berbasis, potensi, lokal, kesad...
+2     [download, logo, universitas, trunojoyo, madur...
+3     [unit, kegiatan, mahasiswa, universitas, truno...
+4     [kongres, ikatan, alumni, fakultas, hukum, uni...
+5     [ukm, paduan, suara, golden, universitas, trun...
+6     [bedah, buku, biografi, syaichona, moh, cholil...
+7                      [universitas, trunojoyo, madura]
+8     [anggota, kelompok, mohammad, afrizal, novi, t...
+9     [anggota, kelompok, mohammad, afrizal, novi, t...
+10    [utm, universitas, trunojoyo, madura, murceee,...
+11    [ukm, paduan, suara, golden, universitas, trun...
+12     [mengirim, foto, universitas, trunojoyo, madura]
+13    [universitas, trunojoyo, madura, ukt, tingginy...
+14    [langkah, partai, nasdem, cepat, live, ketua, ...
+15    [wakil, ketua, mk, aswanto, ceramah, kegiatan,...
+16    [ukm, paduan, suara, golden, universitas, trun...
+17    [ukm, paduan, suara, golden, universitas, trun...
+Name: tweet, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="stemming">
+<h2>Stemming<a class="headerlink" href="#stemming" title="Permalink to this headline">#</a></h2>
+<p>Data training hasil dari filtering akan dilakukan pengecekan atau pencarian kata-kata yang sesuai dengan kamus umum. Apabila data training hasil filtering sesuai dengan kamus umum maka kata akan dikeluarkan sementara, karena sudah dianggap sebagai kata dasar. Apabila masih terdapat kata yang tidak termasuk dalam kata dasar maka tahap selanjutnya adalah menghapus inflection suffixes yang merupakan akhiran pertama. Kata yang memiliki akhiran partticles seperti “-pun”, “-kah”, “-tah”, “- lah” dan akhiran possessive pronoun seperti “-mu”, “-ku” dan “-nya” dihilangkan. Setelah dilakukan proses case folding, tokenezing, dan filtering, proses selanjutnya yaitu stemming. Stemming yang digunakan pada penelitian ini menggunakan algoritma Enhanced Confix Stipping Stemmer, terdiri dari beberapa langkah: Data training hasil dari filtering akan dilakukan pengecekan atau pencarian kata-kata yang sesuai dengan kamus umum. Apabila data training hasil filtering sesuai dengan kamus umum maka kata akan dikeluarkan sementara, karena sudah dianggap sebagai kata dasar. Apabila masih terdapat kata yang tidak termasuk dalam kata dasar maka tahap selanjutnya adalah menghapus inflection suffixes yang merupakan akhiran pertama. Kata yang memiliki akhiran partticles seperti “-pun”, “-kah”, “-tah”, “- lah” dan akhiran possessive pronoun seperti “-mu”, “-ku” dan “-nya” dihilangkan.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Sastrawi.Stemmer.StemmerFactory</span> <span class="kn">import</span> <span class="n">StemmerFactory</span>
+<span class="kn">import</span> <span class="nn">swifter</span>
+
+<span class="c1"># create stemmer</span>
+<span class="n">factory</span> <span class="o">=</span> <span class="n">StemmerFactory</span><span class="p">()</span>
+<span class="n">stemmer</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="n">create_stemmer</span><span class="p">()</span>
+
+<span class="c1"># stemmed</span>
+<span class="k">def</span> <span class="nf">stemmed_wrapper</span><span class="p">(</span><span class="n">term</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+
+<span class="n">term_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">document</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">term</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">term_dict</span><span class="p">:</span>
+            <span class="n">term_dict</span><span class="p">[</span><span class="n">term</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span>
+            
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">term_dict</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;------------------------&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">term_dict</span><span class="p">:</span>
+    <span class="n">term_dict</span><span class="p">[</span><span class="n">term</span><span class="p">]</span> <span class="o">=</span> <span class="n">stemmed_wrapper</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">term</span><span class="p">,</span><span class="s2">&quot;:&quot;</span> <span class="p">,</span><span class="n">term_dict</span><span class="p">[</span><span class="n">term</span><span class="p">])</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="n">term_dict</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;------------------------&quot;</span><span class="p">)</span>
+
+<span class="c1"># apply stemmed term to dataframe</span>
+<span class="k">def</span> <span class="nf">get_stemmed_term</span><span class="p">(</span><span class="n">document</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">term_dict</span><span class="p">[</span><span class="n">term</span><span class="p">]</span> <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">document</span><span class="p">]</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">swifter</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">get_stemmed_term</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;tweet&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>165
+------------------------
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>penandatanganan : penandatanganan
+nota : nota
+kesepahaman : paham
+perjanjian : janji
+kerja : kerja
+universitas : universitas
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>trunojoyo : trunojoyo
+madura : madura
+ruang : ruang
+guru : guru
+tri : tri
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dharma : dharma
+perguruan : guru
+desa : desa
+binaan : bina
+berbasis : bas
+potensi : potensi
+lokal : lokal
+kesadaran : sadar
+hukum : hukum
+masyarakat : masyarakat
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bira : bira
+kabupaten : kabupaten
+sampang : sampang
+rangka : rangka
+dies : dies
+natalis : natalis
+fakultas : fakultas
+download : download
+logo : logo
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>vector : vector
+unit : unit
+kegiatan : giat
+mahasiswa : mahasiswa
+hello : hello
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>choristers : choristers
+were : were
+comeback : comeback
+so : so
+kali : kali
+ps : ps
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>golden : golden
+mengadakan : ada
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>choral : choral
+clinic : clinic
+dilaksanakan : laksana
+minggu : minggu
+tanggal : tanggal
+oktober : oktober
+selesai : selesai
+aula : aula
+rkb : rkb
+kongres : kongres
+ikatan : ikat
+alumni : alumni
+kolaborasi : kolaborasi
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mewujudkan : wujud
+utm : utm
+kompak : kompak
+berkah : berkah
+ukm : ukm
+paduan : padu
+suara : suara
+assalamualaikum : assalamualaikum
+wr : wr
+wb : wb
+selamat : selamat
+pagi : pagi
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>joss : joss
+segenap : segenap
+keluarga : keluarga
+memperingati : ingat
+maulid : maulid
+nabi : nabi
+muhammad : muhammad
+saw : saw
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>rabiul : rabiul
+hijriah : hijriah
+bedah : bedah
+buku : buku
+biografi : biografi
+syaichona : syaichona
+moh : moh
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cholil : cholil
+ulama : ulama
+pahlawan : pahlawan
+nasional : nasional
+anggota : anggota
+kelompok : kelompok
+mohammad : mohammad
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>afrizal : afrizal
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>novi : novi
+ulfatul : ulfatul
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fajriah : fajriah
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>albani : albani
+imam : imam
+firdaus : firdaus
+nur : nur
+muia : muia
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>isnai : isnai
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>angraini : angraini
+hengky : hengky
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>prasetya : prasetya
+kelas : kelas
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>prodi : prodi
+ilmu : ilmu
+murceee : murceee
+ukt : ukt
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tertinggi : tinggi
+jt : jt
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gais : gais
+sore : sore
+sedunia : dunia
+mengirim : kirim
+foto : foto
+tingginya : tinggi
+jeleknya : jelek
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dapet : dapet
+understimate : understimate
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>temen : temen
+sekelas : kelas
+pas : pas
+sma : sma
+aja : aja
+sih : sih
+langkah : langkah
+partai : partai
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>nasdem : nasdem
+cepat : cepat
+live : live
+ketua : ketua
+fraksi : fraksi
+dki : dki
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>jakarta : jakarta
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>wibi : wibi
+andrino : andrino
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pengamat : amat
+politik : politik
+surochim : surochim
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>abdussalam : abdussalam
+wakil : wakil
+mk : mk
+aswanto : aswanto
+ceramah : ceramah
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ngaji : ngaji
+konstitusi : konstitusi
+tema : tema
+tanggung : tanggung
+negara : negara
+adil : adil
+makmur : makmur
+diselenggarakan : selenggara
+jumat : jumat
+siang : siang
+menempuh : tempuh
+ujian : uji
+semester : semester
+gasal : gasal
+ta : ta
+berduka : duka
+cita : cita
+insiden : insiden
+stadion : stadion
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kanjuruhan : kanjuruhan
+malang : malang
+{&#39;penandatanganan&#39;: &#39;penandatanganan&#39;, &#39;nota&#39;: &#39;nota&#39;, &#39;kesepahaman&#39;: &#39;paham&#39;, &#39;perjanjian&#39;: &#39;janji&#39;, &#39;kerja&#39;: &#39;kerja&#39;, &#39;universitas&#39;: &#39;universitas&#39;, &#39;trunojoyo&#39;: &#39;trunojoyo&#39;, &#39;madura&#39;: &#39;madura&#39;, &#39;ruang&#39;: &#39;ruang&#39;, &#39;guru&#39;: &#39;guru&#39;, &#39;tri&#39;: &#39;tri&#39;, &#39;dharma&#39;: &#39;dharma&#39;, &#39;perguruan&#39;: &#39;guru&#39;, &#39;desa&#39;: &#39;desa&#39;, &#39;binaan&#39;: &#39;bina&#39;, &#39;berbasis&#39;: &#39;bas&#39;, &#39;potensi&#39;: &#39;potensi&#39;, &#39;lokal&#39;: &#39;lokal&#39;, &#39;kesadaran&#39;: &#39;sadar&#39;, &#39;hukum&#39;: &#39;hukum&#39;, &#39;masyarakat&#39;: &#39;masyarakat&#39;, &#39;bira&#39;: &#39;bira&#39;, &#39;kabupaten&#39;: &#39;kabupaten&#39;, &#39;sampang&#39;: &#39;sampang&#39;, &#39;rangka&#39;: &#39;rangka&#39;, &#39;dies&#39;: &#39;dies&#39;, &#39;natalis&#39;: &#39;natalis&#39;, &#39;fakultas&#39;: &#39;fakultas&#39;, &#39;download&#39;: &#39;download&#39;, &#39;logo&#39;: &#39;logo&#39;, &#39;vector&#39;: &#39;vector&#39;, &#39;unit&#39;: &#39;unit&#39;, &#39;kegiatan&#39;: &#39;giat&#39;, &#39;mahasiswa&#39;: &#39;mahasiswa&#39;, &#39;hello&#39;: &#39;hello&#39;, &#39;choristers&#39;: &#39;choristers&#39;, &#39;were&#39;: &#39;were&#39;, &#39;comeback&#39;: &#39;comeback&#39;, &#39;so&#39;: &#39;so&#39;, &#39;kali&#39;: &#39;kali&#39;, &#39;ps&#39;: &#39;ps&#39;, &#39;golden&#39;: &#39;golden&#39;, &#39;mengadakan&#39;: &#39;ada&#39;, &#39;choral&#39;: &#39;choral&#39;, &#39;clinic&#39;: &#39;clinic&#39;, &#39;dilaksanakan&#39;: &#39;laksana&#39;, &#39;minggu&#39;: &#39;minggu&#39;, &#39;tanggal&#39;: &#39;tanggal&#39;, &#39;oktober&#39;: &#39;oktober&#39;, &#39;selesai&#39;: &#39;selesai&#39;, &#39;aula&#39;: &#39;aula&#39;, &#39;rkb&#39;: &#39;rkb&#39;, &#39;kongres&#39;: &#39;kongres&#39;, &#39;ikatan&#39;: &#39;ikat&#39;, &#39;alumni&#39;: &#39;alumni&#39;, &#39;kolaborasi&#39;: &#39;kolaborasi&#39;, &#39;mewujudkan&#39;: &#39;wujud&#39;, &#39;utm&#39;: &#39;utm&#39;, &#39;kompak&#39;: &#39;kompak&#39;, &#39;berkah&#39;: &#39;berkah&#39;, &#39;ukm&#39;: &#39;ukm&#39;, &#39;paduan&#39;: &#39;padu&#39;, &#39;suara&#39;: &#39;suara&#39;, &#39;assalamualaikum&#39;: &#39;assalamualaikum&#39;, &#39;wr&#39;: &#39;wr&#39;, &#39;wb&#39;: &#39;wb&#39;, &#39;selamat&#39;: &#39;selamat&#39;, &#39;pagi&#39;: &#39;pagi&#39;, &#39;joss&#39;: &#39;joss&#39;, &#39;segenap&#39;: &#39;segenap&#39;, &#39;keluarga&#39;: &#39;keluarga&#39;, &#39;memperingati&#39;: &#39;ingat&#39;, &#39;maulid&#39;: &#39;maulid&#39;, &#39;nabi&#39;: &#39;nabi&#39;, &#39;muhammad&#39;: &#39;muhammad&#39;, &#39;saw&#39;: &#39;saw&#39;, &#39;rabiul&#39;: &#39;rabiul&#39;, &#39;hijriah&#39;: &#39;hijriah&#39;, &#39;bedah&#39;: &#39;bedah&#39;, &#39;buku&#39;: &#39;buku&#39;, &#39;biografi&#39;: &#39;biografi&#39;, &#39;syaichona&#39;: &#39;syaichona&#39;, &#39;moh&#39;: &#39;moh&#39;, &#39;cholil&#39;: &#39;cholil&#39;, &#39;ulama&#39;: &#39;ulama&#39;, &#39;pahlawan&#39;: &#39;pahlawan&#39;, &#39;nasional&#39;: &#39;nasional&#39;, &#39;anggota&#39;: &#39;anggota&#39;, &#39;kelompok&#39;: &#39;kelompok&#39;, &#39;mohammad&#39;: &#39;mohammad&#39;, &#39;afrizal&#39;: &#39;afrizal&#39;, &#39;novi&#39;: &#39;novi&#39;, &#39;ulfatul&#39;: &#39;ulfatul&#39;, &#39;fajriah&#39;: &#39;fajriah&#39;, &#39;albani&#39;: &#39;albani&#39;, &#39;imam&#39;: &#39;imam&#39;, &#39;firdaus&#39;: &#39;firdaus&#39;, &#39;nur&#39;: &#39;nur&#39;, &#39;muia&#39;: &#39;muia&#39;, &#39;isnai&#39;: &#39;isnai&#39;, &#39;angraini&#39;: &#39;angraini&#39;, &#39;hengky&#39;: &#39;hengky&#39;, &#39;prasetya&#39;: &#39;prasetya&#39;, &#39;kelas&#39;: &#39;kelas&#39;, &#39;prodi&#39;: &#39;prodi&#39;, &#39;ilmu&#39;: &#39;ilmu&#39;, &#39;murceee&#39;: &#39;murceee&#39;, &#39;ukt&#39;: &#39;ukt&#39;, &#39;tertinggi&#39;: &#39;tinggi&#39;, &#39;jt&#39;: &#39;jt&#39;, &#39;gais&#39;: &#39;gais&#39;, &#39;sore&#39;: &#39;sore&#39;, &#39;sedunia&#39;: &#39;dunia&#39;, &#39;mengirim&#39;: &#39;kirim&#39;, &#39;foto&#39;: &#39;foto&#39;, &#39;tingginya&#39;: &#39;tinggi&#39;, &#39;jeleknya&#39;: &#39;jelek&#39;, &#39;dapet&#39;: &#39;dapet&#39;, &#39;understimate&#39;: &#39;understimate&#39;, &#39;temen&#39;: &#39;temen&#39;, &#39;sekelas&#39;: &#39;kelas&#39;, &#39;pas&#39;: &#39;pas&#39;, &#39;sma&#39;: &#39;sma&#39;, &#39;aja&#39;: &#39;aja&#39;, &#39;sih&#39;: &#39;sih&#39;, &#39;langkah&#39;: &#39;langkah&#39;, &#39;partai&#39;: &#39;partai&#39;, &#39;nasdem&#39;: &#39;nasdem&#39;, &#39;cepat&#39;: &#39;cepat&#39;, &#39;live&#39;: &#39;live&#39;, &#39;ketua&#39;: &#39;ketua&#39;, &#39;fraksi&#39;: &#39;fraksi&#39;, &#39;dki&#39;: &#39;dki&#39;, &#39;jakarta&#39;: &#39;jakarta&#39;, &#39;wibi&#39;: &#39;wibi&#39;, &#39;andrino&#39;: &#39;andrino&#39;, &#39;pengamat&#39;: &#39;amat&#39;, &#39;politik&#39;: &#39;politik&#39;, &#39;surochim&#39;: &#39;surochim&#39;, &#39;abdussalam&#39;: &#39;abdussalam&#39;, &#39;wakil&#39;: &#39;wakil&#39;, &#39;mk&#39;: &#39;mk&#39;, &#39;aswanto&#39;: &#39;aswanto&#39;, &#39;ceramah&#39;: &#39;ceramah&#39;, &#39;ngaji&#39;: &#39;ngaji&#39;, &#39;konstitusi&#39;: &#39;konstitusi&#39;, &#39;tema&#39;: &#39;tema&#39;, &#39;tanggung&#39;: &#39;tanggung&#39;, &#39;negara&#39;: &#39;negara&#39;, &#39;adil&#39;: &#39;adil&#39;, &#39;makmur&#39;: &#39;makmur&#39;, &#39;diselenggarakan&#39;: &#39;selenggara&#39;, &#39;jumat&#39;: &#39;jumat&#39;, &#39;siang&#39;: &#39;siang&#39;, &#39;menempuh&#39;: &#39;tempuh&#39;, &#39;ujian&#39;: &#39;uji&#39;, &#39;semester&#39;: &#39;semester&#39;, &#39;gasal&#39;: &#39;gasal&#39;, &#39;ta&#39;: &#39;ta&#39;, &#39;berduka&#39;: &#39;duka&#39;, &#39;cita&#39;: &#39;cita&#39;, &#39;insiden&#39;: &#39;insiden&#39;, &#39;stadion&#39;: &#39;stadion&#39;, &#39;kanjuruhan&#39;: &#39;kanjuruhan&#39;, &#39;malang&#39;: &#39;malang&#39;}
+------------------------
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "fbb97c689cfb4d34840ac635be92ced0"}
+</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     [penandatanganan, nota, paham, janji, kerja, u...
+1     [desa, bina, bas, potensi, lokal, sadar, hukum...
+2     [download, logo, universitas, trunojoyo, madur...
+3     [unit, giat, mahasiswa, universitas, trunojoyo...
+4     [kongres, ikat, alumni, fakultas, hukum, unive...
+5     [ukm, padu, suara, golden, universitas, trunoj...
+6     [bedah, buku, biografi, syaichona, moh, cholil...
+7                      [universitas, trunojoyo, madura]
+8     [anggota, kelompok, mohammad, afrizal, novi, t...
+9     [anggota, kelompok, mohammad, afrizal, novi, t...
+10    [utm, universitas, trunojoyo, madura, murceee,...
+11    [ukm, padu, suara, golden, universitas, trunoj...
+12        [kirim, foto, universitas, trunojoyo, madura]
+13    [universitas, trunojoyo, madura, ukt, tinggi, ...
+14    [langkah, partai, nasdem, cepat, live, ketua, ...
+15    [wakil, ketua, mk, aswanto, ceramah, giat, nga...
+16    [ukm, padu, suara, golden, universitas, trunoj...
+17    [ukm, padu, suara, golden, universitas, trunoj...
+Name: tweet, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menyimpan-ke-file-csv">
+<h2>Menyimpan ke File CSV<a class="headerlink" href="#menyimpan-ke-file-csv" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;preprocessing.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {"336cf63ac2f0430cac202dcbd8bf0fed": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "978b80729c6d4dd8a028497c511d73c4": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "28c70bfd387a4473b1656a8883a4c904": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_336cf63ac2f0430cac202dcbd8bf0fed", "max": 18.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_978b80729c6d4dd8a028497c511d73c4", "value": 18.0}}, "c446f6eb86814ba4a4c4a89252e7a4a9": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "66740b734a6a4c129ec648a20d48378c": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "dfd9e4a507e74c70b8e25506e9995ff9": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_c446f6eb86814ba4a4c4a89252e7a4a9", "placeholder": "\u200b", "style": "IPY_MODEL_66740b734a6a4c129ec648a20d48378c", "value": "Pandas Apply: 100%"}}, "207c1976de0b4071bd07e08c1d888e60": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "735a5710f4124df3a974fb8c10697954": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "cee08186fc0f49c6b9d20c2391b6fdf2": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_207c1976de0b4071bd07e08c1d888e60", "placeholder": "\u200b", "style": "IPY_MODEL_735a5710f4124df3a974fb8c10697954", "value": " 18/18 [00:00&lt;00:00, 596.26it/s]"}}, "a591d55c68c24811b6ab3ac0123563b1": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "fbb97c689cfb4d34840ac635be92ced0": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_dfd9e4a507e74c70b8e25506e9995ff9", "IPY_MODEL_28c70bfd387a4473b1656a8883a4c904", "IPY_MODEL_cee08186fc0f49c6b9d20c2391b6fdf2"], "layout": "IPY_MODEL_a591d55c68c24811b6ab3ac0123563b1"}}}, "version_major": 2, "version_minor": 0}
+</script>
+
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="crawl-data-tweet.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Crawling Data</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="term-frequency.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Term Frequency, K-Means, Feature Selection, Information Gain</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Jupyter Book Community<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

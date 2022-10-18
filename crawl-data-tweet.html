@@ -1,0 +1,716 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Crawling Data &#8212; My sample book</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PreProcessing Data" href="prepro-tweet.html" />
+    <link rel="prev" title="Data Crawling" href="crawl-data-pta.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">My sample book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="crawl-data-pta.html">
+   Data Crawling
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Crawling Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="prepro-tweet.html">
+   PreProcessing Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="term-frequency.html">
+   Term Frequency, K-Means, Feature Selection, Information Gain
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="uts-nomor1.html">
+   Analisa Clustering dengan menggunakan K-means
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="uts-nomor2.html">
+   Peringkasan berita online menggunakan metode PageRank
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/crawl-data-tweet.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/AuliyaulUmam/webmining"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/crawl-data-tweet.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#twint">
+   Twint
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#instal-twint">
+     Instal Twint
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#nest-asyncio">
+   Nest Asyncio
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#instal-nest-asyncio">
+     Instal Nest Asyncio
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#crawl-data-tweet">
+   Crawl Data Tweet
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#membaca-data-tweet">
+     Membaca Data Tweet
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menyimpan-kedalam-file-csv">
+     Menyimpan Kedalam file CSV
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Crawling Data</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#twint">
+   Twint
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#instal-twint">
+     Instal Twint
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#nest-asyncio">
+   Nest Asyncio
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#instal-nest-asyncio">
+     Instal Nest Asyncio
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#crawl-data-tweet">
+   Crawl Data Tweet
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#membaca-data-tweet">
+     Membaca Data Tweet
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menyimpan-kedalam-file-csv">
+     Menyimpan Kedalam file CSV
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="crawling-data">
+<h1>Crawling Data<a class="headerlink" href="#crawling-data" title="Permalink to this headline">#</a></h1>
+<p>Data crawling atau perayapan data adalah proses pengambilan data yang tersedia secara online untuk umum. Proses ini kemudian mengimpor informasi atau data yang telah ditemukan ke dalam file lokal di komputer Anda.</p>
+<section id="twint">
+<h2>Twint<a class="headerlink" href="#twint" title="Permalink to this headline">#</a></h2>
+<p>Twint adalah sebuah tools yang digunakan untuk melakukan scrapping dari aplikasi twitter yang disetting secara khusus menggunakan bahasa pemrograman Python. Twint dapat kita gunakan dan jalankan tanpa harus menggunakan API dari Twitter itu sendiri, dengan kapasitas scrapping data maksimalnya adalah 3200 tweet.</p>
+<p>Bukan hanya digunakan pada tweet, twint juga bisa kita gunakan untuk melakukan scrapping pada user, followers, retweet dan sebagainya. Twint memanfaatkan operator pencarian twitter untuk memungkinkan proses penghapusan tweet dari user tertentu, memilih dan memilah informasi-informasi yang sensitif, termasuk email dan nomor telepon di dalamnya.</p>
+<section id="instal-twint">
+<h3>Instal Twint<a class="headerlink" href="#instal-twint" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>git clone --depth<span class="o">=</span><span class="m">1</span> https://github.com/twintproject/twint.git
+<span class="o">%</span><span class="k">cd</span> twint
+<span class="o">!</span>pip3 install . -r requirements.txt
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fatal: destination path &#39;twint&#39; already exists and is not an empty directory.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/content/drive/MyDrive/jupyter-book/mining/twint
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+Processing /content/drive/MyDrive/jupyter-book/mining/twint
+<span class=" -Color -Color-Yellow">  DEPRECATION: A future pip version will change local packages to be built in-place without first copying to a temporary directory. We recommend you use --use-feature=in-tree-build to test your packages with this new behavior before it becomes the default.</span>
+<span class=" -Color -Color-Yellow">   pip 21.3 will remove support for this functionality. You can find discussion regarding this at https://github.com/pypa/pip/issues/7555.</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Red">ERROR: Operation cancelled by user</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="nest-asyncio">
+<h2>Nest Asyncio<a class="headerlink" href="#nest-asyncio" title="Permalink to this headline">#</a></h2>
+<p>Dengan desain asyncio tidak memungkinkan loop acaranya untuk disarangkan. Ini menyajikan masalah praktis: Ketika berada di lingkungan di mana loop acara berada sudah berjalan tidak mungkin menjalankan tugas dan menunggu untuk hasilnya. Mencoba melakukannya akan memberikan kesalahan “<em>RuntimeError: This event loop is already running</em>”</p>
+<p>Masalah muncul di berbagai lingkungan, seperti server web, Aplikasi GUI dan di notebook Jupyter.</p>
+<p>Modul ini menambal asyncio untuk memungkinkan penggunaan “<em>asyncio.run</em>” dan “<em>loop.run_until_complete</em>”</p>
+<section id="instal-nest-asyncio">
+<h3>Instal Nest Asyncio<a class="headerlink" href="#instal-nest-asyncio" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install nest_asyncio
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+Collecting nest_asyncio
+  Downloading nest_asyncio-1.5.6-py3-none-any.whl (5.2 kB)
+Installing collected packages: nest-asyncio
+Successfully installed nest-asyncio-1.5.6
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install <span class="nv">aiohttp</span><span class="o">==</span><span class="m">3</span>.7.0
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+Collecting aiohttp==3.7.0
+  Downloading aiohttp-3.7.0-cp37-cp37m-manylinux2014_x86_64.whl (1.3 MB)
+     |████████████████████████████████| 1.3 MB 4.1 MB/s 
+?25hRequirement already satisfied: multidict&lt;7.0,&gt;=4.5 in /usr/local/lib/python3.7/dist-packages (from aiohttp==3.7.0) (6.0.2)
+Requirement already satisfied: attrs&gt;=17.3.0 in /usr/local/lib/python3.7/dist-packages (from aiohttp==3.7.0) (22.1.0)
+Collecting async-timeout&lt;4.0,&gt;=3.0
+  Downloading async_timeout-3.0.1-py3-none-any.whl (8.2 kB)
+Requirement already satisfied: chardet&lt;4.0,&gt;=2.0 in /usr/local/lib/python3.7/dist-packages (from aiohttp==3.7.0) (3.0.4)
+Requirement already satisfied: yarl&lt;2.0,&gt;=1.0 in /usr/local/lib/python3.7/dist-packages (from aiohttp==3.7.0) (1.8.1)
+Requirement already satisfied: typing-extensions&gt;=3.7.4 in /usr/local/lib/python3.7/dist-packages (from yarl&lt;2.0,&gt;=1.0-&gt;aiohttp==3.7.0) (4.1.1)
+Requirement already satisfied: idna&gt;=2.0 in /usr/local/lib/python3.7/dist-packages (from yarl&lt;2.0,&gt;=1.0-&gt;aiohttp==3.7.0) (2.10)
+Installing collected packages: async-timeout, aiohttp
+  Attempting uninstall: async-timeout
+    Found existing installation: async-timeout 4.0.2
+    Uninstalling async-timeout-4.0.2:
+      Successfully uninstalled async-timeout-4.0.2
+  Attempting uninstall: aiohttp
+    Found existing installation: aiohttp 3.8.3
+    Uninstalling aiohttp-3.8.3:
+      Successfully uninstalled aiohttp-3.8.3
+Successfully installed aiohttp-3.7.0 async-timeout-3.0.1
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="crawl-data-tweet">
+<h2>Crawl Data Tweet<a class="headerlink" href="#crawl-data-tweet" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">twint</span>
+<span class="kn">import</span> <span class="nn">nest_asyncio</span>
+<span class="n">nest_asyncio</span><span class="o">.</span><span class="n">apply</span><span class="p">()</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">twint</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
+<span class="n">c</span><span class="o">.</span><span class="n">Search</span> <span class="o">=</span> <span class="s1">&#39;Universitas Trunojoyo Madura&#39;</span>
+<span class="n">c</span><span class="o">.</span><span class="n">Pandas</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">c</span><span class="o">.</span><span class="n">Limit</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">twint</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">Search</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1582232591779799042 2022-10-18 04:50:20 +0000 &lt;HimagriUTM&gt; [Satukan Tujuan Menjadi Utama] ➖➖➖➖➖➖ 🌲Information Of The Day🌲  [PENDAFTARAN PELATIHAN DESIGN GRAFIS 2022]   Kali ini UKM FP Penalaran mengadakan event baru bagi Mahasiswa Fakultas Pertanian Universitas Trunojoyo Madura, yaitu Pelatihan Design Grafis.   ➖➖➖➖➖➖  https://t.co/zbFXhtx8jh
+1580487193067278337 2022-10-13 09:14:45 +0000 &lt;utmOfficial&gt; PENANDATANGANAN NOTA KESEPAHAMAN DAN PERJANJIAN KERJA SAMA  ANTARA UNIVERSITAS TRUNOJOYO MADURA DAN RUANG GURU Tentang Tri Dharma Perguruan Tinggi @ Universitas Trunojoyo  https://t.co/k4g8o1q5W3
+1580108848178003968 2022-10-12 08:11:21 +0000 &lt;utmOfficial&gt; DESA BINAAN  BERBASIS POTENSI LOKAL  “ PENTINGNYA KESADARAN HUKUM BAGI MASYARAKAT DESA BIRA TENGAH KABUPATEN SAMPANG Dalam Rangka Dies Natalis Yang Ke 41 Fakultas Hukum @ Universitas Trunojoyo  https://t.co/1UgxzJie0G
+1579475631553015810 2022-10-10 14:15:10 +0000 &lt;pelajarinfoid&gt; Download Logo Universitas Trunojoyo Madura Vector  https://t.co/ZP7ZLTlxjX
+1579315546440761344 2022-10-10 03:39:03 +0000 &lt;psgolden_utm&gt; [Unit Kegiatan Mahasiswa Universitas Trunojoyo Madura]  Hello Choristers✨ We’re Comeback! So, untuk kali ini PS Golden mengadakan kegiatan Choral Clinic yang akan dilaksanakan pada :  Hari : Minggu Tanggal : 9 Oktober 2022 Pukul : 09.00 - Selesai Tempat : Aula RKB A  https://t.co/1cQVwdQIui
+1579282832618565634 2022-10-10 01:29:03 +0000 &lt;utmOfficial&gt; KONGRES IKATAN ALUMNI FAKULTAS HUKUM UNIVERSITAS TRUNOJOYO MADURA “ KOLABORASI ALUMNI UNTUK MEWUJUDKAN FAKULTAS HUKUM UTM YANG KOMPAK DAN BERKAH” @ Universitas Trunojoyo  https://t.co/jpvxyZvjTk
+1578584156183105536 2022-10-08 03:12:46 +0000 &lt;psgolden_utm&gt; [UKM PADUAN SUARA GOLDEN UNIVERSITAS TRUNOJOYO MADURA]  Assalamu&#39;alaikum Wr. Wb. Selamat Pagi💫 PS Golden Joss💪🏿  Kami segenap keluarga besar Unit Kegiatan Mahasiswa Paduan Suara Golden mengucapkan SELAMAT MEMPERINGATI MAULID NABI MUHAMMAD SAW, 12 RABIUL AWAL 1444 HIJRIAH  https://t.co/OWbZYTFT8V
+1578279091178196992 2022-10-07 07:00:33 +0000 &lt;utmOfficial&gt; BEDAH BUKU BIOGRAFI SYAICHONA MOH. CHOLIL GURU PARA ULAMA DAN PAHLAWAN NASIONAL, DALAM RANGKA DIES NATALIS FAKULTAS HUKUM UNIVERSITAS TRUNOJOYO MADURA YANG 41. @ Universitas Trunojoyo  https://t.co/Z3c1oa6F54
+1578233995330195456 2022-10-07 04:01:21 +0000 &lt;mc_ddny&gt; @sbmptnfess Universitas trunojoyo madura
+1578202971468226560 2022-10-07 01:58:04 +0000 &lt;orderyybitch&gt; Anggota kelompok : -Mohammad Afrizal (220111100002) - Novi Tri Ulfatul Fajriah (220111100008)  -Albani Imam Firdaus (220111100015) - nur muia isnai angraini (220111100011) -Hengky Prasetya (2201111000389)  Kelas A Prodi Ilmu Hukum Fakultas Hukum Universitas Trunojoyo Madura 2022
+1578190653124620288 2022-10-07 01:09:07 +0000 &lt;UlfatulfajriahN&gt; Anggota kelompok : -Mohammad Afrizal (220111100002) - Novi Tri Ulfatul Fajriah (220111100008)  -Albani Imam Firdaus (220111100015) - nur muia isnai angraini (220111100011) -Hengky Prasetya (2201111000389) Kelas A Prodi Ilmu Hukum Fakultas Hukum Universitas Trunojoyo Madura 2022
+1577871101538881536 2022-10-06 03:59:20 +0000 &lt;halimah_sifa&gt; @convomfs UTM. Universitas Trunojoyo Madura murceee. UKT tertinggi 3jt gais
+1577579457845788672 2022-10-05 08:40:27 +0000 &lt;psgolden_utm&gt; [UKM PADUAN SUARA GOLDEN UNIVERSITAS TRUNOJOYO MADURA]  Assalamu&#39;alaikum Wr. Wb. Selamat Sore💫 PS Golden Joss💪  Kami segenap keluarga besar Unit Kegiatan Mahasiswa Paduan Suara Golden mengucapkan Selamat Hari Guru Sedunia 2022  https://t.co/vrU7akz1Xw
+1577495753261518850 2022-10-05 03:07:50 +0000 &lt;fikrihadi13&gt; Baru saja mengirim foto @ Universitas Trunojoyo Madura  https://t.co/fXeUN3vGyh
+1577194511767257089 2022-10-04 07:10:49 +0000 &lt;saenimoa&gt; universitas Trunojoyo madura. ukt paling tingginya 3 jt, jeleknya cuma dapet understimate dari temen sekelas pas sma aja sih🤗🤗🤗🤗🤗🤗🤗🤗🤗🤗😔
+1577106493307990016 2022-10-04 01:21:03 +0000 &lt;RadioElshinta&gt; Apakah langkah Partai Nasdem terlalu cepat ?   Live:   1. Ketua Fraksi Partai Nasdem DKI Jakarta Wibi Andrino  2. Pengamat Politik dari Universitas Trunojoyo Madura, Surochim Abdussalam  https://t.co/scPqizgXR0
+1576957098373455874 2022-10-03 15:27:25 +0000 &lt;officialMKRI&gt; 1. Wakil Ketua MK Aswanto memberikan ceramah dalam kegiatan Ngaji Konstitusi dengan tema “Konstitusi dan Tanggung Jawab Negara dalam Mewujudkan Adil dan Makmur” yang diselenggarakan oleh Fakultas Hukum Universitas Trunojoyo Madura (UTM) pada Jumat (30/9). (2/5)  https://t.co/IavepSm9ra
+1576770031110615040 2022-10-03 03:04:05 +0000 &lt;psgolden_utm&gt; [UKM PADUAN SUARA GOLDEN UNIVERSITAS TRUNOJOYO MADURA]  Assalamualaikum Wr. Wb. Selamat Siang PS Golden Joss💪  Kami segenap keluarga besar Unit Kegiatan Mahasiswa Paduan Suara Golden mengucapkan Selamat Menempuh Ujian Tengah Semester Gasal TA 2022/2023  https://t.co/n93zMiN1fz
+1576750511227039749 2022-10-03 01:46:31 +0000 &lt;psgolden_utm&gt; [UKM PADUAN SUARA GOLDEN UNIVERSITAS TRUNOJOYO MADURA]  Assalamu&#39;alaikum Wr. Wb. Selamat Pagi💫 Ps Golden Joss💪🏼  Segenap Keluarga UKM Paduan Suara Golden UTM Mengucapkan Turut Berduka Cita atas Insiden yang Terjadi di Stadion Kanjuruhan, Malang  https://t.co/Dr9eju3Qc0
+[!] No more data! Scraping will stop now.
+found 0 deleted tweets in this search.
+</pre></div>
+</div>
+</div>
+</div>
+<section id="membaca-data-tweet">
+<h3>Membaca Data Tweet<a class="headerlink" href="#membaca-data-tweet" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Tweets_dfs</span> <span class="o">=</span> <span class="n">twint</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">panda</span><span class="o">.</span><span class="n">Tweets_df</span>
+<span class="n">Tweets_dfs</span><span class="p">[</span><span class="s2">&quot;tweet&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     [Satukan Tujuan Menjadi Utama] ➖➖➖➖➖➖ 🌲Informa...
+1     PENANDATANGANAN NOTA KESEPAHAMAN DAN PERJANJIA...
+2     DESA BINAAN  BERBASIS POTENSI LOKAL  “ PENTING...
+3     Download Logo Universitas Trunojoyo Madura Vec...
+4     [Unit Kegiatan Mahasiswa Universitas Trunojoyo...
+5     KONGRES IKATAN ALUMNI FAKULTAS HUKUM UNIVERSIT...
+6     [UKM PADUAN SUARA GOLDEN UNIVERSITAS TRUNOJOYO...
+7     BEDAH BUKU BIOGRAFI SYAICHONA MOH. CHOLIL GURU...
+8              @sbmptnfess Universitas trunojoyo madura
+9     Anggota kelompok : -Mohammad Afrizal (22011110...
+10    Anggota kelompok : -Mohammad Afrizal (22011110...
+11    @convomfs UTM. Universitas Trunojoyo Madura mu...
+12    [UKM PADUAN SUARA GOLDEN UNIVERSITAS TRUNOJOYO...
+13    Baru saja mengirim foto @ Universitas Trunojoy...
+14    universitas Trunojoyo madura. ukt paling tingg...
+15    Apakah langkah Partai Nasdem terlalu cepat ?  ...
+16    1. Wakil Ketua MK Aswanto memberikan ceramah d...
+17    [UKM PADUAN SUARA GOLDEN UNIVERSITAS TRUNOJOYO...
+18    [UKM PADUAN SUARA GOLDEN UNIVERSITAS TRUNOJOYO...
+Name: tweet, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menyimpan-kedalam-file-csv">
+<h3>Menyimpan Kedalam file CSV<a class="headerlink" href="#menyimpan-kedalam-file-csv" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Tweets_dfs</span><span class="p">[</span><span class="s2">&quot;tweet&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;utm.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="crawl-data-pta.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Data Crawling</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="prepro-tweet.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">PreProcessing Data</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Jupyter Book Community<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

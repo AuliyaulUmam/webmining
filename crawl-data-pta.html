@@ -1,0 +1,1690 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Data Crawling &#8212; My sample book</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Crawling Data" href="crawl-data-tweet.html" />
+    <link rel="prev" title="Welcome to your Jupyter Book" href="intro.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">My sample book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Data Crawling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="crawl-data-tweet.html">
+   Crawling Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="prepro-tweet.html">
+   PreProcessing Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="term-frequency.html">
+   Term Frequency, K-Means, Feature Selection, Information Gain
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="uts-nomor1.html">
+   Analisa Clustering dengan menggunakan K-means
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="uts-nomor2.html">
+   Peringkasan berita online menggunakan metode PageRank
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/crawl-data-pta.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/AuliyaulUmam/webmining"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/crawl-data-pta.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scrapy">
+   Scrapy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#install-scrapy">
+   Install Scrapy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#membuat-file-project-scrapy">
+   Membuat file Project Scrapy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#masuk-ke-folder-project-yang-dibuat">
+   Masuk ke Folder Project yang dibuat
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#membuat-file-spider">
+   Membuat File Spider
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#menuliskan-program-scapper">
+   Menuliskan Program Scapper
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#jalankan-file-spider">
+   Jalankan File Spider
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#menyimpan-data-abstrak-ke-format-csv">
+   Menyimpan data abstrak ke format CSV
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Data Crawling</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scrapy">
+   Scrapy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#install-scrapy">
+   Install Scrapy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#membuat-file-project-scrapy">
+   Membuat file Project Scrapy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#masuk-ke-folder-project-yang-dibuat">
+   Masuk ke Folder Project yang dibuat
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#membuat-file-spider">
+   Membuat File Spider
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#menuliskan-program-scapper">
+   Menuliskan Program Scapper
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#jalankan-file-spider">
+   Jalankan File Spider
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#menyimpan-data-abstrak-ke-format-csv">
+   Menyimpan data abstrak ke format CSV
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="data-crawling">
+<h1>Data Crawling<a class="headerlink" href="#data-crawling" title="Permalink to this headline">#</a></h1>
+<p>Dara Crawling atau penyerapan data adalah proses pengambilan data yang tersedia secara online untuk umum. Proses ini kemudian mengimpor informasi atau data yang telah ditemukan ke dalam file lokal di komputer Anda.</p>
+<section id="scrapy">
+<h2>Scrapy<a class="headerlink" href="#scrapy" title="Permalink to this headline">#</a></h2>
+<p>Kerangka kerja aplikasi untuk crawling web site dan mengekstraksi data terstruktur yang dapat digunakan untuk berbagai aplikasi yang bermanfaat, seperti data mining, pemrosesan informasi atau arsip sejarah.</p>
+</section>
+<section id="install-scrapy">
+<h2>Install Scrapy<a class="headerlink" href="#install-scrapy" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install scrapy
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting scrapy
+  Using cached Scrapy-2.7.0-py2.py3-none-any.whl (270 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting itemloaders&gt;=1.0.1
+  Using cached itemloaders-1.0.6-py3-none-any.whl (11 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting parsel&gt;=1.5.0
+  Using cached parsel-1.6.0-py2.py3-none-any.whl (13 kB)
+Requirement already satisfied: packaging in /usr/local/lib/python3.7/dist-packages (from scrapy) (21.3)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting service-identity&gt;=18.1.0
+  Using cached service_identity-21.1.0-py2.py3-none-any.whl (12 kB)
+Collecting PyDispatcher&gt;=2.0.5
+  Downloading PyDispatcher-2.0.6.tar.gz (38 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: lxml&gt;=4.3.0 in /usr/local/lib/python3.7/dist-packages (from scrapy) (4.9.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pyOpenSSL&gt;=21.0.0
+  Using cached pyOpenSSL-22.1.0-py3-none-any.whl (57 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting protego&gt;=0.1.15
+  Using cached Protego-0.2.1-py2.py3-none-any.whl (8.2 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting itemadapter&gt;=0.1.0
+  Downloading itemadapter-0.7.0-py3-none-any.whl (10 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting tldextract
+  Downloading tldextract-3.4.0-py3-none-any.whl (93 kB)
+?25l
+     |███▌                            | 10 kB 23.2 MB/s eta 0:00:01
+     |███████                         | 20 kB 27.1 MB/s eta 0:00:01
+     |██████████▌                     | 30 kB 33.0 MB/s eta 0:00:01
+     |██████████████                  | 40 kB 34.7 MB/s eta 0:00:01
+     |█████████████████▍              | 51 kB 24.5 MB/s eta 0:00:01
+     |█████████████████████           | 61 kB 27.0 MB/s eta 0:00:01
+     |████████████████████████▍       | 71 kB 6.0 MB/s eta 0:00:01
+     |████████████████████████████    | 81 kB 6.7 MB/s eta 0:00:01
+     |███████████████████████████████▍| 92 kB 7.4 MB/s eta 0:00:01
+     |████████████████████████████████| 93 kB 2.0 MB/s 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25hCollecting queuelib&gt;=1.4.2
+  Using cached queuelib-1.6.2-py2.py3-none-any.whl (13 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting cryptography&gt;=3.3
+  Downloading cryptography-38.0.1-cp36-abi3-manylinux_2_24_x86_64.whl (4.0 MB)
+?25l
+     |                                | 10 kB 36.0 MB/s eta 0:00:01
+     |▏                               | 20 kB 44.9 MB/s eta 0:00:01
+     |▎                               | 30 kB 46.9 MB/s eta 0:00:01
+     |▎                               | 40 kB 40.6 MB/s eta 0:00:01
+     |▍                               | 51 kB 26.2 MB/s eta 0:00:01
+     |▌                               | 61 kB 29.0 MB/s eta 0:00:01
+     |▋                               | 71 kB 23.4 MB/s eta 0:00:01
+     |▋                               | 81 kB 25.0 MB/s eta 0:00:01
+     |▊                               | 92 kB 27.0 MB/s eta 0:00:01
+     |▉                               | 102 kB 26.0 MB/s eta 0:00:01
+     |█                               | 112 kB 26.0 MB/s eta 0:00:01
+     |█                               | 122 kB 26.0 MB/s eta 0:00:01
+     |█                               | 133 kB 26.0 MB/s eta 0:00:01
+     |█▏                              | 143 kB 26.0 MB/s eta 0:00:01
+     |█▏                              | 153 kB 26.0 MB/s eta 0:00:01
+     |█▎                              | 163 kB 26.0 MB/s eta 0:00:01
+     |█▍                              | 174 kB 26.0 MB/s eta 0:00:01
+     |█▌                              | 184 kB 26.0 MB/s eta 0:00:01
+     |█▌                              | 194 kB 26.0 MB/s eta 0:00:01
+     |█▋                              | 204 kB 26.0 MB/s eta 0:00:01
+     |█▊                              | 215 kB 26.0 MB/s eta 0:00:01
+     |█▉                              | 225 kB 26.0 MB/s eta 0:00:01
+     |█▉                              | 235 kB 26.0 MB/s eta 0:00:01
+     |██                              | 245 kB 26.0 MB/s eta 0:00:01
+     |██                              | 256 kB 26.0 MB/s eta 0:00:01
+     |██                              | 266 kB 26.0 MB/s eta 0:00:01
+     |██▏                             | 276 kB 26.0 MB/s eta 0:00:01
+     |██▎                             | 286 kB 26.0 MB/s eta 0:00:01
+     |██▍                             | 296 kB 26.0 MB/s eta 0:00:01
+     |██▍                             | 307 kB 26.0 MB/s eta 0:00:01
+     |██▌                             | 317 kB 26.0 MB/s eta 0:00:01
+     |██▋                             | 327 kB 26.0 MB/s eta 0:00:01
+     |██▊                             | 337 kB 26.0 MB/s eta 0:00:01
+     |██▊                             | 348 kB 26.0 MB/s eta 0:00:01
+     |██▉                             | 358 kB 26.0 MB/s eta 0:00:01
+     |███                             | 368 kB 26.0 MB/s eta 0:00:01
+     |███                             | 378 kB 26.0 MB/s eta 0:00:01
+     |███                             | 389 kB 26.0 MB/s eta 0:00:01
+     |███▏                            | 399 kB 26.0 MB/s eta 0:00:01
+     |███▎                            | 409 kB 26.0 MB/s eta 0:00:01
+     |███▎                            | 419 kB 26.0 MB/s eta 0:00:01
+     |███▍                            | 430 kB 26.0 MB/s eta 0:00:01
+     |███▌                            | 440 kB 26.0 MB/s eta 0:00:01
+     |███▋                            | 450 kB 26.0 MB/s eta 0:00:01
+     |███▋                            | 460 kB 26.0 MB/s eta 0:00:01
+     |███▊                            | 471 kB 26.0 MB/s eta 0:00:01
+     |███▉                            | 481 kB 26.0 MB/s eta 0:00:01
+     |███▉                            | 491 kB 26.0 MB/s eta 0:00:01
+     |████                            | 501 kB 26.0 MB/s eta 0:00:01
+     |████                            | 512 kB 26.0 MB/s eta 0:00:01
+     |████▏                           | 522 kB 26.0 MB/s eta 0:00:01
+     |████▏                           | 532 kB 26.0 MB/s eta 0:00:01
+     |████▎                           | 542 kB 26.0 MB/s eta 0:00:01
+     |████▍                           | 552 kB 26.0 MB/s eta 0:00:01
+     |████▌                           | 563 kB 26.0 MB/s eta 0:00:01
+     |████▌                           | 573 kB 26.0 MB/s eta 0:00:01
+     |████▋                           | 583 kB 26.0 MB/s eta 0:00:01
+     |████▊                           | 593 kB 26.0 MB/s eta 0:00:01
+     |████▉                           | 604 kB 26.0 MB/s eta 0:00:01
+     |████▉                           | 614 kB 26.0 MB/s eta 0:00:01
+     |█████                           | 624 kB 26.0 MB/s eta 0:00:01
+     |█████                           | 634 kB 26.0 MB/s eta 0:00:01
+     |█████                           | 645 kB 26.0 MB/s eta 0:00:01
+     |█████▏                          | 655 kB 26.0 MB/s eta 0:00:01
+     |█████▎                          | 665 kB 26.0 MB/s eta 0:00:01
+     |█████▍                          | 675 kB 26.0 MB/s eta 0:00:01
+     |█████▍                          | 686 kB 26.0 MB/s eta 0:00:01
+     |█████▌                          | 696 kB 26.0 MB/s eta 0:00:01
+     |█████▋                          | 706 kB 26.0 MB/s eta 0:00:01
+     |█████▊                          | 716 kB 26.0 MB/s eta 0:00:01
+     |█████▊                          | 727 kB 26.0 MB/s eta 0:00:01
+     |█████▉                          | 737 kB 26.0 MB/s eta 0:00:01
+     |██████                          | 747 kB 26.0 MB/s eta 0:00:01
+     |██████                          | 757 kB 26.0 MB/s eta 0:00:01
+     |██████                          | 768 kB 26.0 MB/s eta 0:00:01
+     |██████▏                         | 778 kB 26.0 MB/s eta 0:00:01
+     |██████▎                         | 788 kB 26.0 MB/s eta 0:00:01
+     |██████▎                         | 798 kB 26.0 MB/s eta 0:00:01
+     |██████▍                         | 808 kB 26.0 MB/s eta 0:00:01
+     |██████▌                         | 819 kB 26.0 MB/s eta 0:00:01
+     |██████▋                         | 829 kB 26.0 MB/s eta 0:00:01
+     |██████▋                         | 839 kB 26.0 MB/s eta 0:00:01
+     |██████▊                         | 849 kB 26.0 MB/s eta 0:00:01
+     |██████▉                         | 860 kB 26.0 MB/s eta 0:00:01
+     |██████▉                         | 870 kB 26.0 MB/s eta 0:00:01
+     |███████                         | 880 kB 26.0 MB/s eta 0:00:01
+     |███████                         | 890 kB 26.0 MB/s eta 0:00:01
+     |███████▏                        | 901 kB 26.0 MB/s eta 0:00:01
+     |███████▏                        | 911 kB 26.0 MB/s eta 0:00:01
+     |███████▎                        | 921 kB 26.0 MB/s eta 0:00:01
+     |███████▍                        | 931 kB 26.0 MB/s eta 0:00:01
+     |███████▌                        | 942 kB 26.0 MB/s eta 0:00:01
+     |███████▌                        | 952 kB 26.0 MB/s eta 0:00:01
+     |███████▋                        | 962 kB 26.0 MB/s eta 0:00:01
+     |███████▊                        | 972 kB 26.0 MB/s eta 0:00:01
+     |███████▊                        | 983 kB 26.0 MB/s eta 0:00:01
+     |███████▉                        | 993 kB 26.0 MB/s eta 0:00:01
+     |████████                        | 1.0 MB 26.0 MB/s eta 0:00:01
+     |████████                        | 1.0 MB 26.0 MB/s eta 0:00:01
+     |████████                        | 1.0 MB 26.0 MB/s eta 0:00:01
+     |████████▏                       | 1.0 MB 26.0 MB/s eta 0:00:01
+     |████████▎                       | 1.0 MB 26.0 MB/s eta 0:00:01
+     |████████▍                       | 1.1 MB 26.0 MB/s eta 0:00:01
+     |████████▍                       | 1.1 MB 26.0 MB/s eta 0:00:01
+     |████████▌                       | 1.1 MB 26.0 MB/s eta 0:00:01
+     |████████▋                       | 1.1 MB 26.0 MB/s eta 0:00:01
+     |████████▊                       | 1.1 MB 26.0 MB/s eta 0:00:01
+     |████████▊                       | 1.1 MB 26.0 MB/s eta 0:00:01
+     |████████▉                       | 1.1 MB 26.0 MB/s eta 0:00:01
+     |█████████                       | 1.1 MB 26.0 MB/s eta 0:00:01
+     |█████████                       | 1.1 MB 26.0 MB/s eta 0:00:01
+     |█████████                       | 1.1 MB 26.0 MB/s eta 0:00:01
+     |█████████▏                      | 1.2 MB 26.0 MB/s eta 0:00:01
+     |█████████▎                      | 1.2 MB 26.0 MB/s eta 0:00:01
+     |█████████▎                      | 1.2 MB 26.0 MB/s eta 0:00:01
+     |█████████▍                      | 1.2 MB 26.0 MB/s eta 0:00:01
+     |█████████▌                      | 1.2 MB 26.0 MB/s eta 0:00:01
+     |█████████▋                      | 1.2 MB 26.0 MB/s eta 0:00:01
+     |█████████▋                      | 1.2 MB 26.0 MB/s eta 0:00:01
+     |█████████▊                      | 1.2 MB 26.0 MB/s eta 0:00:01
+     |█████████▉                      | 1.2 MB 26.0 MB/s eta 0:00:01
+     |█████████▉                      | 1.2 MB 26.0 MB/s eta 0:00:01
+     |██████████                      | 1.3 MB 26.0 MB/s eta 0:00:01
+     |██████████                      | 1.3 MB 26.0 MB/s eta 0:00:01
+     |██████████▏                     | 1.3 MB 26.0 MB/s eta 0:00:01
+     |██████████▏                     | 1.3 MB 26.0 MB/s eta 0:00:01
+     |██████████▎                     | 1.3 MB 26.0 MB/s eta 0:00:01
+     |██████████▍                     | 1.3 MB 26.0 MB/s eta 0:00:01
+     |██████████▌                     | 1.3 MB 26.0 MB/s eta 0:00:01
+     |██████████▌                     | 1.3 MB 26.0 MB/s eta 0:00:01
+     |██████████▋                     | 1.3 MB 26.0 MB/s eta 0:00:01
+     |██████████▊                     | 1.4 MB 26.0 MB/s eta 0:00:01
+     |██████████▊                     | 1.4 MB 26.0 MB/s eta 0:00:01
+     |██████████▉                     | 1.4 MB 26.0 MB/s eta 0:00:01
+     |███████████                     | 1.4 MB 26.0 MB/s eta 0:00:01
+     |███████████                     | 1.4 MB 26.0 MB/s eta 0:00:01
+     |███████████                     | 1.4 MB 26.0 MB/s eta 0:00:01
+     |███████████▏                    | 1.4 MB 26.0 MB/s eta 0:00:01
+     |███████████▎                    | 1.4 MB 26.0 MB/s eta 0:00:01
+     |███████████▍                    | 1.4 MB 26.0 MB/s eta 0:00:01
+     |███████████▍                    | 1.4 MB 26.0 MB/s eta 0:00:01
+     |███████████▌                    | 1.5 MB 26.0 MB/s eta 0:00:01
+     |███████████▋                    | 1.5 MB 26.0 MB/s eta 0:00:01
+     |███████████▋                    | 1.5 MB 26.0 MB/s eta 0:00:01
+     |███████████▊                    | 1.5 MB 26.0 MB/s eta 0:00:01
+     |███████████▉                    | 1.5 MB 26.0 MB/s eta 0:00:01
+     |████████████                    | 1.5 MB 26.0 MB/s eta 0:00:01
+     |████████████                    | 1.5 MB 26.0 MB/s eta 0:00:01
+     |████████████                    | 1.5 MB 26.0 MB/s eta 0:00:01
+     |████████████▏                   | 1.5 MB 26.0 MB/s eta 0:00:01
+     |████████████▎                   | 1.5 MB 26.0 MB/s eta 0:00:01
+     |████████████▎                   | 1.6 MB 26.0 MB/s eta 0:00:01
+     |████████████▍                   | 1.6 MB 26.0 MB/s eta 0:00:01
+     |████████████▌                   | 1.6 MB 26.0 MB/s eta 0:00:01
+     |████████████▌                   | 1.6 MB 26.0 MB/s eta 0:00:01
+     |████████████▋                   | 1.6 MB 26.0 MB/s eta 0:00:01
+     |████████████▊                   | 1.6 MB 26.0 MB/s eta 0:00:01
+     |████████████▉                   | 1.6 MB 26.0 MB/s eta 0:00:01
+     |████████████▉                   | 1.6 MB 26.0 MB/s eta 0:00:01
+     |█████████████                   | 1.6 MB 26.0 MB/s eta 0:00:01
+     |█████████████                   | 1.6 MB 26.0 MB/s eta 0:00:01
+     |█████████████▏                  | 1.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████▏                  | 1.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████▎                  | 1.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████▍                  | 1.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████▌                  | 1.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████▌                  | 1.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████▋                  | 1.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████▊                  | 1.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████▊                  | 1.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████▉                  | 1.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████                  | 1.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████                  | 1.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████                  | 1.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████▏                 | 1.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████▎                 | 1.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████▍                 | 1.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████▍                 | 1.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████▌                 | 1.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████▋                 | 1.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████▋                 | 1.9 MB 26.0 MB/s eta 0:00:01
+     |██████████████▊                 | 1.9 MB 26.0 MB/s eta 0:00:01
+     |██████████████▉                 | 1.9 MB 26.0 MB/s eta 0:00:01
+     |███████████████                 | 1.9 MB 26.0 MB/s eta 0:00:01
+     |███████████████                 | 1.9 MB 26.0 MB/s eta 0:00:01
+     |███████████████                 | 1.9 MB 26.0 MB/s eta 0:00:01
+     |███████████████▏                | 1.9 MB 26.0 MB/s eta 0:00:01
+     |███████████████▎                | 1.9 MB 26.0 MB/s eta 0:00:01
+     |███████████████▎                | 1.9 MB 26.0 MB/s eta 0:00:01
+     |███████████████▍                | 1.9 MB 26.0 MB/s eta 0:00:01
+     |███████████████▌                | 2.0 MB 26.0 MB/s eta 0:00:01
+     |███████████████▌                | 2.0 MB 26.0 MB/s eta 0:00:01
+     |███████████████▋                | 2.0 MB 26.0 MB/s eta 0:00:01
+     |███████████████▊                | 2.0 MB 26.0 MB/s eta 0:00:01
+     |███████████████▉                | 2.0 MB 26.0 MB/s eta 0:00:01
+     |███████████████▉                | 2.0 MB 26.0 MB/s eta 0:00:01
+     |████████████████                | 2.0 MB 26.0 MB/s eta 0:00:01
+     |████████████████                | 2.0 MB 26.0 MB/s eta 0:00:01
+     |████████████████▏               | 2.0 MB 26.0 MB/s eta 0:00:01
+     |████████████████▏               | 2.0 MB 26.0 MB/s eta 0:00:01
+     |████████████████▎               | 2.1 MB 26.0 MB/s eta 0:00:01
+     |████████████████▍               | 2.1 MB 26.0 MB/s eta 0:00:01
+     |████████████████▍               | 2.1 MB 26.0 MB/s eta 0:00:01
+     |████████████████▌               | 2.1 MB 26.0 MB/s eta 0:00:01
+     |████████████████▋               | 2.1 MB 26.0 MB/s eta 0:00:01
+     |████████████████▊               | 2.1 MB 26.0 MB/s eta 0:00:01
+     |████████████████▊               | 2.1 MB 26.0 MB/s eta 0:00:01
+     |████████████████▉               | 2.1 MB 26.0 MB/s eta 0:00:01
+     |█████████████████               | 2.1 MB 26.0 MB/s eta 0:00:01
+     |█████████████████               | 2.2 MB 26.0 MB/s eta 0:00:01
+     |█████████████████               | 2.2 MB 26.0 MB/s eta 0:00:01
+     |█████████████████▏              | 2.2 MB 26.0 MB/s eta 0:00:01
+     |█████████████████▎              | 2.2 MB 26.0 MB/s eta 0:00:01
+     |█████████████████▍              | 2.2 MB 26.0 MB/s eta 0:00:01
+     |█████████████████▍              | 2.2 MB 26.0 MB/s eta 0:00:01
+     |█████████████████▌              | 2.2 MB 26.0 MB/s eta 0:00:01
+     |█████████████████▋              | 2.2 MB 26.0 MB/s eta 0:00:01
+     |█████████████████▋              | 2.2 MB 26.0 MB/s eta 0:00:01
+     |█████████████████▊              | 2.2 MB 26.0 MB/s eta 0:00:01
+     |█████████████████▉              | 2.3 MB 26.0 MB/s eta 0:00:01
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     |██████████████████              | 2.3 MB 26.0 MB/s eta 0:00:01
+     |██████████████████              | 2.3 MB 26.0 MB/s eta 0:00:01
+     |██████████████████              | 2.3 MB 26.0 MB/s eta 0:00:01
+     |██████████████████▏             | 2.3 MB 26.0 MB/s eta 0:00:01
+     |██████████████████▎             | 2.3 MB 26.0 MB/s eta 0:00:01
+     |██████████████████▎             | 2.3 MB 26.0 MB/s eta 0:00:01
+     |██████████████████▍             | 2.3 MB 26.0 MB/s eta 0:00:01
+     |██████████████████▌             | 2.3 MB 26.0 MB/s eta 0:00:01
+     |██████████████████▌             | 2.3 MB 26.0 MB/s eta 0:00:01
+     |██████████████████▋             | 2.4 MB 26.0 MB/s eta 0:00:01
+     |██████████████████▊             | 2.4 MB 26.0 MB/s eta 0:00:01
+     |██████████████████▉             | 2.4 MB 26.0 MB/s eta 0:00:01
+     |██████████████████▉             | 2.4 MB 26.0 MB/s eta 0:00:01
+     |███████████████████             | 2.4 MB 26.0 MB/s eta 0:00:01
+     |███████████████████             | 2.4 MB 26.0 MB/s eta 0:00:01
+     |███████████████████▏            | 2.4 MB 26.0 MB/s eta 0:00:01
+     |███████████████████▏            | 2.4 MB 26.0 MB/s eta 0:00:01
+     |███████████████████▎            | 2.4 MB 26.0 MB/s eta 0:00:01
+     |███████████████████▍            | 2.4 MB 26.0 MB/s eta 0:00:01
+     |███████████████████▍            | 2.5 MB 26.0 MB/s eta 0:00:01
+     |███████████████████▌            | 2.5 MB 26.0 MB/s eta 0:00:01
+     |███████████████████▋            | 2.5 MB 26.0 MB/s eta 0:00:01
+     |███████████████████▊            | 2.5 MB 26.0 MB/s eta 0:00:01
+     |███████████████████▊            | 2.5 MB 26.0 MB/s eta 0:00:01
+     |███████████████████▉            | 2.5 MB 26.0 MB/s eta 0:00:01
+     |████████████████████            | 2.5 MB 26.0 MB/s eta 0:00:01
+     |████████████████████            | 2.5 MB 26.0 MB/s eta 0:00:01
+     |████████████████████            | 2.5 MB 26.0 MB/s eta 0:00:01
+     |████████████████████▏           | 2.5 MB 26.0 MB/s eta 0:00:01
+     |████████████████████▎           | 2.6 MB 26.0 MB/s eta 0:00:01
+     |████████████████████▎           | 2.6 MB 26.0 MB/s eta 0:00:01
+     |████████████████████▍           | 2.6 MB 26.0 MB/s eta 0:00:01
+     |████████████████████▌           | 2.6 MB 26.0 MB/s eta 0:00:01
+     |████████████████████▋           | 2.6 MB 26.0 MB/s eta 0:00:01
+     |████████████████████▋           | 2.6 MB 26.0 MB/s eta 0:00:01
+     |████████████████████▊           | 2.6 MB 26.0 MB/s eta 0:00:01
+     |████████████████████▉           | 2.6 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████           | 2.6 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████           | 2.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████           | 2.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████▏          | 2.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████▎          | 2.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████▎          | 2.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████▍          | 2.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████▌          | 2.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████▌          | 2.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████▋          | 2.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████▊          | 2.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████▉          | 2.8 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████▉          | 2.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████          | 2.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████          | 2.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████▏         | 2.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████▏         | 2.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████▎         | 2.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████▍         | 2.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████▍         | 2.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████▌         | 2.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████▋         | 2.9 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████▊         | 2.9 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████▊         | 2.9 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████▉         | 2.9 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████         | 2.9 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████         | 2.9 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████         | 2.9 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████▏        | 2.9 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████▎        | 2.9 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████▎        | 2.9 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████▍        | 3.0 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████▌        | 3.0 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████▋        | 3.0 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████▋        | 3.0 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████▊        | 3.0 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████▉        | 3.0 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████        | 3.0 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████        | 3.0 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████        | 3.0 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████▏       | 3.1 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████▏       | 3.1 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████▎       | 3.1 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████▍       | 3.1 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████▌       | 3.1 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████▌       | 3.1 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████▋       | 3.1 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████▊       | 3.1 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████▉       | 3.1 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████▉       | 3.1 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████       | 3.2 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████       | 3.2 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████       | 3.2 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████▏      | 3.2 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████▎      | 3.2 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████▍      | 3.2 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████▍      | 3.2 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████▌      | 3.2 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████▋      | 3.2 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████▊      | 3.2 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████▊      | 3.3 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████▉      | 3.3 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████      | 3.3 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████      | 3.3 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████      | 3.3 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████▏     | 3.3 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████▎     | 3.3 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████▎     | 3.3 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████▍     | 3.3 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████▌     | 3.3 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████▋     | 3.4 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████▋     | 3.4 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████▊     | 3.4 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████▉     | 3.4 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████     | 3.4 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████     | 3.4 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████     | 3.4 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████▏    | 3.4 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████▏    | 3.4 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████▎    | 3.5 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████▍    | 3.5 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████▌    | 3.5 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████▌    | 3.5 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████▋    | 3.5 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████▊    | 3.5 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████▉    | 3.5 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████▉    | 3.5 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████████    | 3.5 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████████    | 3.5 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████████    | 3.6 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████████▏   | 3.6 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████████▎   | 3.6 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████████▍   | 3.6 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████████▍   | 3.6 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████████▌   | 3.6 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████████▋   | 3.6 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████████▊   | 3.6 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████████▊   | 3.6 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████████▉   | 3.6 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████████   | 3.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████████   | 3.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████████   | 3.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████████▏  | 3.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████████▎  | 3.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████████▎  | 3.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████████▍  | 3.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████████▌  | 3.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████████▋  | 3.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████████▋  | 3.7 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████████▊  | 3.8 MB 26.0 MB/s eta 0:00:01
+     |█████████████████████████████▉  | 3.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████████  | 3.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████████  | 3.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████████  | 3.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████████▏ | 3.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████████▏ | 3.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████████▎ | 3.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████████▍ | 3.8 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████████▌ | 3.9 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████████▌ | 3.9 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████████▋ | 3.9 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████████▊ | 3.9 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████████▉ | 3.9 MB 26.0 MB/s eta 0:00:01
+     |██████████████████████████████▉ | 3.9 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████████ | 3.9 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████████ | 3.9 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████████ | 3.9 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████████▏| 3.9 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████████▎| 4.0 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████████▍| 4.0 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████████▍| 4.0 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████████▌| 4.0 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████████▋| 4.0 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████████▊| 4.0 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████████▊| 4.0 MB 26.0 MB/s eta 0:00:01
+     |███████████████████████████████▉| 4.0 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████████████| 4.0 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████████████| 4.0 MB 26.0 MB/s eta 0:00:01
+     |████████████████████████████████| 4.0 MB 26.0 MB/s 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25hCollecting w3lib&gt;=1.17.0
+  Using cached w3lib-2.0.1-py3-none-any.whl (20 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting cssselect&gt;=0.9.1
+  Using cached cssselect-1.1.0-py2.py3-none-any.whl (16 kB)
+Requirement already satisfied: setuptools in /usr/local/lib/python3.7/dist-packages (from scrapy) (57.4.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting zope.interface&gt;=5.1.0
+  Using cached zope.interface-5.5.0-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (254 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting Twisted&gt;=18.9.0
+  Downloading Twisted-22.8.0-py3-none-any.whl (3.1 MB)
+?25l
+     |                                | 10 kB 4.8 MB/s eta 0:00:01
+     |▏                               | 20 kB 8.2 MB/s eta 0:00:01
+     |▎                               | 30 kB 11.4 MB/s eta 0:00:01
+     |▍                               | 40 kB 13.6 MB/s eta 0:00:01
+     |▌                               | 51 kB 15.9 MB/s eta 0:00:01
+     |▋                               | 61 kB 18.1 MB/s eta 0:00:01
+     |▊                               | 71 kB 19.8 MB/s eta 0:00:01
+     |▉                               | 81 kB 21.4 MB/s eta 0:00:01
+     |█                               | 92 kB 23.0 MB/s eta 0:00:01
+     |█                               | 102 kB 24.4 MB/s eta 0:00:01
+     |█▏                              | 112 kB 24.4 MB/s eta 0:00:01
+     |█▎                              | 122 kB 24.4 MB/s eta 0:00:01
+     |█▍                              | 133 kB 24.4 MB/s eta 0:00:01
+     |█▌                              | 143 kB 24.4 MB/s eta 0:00:01
+     |█▋                              | 153 kB 24.4 MB/s eta 0:00:01
+     |█▊                              | 163 kB 24.4 MB/s eta 0:00:01
+     |█▉                              | 174 kB 24.4 MB/s eta 0:00:01
+     |██                              | 184 kB 24.4 MB/s eta 0:00:01
+     |██                              | 194 kB 24.4 MB/s eta 0:00:01
+     |██▏                             | 204 kB 24.4 MB/s eta 0:00:01
+     |██▏                             | 215 kB 24.4 MB/s eta 0:00:01
+     |██▎                             | 225 kB 24.4 MB/s eta 0:00:01
+     |██▍                             | 235 kB 24.4 MB/s eta 0:00:01
+     |██▌                             | 245 kB 24.4 MB/s eta 0:00:01
+     |██▋                             | 256 kB 24.4 MB/s eta 0:00:01
+     |██▊                             | 266 kB 24.4 MB/s eta 0:00:01
+     |██▉                             | 276 kB 24.4 MB/s eta 0:00:01
+     |███                             | 286 kB 24.4 MB/s eta 0:00:01
+     |███                             | 296 kB 24.4 MB/s eta 0:00:01
+     |███▏                            | 307 kB 24.4 MB/s eta 0:00:01
+     |███▎                            | 317 kB 24.4 MB/s eta 0:00:01
+     |███▍                            | 327 kB 24.4 MB/s eta 0:00:01
+     |███▌                            | 337 kB 24.4 MB/s eta 0:00:01
+     |███▋                            | 348 kB 24.4 MB/s eta 0:00:01
+     |███▊                            | 358 kB 24.4 MB/s eta 0:00:01
+     |███▉                            | 368 kB 24.4 MB/s eta 0:00:01
+     |████                            | 378 kB 24.4 MB/s eta 0:00:01
+     |████                            | 389 kB 24.4 MB/s eta 0:00:01
+     |████▏                           | 399 kB 24.4 MB/s eta 0:00:01
+     |████▎                           | 409 kB 24.4 MB/s eta 0:00:01
+     |████▎                           | 419 kB 24.4 MB/s eta 0:00:01
+     |████▍                           | 430 kB 24.4 MB/s eta 0:00:01
+     |████▌                           | 440 kB 24.4 MB/s eta 0:00:01
+     |████▋                           | 450 kB 24.4 MB/s eta 0:00:01
+     |████▊                           | 460 kB 24.4 MB/s eta 0:00:01
+     |████▉                           | 471 kB 24.4 MB/s eta 0:00:01
+     |█████                           | 481 kB 24.4 MB/s eta 0:00:01
+     |█████                           | 491 kB 24.4 MB/s eta 0:00:01
+     |█████▏                          | 501 kB 24.4 MB/s eta 0:00:01
+     |█████▎                          | 512 kB 24.4 MB/s eta 0:00:01
+     |█████▍                          | 522 kB 24.4 MB/s eta 0:00:01
+     |█████▌                          | 532 kB 24.4 MB/s eta 0:00:01
+     |█████▋                          | 542 kB 24.4 MB/s eta 0:00:01
+     |█████▊                          | 552 kB 24.4 MB/s eta 0:00:01
+     |█████▉                          | 563 kB 24.4 MB/s eta 0:00:01
+     |██████                          | 573 kB 24.4 MB/s eta 0:00:01
+     |██████                          | 583 kB 24.4 MB/s eta 0:00:01
+     |██████▏                         | 593 kB 24.4 MB/s eta 0:00:01
+     |██████▎                         | 604 kB 24.4 MB/s eta 0:00:01
+     |██████▍                         | 614 kB 24.4 MB/s eta 0:00:01
+     |██████▌                         | 624 kB 24.4 MB/s eta 0:00:01
+     |██████▌                         | 634 kB 24.4 MB/s eta 0:00:01
+     |██████▋                         | 645 kB 24.4 MB/s eta 0:00:01
+     |██████▊                         | 655 kB 24.4 MB/s eta 0:00:01
+     |██████▉                         | 665 kB 24.4 MB/s eta 0:00:01
+     |███████                         | 675 kB 24.4 MB/s eta 0:00:01
+     |███████                         | 686 kB 24.4 MB/s eta 0:00:01
+     |███████▏                        | 696 kB 24.4 MB/s eta 0:00:01
+     |███████▎                        | 706 kB 24.4 MB/s eta 0:00:01
+     |███████▍                        | 716 kB 24.4 MB/s eta 0:00:01
+     |███████▌                        | 727 kB 24.4 MB/s eta 0:00:01
+     |███████▋                        | 737 kB 24.4 MB/s eta 0:00:01
+     |███████▊                        | 747 kB 24.4 MB/s eta 0:00:01
+     |███████▉                        | 757 kB 24.4 MB/s eta 0:00:01
+     |████████                        | 768 kB 24.4 MB/s eta 0:00:01
+     |████████                        | 778 kB 24.4 MB/s eta 0:00:01
+     |████████▏                       | 788 kB 24.4 MB/s eta 0:00:01
+     |████████▎                       | 798 kB 24.4 MB/s eta 0:00:01
+     |████████▍                       | 808 kB 24.4 MB/s eta 0:00:01
+     |████████▌                       | 819 kB 24.4 MB/s eta 0:00:01
+     |████████▋                       | 829 kB 24.4 MB/s eta 0:00:01
+     |████████▋                       | 839 kB 24.4 MB/s eta 0:00:01
+     |████████▊                       | 849 kB 24.4 MB/s eta 0:00:01
+     |████████▉                       | 860 kB 24.4 MB/s eta 0:00:01
+     |█████████                       | 870 kB 24.4 MB/s eta 0:00:01
+     |█████████                       | 880 kB 24.4 MB/s eta 0:00:01
+     |█████████▏                      | 890 kB 24.4 MB/s eta 0:00:01
+     |█████████▎                      | 901 kB 24.4 MB/s eta 0:00:01
+     |█████████▍                      | 911 kB 24.4 MB/s eta 0:00:01
+     |█████████▌                      | 921 kB 24.4 MB/s eta 0:00:01
+     |█████████▋                      | 931 kB 24.4 MB/s eta 0:00:01
+     |█████████▊                      | 942 kB 24.4 MB/s eta 0:00:01
+     |█████████▉                      | 952 kB 24.4 MB/s eta 0:00:01
+     |██████████                      | 962 kB 24.4 MB/s eta 0:00:01
+     |██████████                      | 972 kB 24.4 MB/s eta 0:00:01
+     |██████████▏                     | 983 kB 24.4 MB/s eta 0:00:01
+     |██████████▎                     | 993 kB 24.4 MB/s eta 0:00:01
+     |██████████▍                     | 1.0 MB 24.4 MB/s eta 0:00:01
+     |██████████▌                     | 1.0 MB 24.4 MB/s eta 0:00:01
+     |██████████▋                     | 1.0 MB 24.4 MB/s eta 0:00:01
+     |██████████▊                     | 1.0 MB 24.4 MB/s eta 0:00:01
+     |██████████▊                     | 1.0 MB 24.4 MB/s eta 0:00:01
+     |██████████▉                     | 1.1 MB 24.4 MB/s eta 0:00:01
+     |███████████                     | 1.1 MB 24.4 MB/s eta 0:00:01
+     |███████████                     | 1.1 MB 24.4 MB/s eta 0:00:01
+     |███████████▏                    | 1.1 MB 24.4 MB/s eta 0:00:01
+     |███████████▎                    | 1.1 MB 24.4 MB/s eta 0:00:01
+     |███████████▍                    | 1.1 MB 24.4 MB/s eta 0:00:01
+     |███████████▌                    | 1.1 MB 24.4 MB/s eta 0:00:01
+     |███████████▋                    | 1.1 MB 24.4 MB/s eta 0:00:01
+     |███████████▊                    | 1.1 MB 24.4 MB/s eta 0:00:01
+     |███████████▉                    | 1.1 MB 24.4 MB/s eta 0:00:01
+     |████████████                    | 1.2 MB 24.4 MB/s eta 0:00:01
+     |████████████                    | 1.2 MB 24.4 MB/s eta 0:00:01
+     |████████████▏                   | 1.2 MB 24.4 MB/s eta 0:00:01
+     |████████████▎                   | 1.2 MB 24.4 MB/s eta 0:00:01
+     |████████████▍                   | 1.2 MB 24.4 MB/s eta 0:00:01
+     |████████████▌                   | 1.2 MB 24.4 MB/s eta 0:00:01
+     |████████████▋                   | 1.2 MB 24.4 MB/s eta 0:00:01
+     |████████████▊                   | 1.2 MB 24.4 MB/s eta 0:00:01
+     |████████████▉                   | 1.2 MB 24.4 MB/s eta 0:00:01
+     |█████████████                   | 1.2 MB 24.4 MB/s eta 0:00:01
+     |█████████████                   | 1.3 MB 24.4 MB/s eta 0:00:01
+     |█████████████                   | 1.3 MB 24.4 MB/s eta 0:00:01
+     |█████████████▏                  | 1.3 MB 24.4 MB/s eta 0:00:01
+     |█████████████▎                  | 1.3 MB 24.4 MB/s eta 0:00:01
+     |█████████████▍                  | 1.3 MB 24.4 MB/s eta 0:00:01
+     |█████████████▌                  | 1.3 MB 24.4 MB/s eta 0:00:01
+     |█████████████▋                  | 1.3 MB 24.4 MB/s eta 0:00:01
+     |█████████████▊                  | 1.3 MB 24.4 MB/s eta 0:00:01
+     |█████████████▉                  | 1.3 MB 24.4 MB/s eta 0:00:01
+     |██████████████                  | 1.4 MB 24.4 MB/s eta 0:00:01
+     |██████████████                  | 1.4 MB 24.4 MB/s eta 0:00:01
+     |██████████████▏                 | 1.4 MB 24.4 MB/s eta 0:00:01
+     |██████████████▎                 | 1.4 MB 24.4 MB/s eta 0:00:01
+     |██████████████▍                 | 1.4 MB 24.4 MB/s eta 0:00:01
+     |██████████████▌                 | 1.4 MB 24.4 MB/s eta 0:00:01
+     |██████████████▋                 | 1.4 MB 24.4 MB/s eta 0:00:01
+     |██████████████▊                 | 1.4 MB 24.4 MB/s eta 0:00:01
+     |██████████████▉                 | 1.4 MB 24.4 MB/s eta 0:00:01
+     |███████████████                 | 1.4 MB 24.4 MB/s eta 0:00:01
+     |███████████████                 | 1.5 MB 24.4 MB/s eta 0:00:01
+     |███████████████                 | 1.5 MB 24.4 MB/s eta 0:00:01
+     |███████████████▏                | 1.5 MB 24.4 MB/s eta 0:00:01
+     |███████████████▎                | 1.5 MB 24.4 MB/s eta 0:00:01
+     |███████████████▍                | 1.5 MB 24.4 MB/s eta 0:00:01
+     |███████████████▌                | 1.5 MB 24.4 MB/s eta 0:00:01
+     |███████████████▋                | 1.5 MB 24.4 MB/s eta 0:00:01
+     |███████████████▊                | 1.5 MB 24.4 MB/s eta 0:00:01
+     |███████████████▉                | 1.5 MB 24.4 MB/s eta 0:00:01
+     |████████████████                | 1.5 MB 24.4 MB/s eta 0:00:01
+     |████████████████                | 1.6 MB 24.4 MB/s eta 0:00:01
+     |████████████████▏               | 1.6 MB 24.4 MB/s eta 0:00:01
+     |████████████████▎               | 1.6 MB 24.4 MB/s eta 0:00:01
+     |████████████████▍               | 1.6 MB 24.4 MB/s eta 0:00:01
+     |████████████████▌               | 1.6 MB 24.4 MB/s eta 0:00:01
+     |████████████████▋               | 1.6 MB 24.4 MB/s eta 0:00:01
+     |████████████████▊               | 1.6 MB 24.4 MB/s eta 0:00:01
+     |████████████████▉               | 1.6 MB 24.4 MB/s eta 0:00:01
+     |█████████████████               | 1.6 MB 24.4 MB/s eta 0:00:01
+     |█████████████████               | 1.6 MB 24.4 MB/s eta 0:00:01
+     |█████████████████▏              | 1.7 MB 24.4 MB/s eta 0:00:01
+     |█████████████████▏              | 1.7 MB 24.4 MB/s eta 0:00:01
+     |█████████████████▎              | 1.7 MB 24.4 MB/s eta 0:00:01
+     |█████████████████▍              | 1.7 MB 24.4 MB/s eta 0:00:01
+     |█████████████████▌              | 1.7 MB 24.4 MB/s eta 0:00:01
+     |█████████████████▋              | 1.7 MB 24.4 MB/s eta 0:00:01
+     |█████████████████▊              | 1.7 MB 24.4 MB/s eta 0:00:01
+     |█████████████████▉              | 1.7 MB 24.4 MB/s eta 0:00:01
+     |██████████████████              | 1.7 MB 24.4 MB/s eta 0:00:01
+     |██████████████████              | 1.8 MB 24.4 MB/s eta 0:00:01
+     |██████████████████▏             | 1.8 MB 24.4 MB/s eta 0:00:01
+     |██████████████████▎             | 1.8 MB 24.4 MB/s eta 0:00:01
+     |██████████████████▍             | 1.8 MB 24.4 MB/s eta 0:00:01
+     |██████████████████▌             | 1.8 MB 24.4 MB/s eta 0:00:01
+     |██████████████████▋             | 1.8 MB 24.4 MB/s eta 0:00:01
+     |██████████████████▊             | 1.8 MB 24.4 MB/s eta 0:00:01
+     |██████████████████▉             | 1.8 MB 24.4 MB/s eta 0:00:01
+     |███████████████████             | 1.8 MB 24.4 MB/s eta 0:00:01
+     |███████████████████             | 1.8 MB 24.4 MB/s eta 0:00:01
+     |███████████████████▏            | 1.9 MB 24.4 MB/s eta 0:00:01
+     |███████████████████▎            | 1.9 MB 24.4 MB/s eta 0:00:01
+     |███████████████████▍            | 1.9 MB 24.4 MB/s eta 0:00:01
+     |███████████████████▍            | 1.9 MB 24.4 MB/s eta 0:00:01
+     |███████████████████▌            | 1.9 MB 24.4 MB/s eta 0:00:01
+     |███████████████████▋            | 1.9 MB 24.4 MB/s eta 0:00:01
+     |███████████████████▊            | 1.9 MB 24.4 MB/s eta 0:00:01
+     |███████████████████▉            | 1.9 MB 24.4 MB/s eta 0:00:01
+     |████████████████████            | 1.9 MB 24.4 MB/s eta 0:00:01
+     |████████████████████            | 1.9 MB 24.4 MB/s eta 0:00:01
+     |████████████████████▏           | 2.0 MB 24.4 MB/s eta 0:00:01
+     |████████████████████▎           | 2.0 MB 24.4 MB/s eta 0:00:01
+     |████████████████████▍           | 2.0 MB 24.4 MB/s eta 0:00:01
+     |████████████████████▌           | 2.0 MB 24.4 MB/s eta 0:00:01
+     |████████████████████▋           | 2.0 MB 24.4 MB/s eta 0:00:01
+     |████████████████████▊           | 2.0 MB 24.4 MB/s eta 0:00:01
+     |████████████████████▉           | 2.0 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████           | 2.0 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████           | 2.0 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████▏          | 2.0 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████▎          | 2.1 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████▍          | 2.1 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████▌          | 2.1 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████▌          | 2.1 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████▋          | 2.1 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████▊          | 2.1 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████▉          | 2.1 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████          | 2.1 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████          | 2.1 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████▏         | 2.2 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████▎         | 2.2 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████▍         | 2.2 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████▌         | 2.2 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████▋         | 2.2 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████▊         | 2.2 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████▉         | 2.2 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████         | 2.2 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████         | 2.2 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████▏        | 2.2 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████▎        | 2.3 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████▍        | 2.3 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████▌        | 2.3 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████▋        | 2.3 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████▋        | 2.3 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████▊        | 2.3 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████▉        | 2.3 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████        | 2.3 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████        | 2.3 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████▏       | 2.3 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████▎       | 2.4 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████▍       | 2.4 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████▌       | 2.4 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████▋       | 2.4 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████▊       | 2.4 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████▉       | 2.4 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████████       | 2.4 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████████       | 2.4 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████████▏      | 2.4 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████████▎      | 2.4 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████████▍      | 2.5 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████████▌      | 2.5 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████████▋      | 2.5 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████████▊      | 2.5 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████████▉      | 2.5 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████████▉      | 2.5 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████████      | 2.5 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████████      | 2.5 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████████▏     | 2.5 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████████▎     | 2.5 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████████▍     | 2.6 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████████▌     | 2.6 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████████▋     | 2.6 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████████▊     | 2.6 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████████▉     | 2.6 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████████     | 2.6 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████████     | 2.6 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████████▏    | 2.6 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████████▎    | 2.6 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████████▍    | 2.7 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████████▌    | 2.7 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████████▋    | 2.7 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████████▊    | 2.7 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████████▉    | 2.7 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████████    | 2.7 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████████    | 2.7 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████████    | 2.7 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████████▏   | 2.7 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████████▎   | 2.7 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████████▍   | 2.8 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████████▌   | 2.8 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████████▋   | 2.8 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████████▊   | 2.8 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████████▉   | 2.8 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████████████   | 2.8 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████████████   | 2.8 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████████████▏  | 2.8 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████████████▎  | 2.8 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████████████▍  | 2.8 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████████████▌  | 2.9 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████████████▋  | 2.9 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████████████▊  | 2.9 MB 24.4 MB/s eta 0:00:01
+     |█████████████████████████████▉  | 2.9 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████████████  | 2.9 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████████████  | 2.9 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████████████▏ | 2.9 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████████████▏ | 2.9 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████████████▎ | 2.9 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████████████▍ | 2.9 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████████████▌ | 3.0 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████████████▋ | 3.0 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████████████▊ | 3.0 MB 24.4 MB/s eta 0:00:01
+     |██████████████████████████████▉ | 3.0 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████████████ | 3.0 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████████████ | 3.0 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████████████▏| 3.0 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████████████▎| 3.0 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████████████▍| 3.0 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████████████▌| 3.1 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████████████▋| 3.1 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████████████▊| 3.1 MB 24.4 MB/s eta 0:00:01
+     |███████████████████████████████▉| 3.1 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████████████| 3.1 MB 24.4 MB/s eta 0:00:01
+     |████████████████████████████████| 3.1 MB 24.4 MB/s 
+?25hRequirement already satisfied: cffi&gt;=1.12 in /usr/local/lib/python3.7/dist-packages (from cryptography&gt;=3.3-&gt;scrapy) (1.15.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pycparser in /usr/local/lib/python3.7/dist-packages (from cffi&gt;=1.12-&gt;cryptography&gt;=3.3-&gt;scrapy) (2.21)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting jmespath&gt;=0.9.5
+  Downloading jmespath-1.0.1-py3-none-any.whl (20 kB)
+Requirement already satisfied: six&gt;=1.6.0 in /usr/local/lib/python3.7/dist-packages (from parsel&gt;=1.5.0-&gt;scrapy) (1.15.0)
+Requirement already satisfied: attrs&gt;=19.1.0 in /usr/local/lib/python3.7/dist-packages (from service-identity&gt;=18.1.0-&gt;scrapy) (21.4.0)
+Requirement already satisfied: pyasn1 in /usr/local/lib/python3.7/dist-packages (from service-identity&gt;=18.1.0-&gt;scrapy) (0.4.8)
+Requirement already satisfied: pyasn1-modules in /usr/local/lib/python3.7/dist-packages (from service-identity&gt;=18.1.0-&gt;scrapy) (0.2.8)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting hyperlink&gt;=17.1.1
+  Downloading hyperlink-21.0.0-py2.py3-none-any.whl (74 kB)
+?25l
+     |████▍                           | 10 kB 32.4 MB/s eta 0:00:01
+     |████████▉                       | 20 kB 38.5 MB/s eta 0:00:01
+     |█████████████▏                  | 30 kB 45.7 MB/s eta 0:00:01
+     |█████████████████▋              | 40 kB 48.0 MB/s eta 0:00:01
+     |██████████████████████          | 51 kB 51.2 MB/s eta 0:00:01
+     |██████████████████████████▍     | 61 kB 55.4 MB/s eta 0:00:01
+     |██████████████████████████████▊ | 71 kB 57.0 MB/s eta 0:00:01
+     |████████████████████████████████| 74 kB 3.7 MB/s 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25hCollecting Automat&gt;=0.8.0
+  Downloading Automat-20.2.0-py2.py3-none-any.whl (31 kB)
+Requirement already satisfied: typing-extensions&gt;=3.6.5 in /usr/local/lib/python3.7/dist-packages (from Twisted&gt;=18.9.0-&gt;scrapy) (4.1.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting incremental&gt;=21.3.0
+  Downloading incremental-22.10.0-py2.py3-none-any.whl (16 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting constantly&gt;=15.1
+  Downloading constantly-15.1.0-py2.py3-none-any.whl (7.9 kB)
+Requirement already satisfied: idna&gt;=2.5 in /usr/local/lib/python3.7/dist-packages (from hyperlink&gt;=17.1.1-&gt;Twisted&gt;=18.9.0-&gt;scrapy) (2.10)
+Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /usr/local/lib/python3.7/dist-packages (from packaging-&gt;scrapy) (3.0.9)
+Requirement already satisfied: requests&gt;=2.1.0 in /usr/local/lib/python3.7/dist-packages (from tldextract-&gt;scrapy) (2.23.0)
+Requirement already satisfied: filelock&gt;=3.0.8 in /usr/local/lib/python3.7/dist-packages (from tldextract-&gt;scrapy) (3.8.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting requests-file&gt;=1.4
+  Downloading requests_file-1.5.1-py2.py3-none-any.whl (3.7 kB)
+Requirement already satisfied: urllib3!=1.25.0,!=1.25.1,&lt;1.26,&gt;=1.21.1 in /usr/local/lib/python3.7/dist-packages (from requests&gt;=2.1.0-&gt;tldextract-&gt;scrapy) (1.24.3)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.7/dist-packages (from requests&gt;=2.1.0-&gt;tldextract-&gt;scrapy) (2022.9.24)
+Requirement already satisfied: chardet&lt;4,&gt;=3.0.2 in /usr/local/lib/python3.7/dist-packages (from requests&gt;=2.1.0-&gt;tldextract-&gt;scrapy) (3.0.4)
+Building wheels for collected packages: PyDispatcher
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Building wheel for PyDispatcher (setup.py) ... ?25l?25hdone
+  Created wheel for PyDispatcher: filename=PyDispatcher-2.0.6-py3-none-any.whl size=11958 sha256=9ee38b7d789dedc0eef55d3e3d6e5eb0216c3f24d256259fe0044a76395e988b
+  Stored in directory: /root/.cache/pip/wheels/c9/d6/6a/de198d890277cde60ca3dbebe7ae592d3b381c7d9bb2455f4d
+Successfully built PyDispatcher
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: w3lib, cssselect, zope.interface, requests-file, parsel, jmespath, itemadapter, incremental, hyperlink, cryptography, constantly, Automat, Twisted, tldextract, service-identity, queuelib, pyOpenSSL, PyDispatcher, protego, itemloaders, scrapy
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed Automat-20.2.0 PyDispatcher-2.0.6 Twisted-22.8.0 constantly-15.1.0 cryptography-38.0.1 cssselect-1.1.0 hyperlink-21.0.0 incremental-22.10.0 itemadapter-0.7.0 itemloaders-1.0.6 jmespath-1.0.1 parsel-1.6.0 protego-0.2.1 pyOpenSSL-22.1.0 queuelib-1.6.2 requests-file-1.5.1 scrapy-2.7.0 service-identity-21.1.0 tldextract-3.4.0 w3lib-2.0.1 zope.interface-5.5.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="membuat-file-project-scrapy">
+<h2>Membuat file Project Scrapy<a class="headerlink" href="#membuat-file-project-scrapy" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>scrapy startproject scrapyPTA
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Error: scrapy.cfg already exists in /content/drive/MyDrive/jupyter-book/mining/scrapyPTA
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="masuk-ke-folder-project-yang-dibuat">
+<h2>Masuk ke Folder Project yang dibuat<a class="headerlink" href="#masuk-ke-folder-project-yang-dibuat" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">cd</span> scrapyPTA/
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/content/drive/MyDrive/jupyter-book/mining/scrapyPTA
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="membuat-file-spider">
+<h2>Membuat File Spider<a class="headerlink" href="#membuat-file-spider" title="Permalink to this headline">#</a></h2>
+<p>Membuat File Spider dan memasukkan url yang akan diambil datanya</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>scrapy genspider webpta pta.trunojoyo.ac.id
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Spider &#39;webpta&#39; already exists in module:
+  scrapyPTA.spiders.webpta
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menuliskan-program-scapper">
+<h2>Menuliskan Program Scapper<a class="headerlink" href="#menuliskan-program-scapper" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
+
+<span class="k">class</span> <span class="nc">WebptaSpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;webpta&#39;</span>
+    <span class="n">allowed_domains</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pta.trunojoyo.ac.id&#39;</span><span class="p">]</span>
+    <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;https://pta.trunojoyo.ac.id/c_search/byprod/12/&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; &quot;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">20</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">detail</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;a.gray.button::attr(href)&#39;</span><span class="p">):</span> 
+            <span class="k">yield</span> <span class="n">response</span><span class="o">.</span><span class="n">follow</span><span class="p">(</span><span class="n">detail</span><span class="o">.</span><span class="n">get</span><span class="p">(),</span> <span class="n">callback</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_detail</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">parse_detail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;#content_journal &gt; ul &gt; li&#39;</span><span class="p">):</span>
+            <span class="k">yield</span><span class="p">{</span>
+                <span class="s1">&#39;Abstraksi&#39;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;div:nth-child(2) &gt; p::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">|</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;ABSTRAK&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="jalankan-file-spider">
+<h2>Jalankan File Spider<a class="headerlink" href="#jalankan-file-spider" title="Permalink to this headline">#</a></h2>
+<p>Untuk Menjalankan file spider anda harus masuk ke directory file tersebut terlebih dahulu</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">cd</span> scrapyPTA/spiders/
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/content/drive/MyDrive/jupyter-book/mining/scrapyPTA/scrapyPTA/spiders
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>scrapy runspider webpta.py
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-18 19:57:50 [scrapy.utils.log] INFO: Scrapy 2.7.0 started (bot: scrapyPTA)
+2022-10-18 19:57:50 [scrapy.utils.log] INFO: Versions: lxml 4.9.1.0, libxml2 2.9.14, cssselect 1.1.0, parsel 1.6.0, w3lib 2.0.1, Twisted 22.8.0, Python 3.7.15 (default, Oct 12 2022, 19:14:55) - [GCC 7.5.0], pyOpenSSL 22.1.0 (OpenSSL 3.0.5 5 Jul 2022), cryptography 38.0.1, Platform Linux-5.10.133+-x86_64-with-Ubuntu-18.04-bionic
+2022-10-18 19:57:50 [scrapy.crawler] INFO: Overridden settings:
+{&#39;BOT_NAME&#39;: &#39;scrapyPTA&#39;,
+ &#39;NEWSPIDER_MODULE&#39;: &#39;scrapyPTA.spiders&#39;,
+ &#39;REQUEST_FINGERPRINTER_IMPLEMENTATION&#39;: &#39;2.7&#39;,
+ &#39;ROBOTSTXT_OBEY&#39;: True,
+ &#39;SPIDER_LOADER_WARN_ONLY&#39;: True,
+ &#39;SPIDER_MODULES&#39;: [&#39;scrapyPTA.spiders&#39;],
+ &#39;TWISTED_REACTOR&#39;: &#39;twisted.internet.asyncioreactor.AsyncioSelectorReactor&#39;}
+2022-10-18 19:57:50 [asyncio] DEBUG: Using selector: EpollSelector
+2022-10-18 19:57:50 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.asyncioreactor.AsyncioSelectorReactor
+2022-10-18 19:57:50 [scrapy.utils.log] DEBUG: Using asyncio event loop: asyncio.unix_events._UnixSelectorEventLoop
+2022-10-18 19:57:50 [scrapy.extensions.telnet] INFO: Telnet Password: bff47b0092a71906
+2022-10-18 19:57:50 [scrapy.middleware] INFO: Enabled extensions:
+[&#39;scrapy.extensions.corestats.CoreStats&#39;,
+ &#39;scrapy.extensions.telnet.TelnetConsole&#39;,
+ &#39;scrapy.extensions.memusage.MemoryUsage&#39;,
+ &#39;scrapy.extensions.logstats.LogStats&#39;]
+2022-10-18 19:57:50 [scrapy.middleware] INFO: Enabled downloader middlewares:
+[&#39;scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.useragent.UserAgentMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.retry.RetryMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.redirect.RedirectMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.cookies.CookiesMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.stats.DownloaderStats&#39;]
+2022-10-18 19:57:50 [scrapy.middleware] INFO: Enabled spider middlewares:
+[&#39;scrapy.spidermiddlewares.httperror.HttpErrorMiddleware&#39;,
+ &#39;scrapy.spidermiddlewares.offsite.OffsiteMiddleware&#39;,
+ &#39;scrapy.spidermiddlewares.referer.RefererMiddleware&#39;,
+ &#39;scrapy.spidermiddlewares.urllength.UrlLengthMiddleware&#39;,
+ &#39;scrapy.spidermiddlewares.depth.DepthMiddleware&#39;]
+2022-10-18 19:57:50 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2022-10-18 19:57:50 [scrapy.core.engine] INFO: Spider opened
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-18 19:57:50 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2022-10-18 19:57:50 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-18 19:57:51 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to &lt;GET https://pta.trunojoyo.ac.id/robots.txt&gt; from &lt;GET http://pta.trunojoyo.ac.id/robots.txt&gt;
+/usr/local/lib/python3.7/dist-packages/scrapy/core/engine.py:279: ScrapyDeprecationWarning: Passing a &#39;spider&#39; argument to ExecutionEngine.download is deprecated
+  return self.download(result, spider) if isinstance(result, Request) else result
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-18 19:57:51 [scrapy.core.engine] DEBUG: Crawled (200) &lt;GET https://pta.trunojoyo.ac.id/robots.txt&gt; (referer: None)
+2022-10-18 19:57:51 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to &lt;GET https://pta.trunojoyo.ac.id/&gt; from &lt;GET http://pta.trunojoyo.ac.id/&gt;
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-18 19:57:52 [filelock] DEBUG: Attempting to acquire lock 139951736764688 on /root/.cache/python-tldextract/3.7.15.final__usr__7d8fdf__tldextract-3.4.0/publicsuffix.org-tlds/de84b5ca2167d4c83e38fb162f2e8738.tldextract.json.lock
+2022-10-18 19:57:52 [filelock] DEBUG: Lock 139951736764688 acquired on /root/.cache/python-tldextract/3.7.15.final__usr__7d8fdf__tldextract-3.4.0/publicsuffix.org-tlds/de84b5ca2167d4c83e38fb162f2e8738.tldextract.json.lock
+2022-10-18 19:57:52 [filelock] DEBUG: Attempting to acquire lock 139951736681424 on /root/.cache/python-tldextract/3.7.15.final__usr__7d8fdf__tldextract-3.4.0/urls/62bf135d1c2f3d4db4228b9ecaf507a2.tldextract.json.lock
+2022-10-18 19:57:52 [filelock] DEBUG: Lock 139951736681424 acquired on /root/.cache/python-tldextract/3.7.15.final__usr__7d8fdf__tldextract-3.4.0/urls/62bf135d1c2f3d4db4228b9ecaf507a2.tldextract.json.lock
+2022-10-18 19:57:52 [urllib3.connectionpool] DEBUG: Starting new HTTPS connection (1): publicsuffix.org:443
+2022-10-18 19:57:52 [urllib3.connectionpool] DEBUG: https://publicsuffix.org:443 &quot;GET /list/public_suffix_list.dat HTTP/1.1&quot; 200 None
+2022-10-18 19:57:52 [filelock] DEBUG: Attempting to release lock 139951736681424 on /root/.cache/python-tldextract/3.7.15.final__usr__7d8fdf__tldextract-3.4.0/urls/62bf135d1c2f3d4db4228b9ecaf507a2.tldextract.json.lock
+2022-10-18 19:57:52 [filelock] DEBUG: Lock 139951736681424 released on /root/.cache/python-tldextract/3.7.15.final__usr__7d8fdf__tldextract-3.4.0/urls/62bf135d1c2f3d4db4228b9ecaf507a2.tldextract.json.lock
+2022-10-18 19:57:52 [filelock] DEBUG: Attempting to release lock 139951736764688 on /root/.cache/python-tldextract/3.7.15.final__usr__7d8fdf__tldextract-3.4.0/publicsuffix.org-tlds/de84b5ca2167d4c83e38fb162f2e8738.tldextract.json.lock
+2022-10-18 19:57:52 [filelock] DEBUG: Lock 139951736764688 released on /root/.cache/python-tldextract/3.7.15.final__usr__7d8fdf__tldextract-3.4.0/publicsuffix.org-tlds/de84b5ca2167d4c83e38fb162f2e8738.tldextract.json.lock
+2022-10-18 19:57:52 [scrapy.core.engine] DEBUG: Crawled (200) &lt;GET https://pta.trunojoyo.ac.id/&gt; (referer: None)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-18 19:57:52 [scrapy.core.engine] INFO: Closing spider (finished)
+2022-10-18 19:57:52 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{&#39;downloader/request_bytes&#39;: 896,
+ &#39;downloader/request_count&#39;: 4,
+ &#39;downloader/request_method_count/GET&#39;: 4,
+ &#39;downloader/response_bytes&#39;: 7301,
+ &#39;downloader/response_count&#39;: 4,
+ &#39;downloader/response_status_count/200&#39;: 2,
+ &#39;downloader/response_status_count/301&#39;: 2,
+ &#39;elapsed_time_seconds&#39;: 1.95693,
+ &#39;finish_reason&#39;: &#39;finished&#39;,
+ &#39;finish_time&#39;: datetime.datetime(2022, 10, 18, 19, 57, 52, 726770),
+ &#39;httpcompression/response_bytes&#39;: 17488,
+ &#39;httpcompression/response_count&#39;: 1,
+ &#39;log_count/DEBUG&#39;: 17,
+ &#39;log_count/INFO&#39;: 10,
+ &#39;memusage/max&#39;: 87887872,
+ &#39;memusage/startup&#39;: 87887872,
+ &#39;response_received_count&#39;: 2,
+ &#39;robotstxt/request_count&#39;: 1,
+ &#39;robotstxt/response_count&#39;: 1,
+ &#39;robotstxt/response_status_count/200&#39;: 1,
+ &#39;scheduler/dequeued&#39;: 2,
+ &#39;scheduler/dequeued/memory&#39;: 2,
+ &#39;scheduler/enqueued&#39;: 2,
+ &#39;scheduler/enqueued/memory&#39;: 2,
+ &#39;start_time&#39;: datetime.datetime(2022, 10, 18, 19, 57, 50, 769840)}
+2022-10-18 19:57:52 [scrapy.core.engine] INFO: Spider closed (finished)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menyimpan-data-abstrak-ke-format-csv">
+<h2>Menyimpan data abstrak ke format CSV<a class="headerlink" href="#menyimpan-data-abstrak-ke-format-csv" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>scrapy crawl webpta -O crawlAbstrak.csv
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-18 19:57:53 [scrapy.utils.log] INFO: Scrapy 2.7.0 started (bot: scrapyPTA)
+2022-10-18 19:57:53 [scrapy.utils.log] INFO: Versions: lxml 4.9.1.0, libxml2 2.9.14, cssselect 1.1.0, parsel 1.6.0, w3lib 2.0.1, Twisted 22.8.0, Python 3.7.15 (default, Oct 12 2022, 19:14:55) - [GCC 7.5.0], pyOpenSSL 22.1.0 (OpenSSL 3.0.5 5 Jul 2022), cryptography 38.0.1, Platform Linux-5.10.133+-x86_64-with-Ubuntu-18.04-bionic
+2022-10-18 19:57:53 [scrapy.crawler] INFO: Overridden settings:
+{&#39;BOT_NAME&#39;: &#39;scrapyPTA&#39;,
+ &#39;NEWSPIDER_MODULE&#39;: &#39;scrapyPTA.spiders&#39;,
+ &#39;REQUEST_FINGERPRINTER_IMPLEMENTATION&#39;: &#39;2.7&#39;,
+ &#39;ROBOTSTXT_OBEY&#39;: True,
+ &#39;SPIDER_MODULES&#39;: [&#39;scrapyPTA.spiders&#39;],
+ &#39;TWISTED_REACTOR&#39;: &#39;twisted.internet.asyncioreactor.AsyncioSelectorReactor&#39;}
+2022-10-18 19:57:53 [asyncio] DEBUG: Using selector: EpollSelector
+2022-10-18 19:57:53 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.asyncioreactor.AsyncioSelectorReactor
+2022-10-18 19:57:53 [scrapy.utils.log] DEBUG: Using asyncio event loop: asyncio.unix_events._UnixSelectorEventLoop
+2022-10-18 19:57:53 [scrapy.extensions.telnet] INFO: Telnet Password: bb82a0b92ab13f0f
+2022-10-18 19:57:53 [scrapy.middleware] INFO: Enabled extensions:
+[&#39;scrapy.extensions.corestats.CoreStats&#39;,
+ &#39;scrapy.extensions.telnet.TelnetConsole&#39;,
+ &#39;scrapy.extensions.memusage.MemoryUsage&#39;,
+ &#39;scrapy.extensions.feedexport.FeedExporter&#39;,
+ &#39;scrapy.extensions.logstats.LogStats&#39;]
+2022-10-18 19:57:53 [scrapy.middleware] INFO: Enabled downloader middlewares:
+[&#39;scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.useragent.UserAgentMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.retry.RetryMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.redirect.RedirectMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.cookies.CookiesMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware&#39;,
+ &#39;scrapy.downloadermiddlewares.stats.DownloaderStats&#39;]
+2022-10-18 19:57:53 [scrapy.middleware] INFO: Enabled spider middlewares:
+[&#39;scrapy.spidermiddlewares.httperror.HttpErrorMiddleware&#39;,
+ &#39;scrapy.spidermiddlewares.offsite.OffsiteMiddleware&#39;,
+ &#39;scrapy.spidermiddlewares.referer.RefererMiddleware&#39;,
+ &#39;scrapy.spidermiddlewares.urllength.UrlLengthMiddleware&#39;,
+ &#39;scrapy.spidermiddlewares.depth.DepthMiddleware&#39;]
+2022-10-18 19:57:53 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2022-10-18 19:57:53 [scrapy.core.engine] INFO: Spider opened
+2022-10-18 19:57:53 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2022-10-18 19:57:53 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-18 19:57:54 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to &lt;GET https://pta.trunojoyo.ac.id/robots.txt&gt; from &lt;GET http://pta.trunojoyo.ac.id/robots.txt&gt;
+/usr/local/lib/python3.7/dist-packages/scrapy/core/engine.py:279: ScrapyDeprecationWarning: Passing a &#39;spider&#39; argument to ExecutionEngine.download is deprecated
+  return self.download(result, spider) if isinstance(result, Request) else result
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-18 19:57:54 [scrapy.core.engine] DEBUG: Crawled (200) &lt;GET https://pta.trunojoyo.ac.id/robots.txt&gt; (referer: None)
+2022-10-18 19:57:54 [scrapy.downloadermiddlewares.redirect] DEBUG: Redirecting (301) to &lt;GET https://pta.trunojoyo.ac.id/&gt; from &lt;GET http://pta.trunojoyo.ac.id/&gt;
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-10-18 19:57:55 [filelock] DEBUG: Attempting to acquire lock 139863053618512 on /root/.cache/python-tldextract/3.7.15.final__usr__7d8fdf__tldextract-3.4.0/publicsuffix.org-tlds/de84b5ca2167d4c83e38fb162f2e8738.tldextract.json.lock
+2022-10-18 19:57:55 [filelock] DEBUG: Lock 139863053618512 acquired on /root/.cache/python-tldextract/3.7.15.final__usr__7d8fdf__tldextract-3.4.0/publicsuffix.org-tlds/de84b5ca2167d4c83e38fb162f2e8738.tldextract.json.lock
+2022-10-18 19:57:55 [filelock] DEBUG: Attempting to release lock 139863053618512 on /root/.cache/python-tldextract/3.7.15.final__usr__7d8fdf__tldextract-3.4.0/publicsuffix.org-tlds/de84b5ca2167d4c83e38fb162f2e8738.tldextract.json.lock
+2022-10-18 19:57:55 [filelock] DEBUG: Lock 139863053618512 released on /root/.cache/python-tldextract/3.7.15.final__usr__7d8fdf__tldextract-3.4.0/publicsuffix.org-tlds/de84b5ca2167d4c83e38fb162f2e8738.tldextract.json.lock
+2022-10-18 19:57:55 [scrapy.core.engine] DEBUG: Crawled (200) &lt;GET https://pta.trunojoyo.ac.id/&gt; (referer: None)
+2022-10-18 19:57:55 [scrapy.core.engine] INFO: Closing spider (finished)
+2022-10-18 19:57:55 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{&#39;downloader/request_bytes&#39;: 896,
+ &#39;downloader/request_count&#39;: 4,
+ &#39;downloader/request_method_count/GET&#39;: 4,
+ &#39;downloader/response_bytes&#39;: 7287,
+ &#39;downloader/response_count&#39;: 4,
+ &#39;downloader/response_status_count/200&#39;: 2,
+ &#39;downloader/response_status_count/301&#39;: 2,
+ &#39;elapsed_time_seconds&#39;: 1.536294,
+ &#39;finish_reason&#39;: &#39;finished&#39;,
+ &#39;finish_time&#39;: datetime.datetime(2022, 10, 18, 19, 57, 55, 529224),
+ &#39;httpcompression/response_bytes&#39;: 17488,
+ &#39;httpcompression/response_count&#39;: 1,
+ &#39;log_count/DEBUG&#39;: 11,
+ &#39;log_count/INFO&#39;: 10,
+ &#39;memusage/max&#39;: 87990272,
+ &#39;memusage/startup&#39;: 87990272,
+ &#39;response_received_count&#39;: 2,
+ &#39;robotstxt/request_count&#39;: 1,
+ &#39;robotstxt/response_count&#39;: 1,
+ &#39;robotstxt/response_status_count/200&#39;: 1,
+ &#39;scheduler/dequeued&#39;: 2,
+ &#39;scheduler/dequeued/memory&#39;: 2,
+ &#39;scheduler/enqueued&#39;: 2,
+ &#39;scheduler/enqueued/memory&#39;: 2,
+ &#39;start_time&#39;: datetime.datetime(2022, 10, 18, 19, 57, 53, 992930)}
+2022-10-18 19:57:55 [scrapy.core.engine] INFO: Spider closed (finished)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="intro.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Welcome to your Jupyter Book</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="crawl-data-tweet.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Crawling Data</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Jupyter Book Community<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

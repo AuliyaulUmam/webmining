@@ -1,0 +1,2192 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Peringkasan berita online menggunakan metode PageRank &#8212; My sample book</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Analisa Clustering dengan menggunakan K-means" href="uts-nomor1.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">My sample book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="crawl-data-pta.html">
+   Data Crawling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="crawl-data-tweet.html">
+   Crawling Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="prepro-tweet.html">
+   PreProcessing Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="term-frequency.html">
+   Term Frequency, K-Means, Feature Selection, Information Gain
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="uts-nomor1.html">
+   Analisa Clustering dengan menggunakan K-means
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Peringkasan berita online menggunakan metode PageRank
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/uts-nomor2.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/AuliyaulUmam/webmining"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/uts-nomor2.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#crawling-data">
+   Crawling Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trafilatrua">
+     Trafilatrua
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#masukkan-url-berita-yang-akan-dicrawling">
+     Masukkan Url Berita yang Akan dicrawling
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lakukan-crawling-dan-tampilkan-hasilnya">
+     Lakukan Crawling dan Tampilkan Hasilnya
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#preprocessing-data">
+   PreProcessing Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#case-folding">
+     Case Folding
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#split-paragraph">
+     Split Paragraph
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tahap-case-folding-dan-menghapus-tanda-baca-angka-karakter-kosong">
+     Tahap Case Folding dan Menghapus tanda baca, angka, karakter kosong
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#filtering">
+     Filtering
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tahap-pagerank">
+   Tahap PageRank
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menampilkan-gambar-pagerank">
+     Menampilkan Gambar PageRank
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menampilkan-hasil-pagerank">
+     Menampilkan Hasil PageRank
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Peringkasan berita online menggunakan metode PageRank</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#crawling-data">
+   Crawling Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trafilatrua">
+     Trafilatrua
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#masukkan-url-berita-yang-akan-dicrawling">
+     Masukkan Url Berita yang Akan dicrawling
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lakukan-crawling-dan-tampilkan-hasilnya">
+     Lakukan Crawling dan Tampilkan Hasilnya
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#preprocessing-data">
+   PreProcessing Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#case-folding">
+     Case Folding
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#split-paragraph">
+     Split Paragraph
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tahap-case-folding-dan-menghapus-tanda-baca-angka-karakter-kosong">
+     Tahap Case Folding dan Menghapus tanda baca, angka, karakter kosong
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#filtering">
+     Filtering
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tahap-pagerank">
+   Tahap PageRank
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menampilkan-gambar-pagerank">
+     Menampilkan Gambar PageRank
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#menampilkan-hasil-pagerank">
+     Menampilkan Hasil PageRank
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="peringkasan-berita-online-menggunakan-metode-pagerank">
+<h1>Peringkasan berita online menggunakan metode PageRank<a class="headerlink" href="#peringkasan-berita-online-menggunakan-metode-pagerank" title="Permalink to this headline">#</a></h1>
+<section id="crawling-data">
+<h2>Crawling Data<a class="headerlink" href="#crawling-data" title="Permalink to this headline">#</a></h2>
+<p>Data crawling atau perayapan data adalah proses pengambilan data yang tersedia secara online untuk umum. Proses ini kemudian mengimpor informasi atau data yang telah ditemukan ke dalam file lokal di komputer Anda.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">cd</span> /content/drive/MyDrive/jupyter-book/mining
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/content/drive/MyDrive/jupyter-book/mining
+</pre></div>
+</div>
+</div>
+</div>
+<section id="trafilatrua">
+<h3>Trafilatrua<a class="headerlink" href="#trafilatrua" title="Permalink to this headline">#</a></h3>
+<p>Trafilatura adalah paket Python dan alat baris perintah yang dirancang untuk mengumpulkan teks di Web. Ini mencakup komponen penemuan, ekstraksi, dan pemrosesan teks. Aplikasi utamanya adalah penjelajahan web, unduhan, pengikisan, dan ekstraksi teks utama, metadata, dan komentar. Ini bertujuan untuk tetap praktis dan modular : tidak diperlukan database, output dapat dikonversi ke berbagai format yang umum digunakan.</p>
+<p>Beralih dari HTML mentah ke bagian penting dapat mengurangi banyak masalah yang terkait dengan kualitas teks, pertama dengan menghindari kebisingan yang disebabkan oleh elemen berulang (header, footer, tautan/blogroll, dll.) dan kedua dengan memasukkan informasi seperti penulis dan tanggal untuk membuat rasa datanya . Ekstraktor mencoba untuk mencapai keseimbangan antara membatasi kebisingan (presisi) dan memasukkan semua bagian yang valid (recall). Itu juga harus kuat dan cukup cepat , itu berjalan dalam produksi jutaan dokumen.</p>
+<p>Alat ini dapat berguna untuk penelitian kuantitatif dalam linguistik korpus, pemrosesan bahasa alami, ilmu sosial komputasi, dan lainnya: alat ini relevan bagi siapa saja yang tertarik dengan ilmu data, ekstraksi informasi, penambangan teks, dan kasus penggunaan intensif seperti pengoptimalan mesin telusur, bisnis analitik atau keamanan informasi.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">trafilatura</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting trafilatura
+  Downloading trafilatura-1.4.0-py3-none-any.whl (1.0 MB)
+?25l
+     |▎                               | 10 kB 11.5 MB/s eta 0:00:01
+     |▋                               | 20 kB 4.7 MB/s eta 0:00:01
+     |█                               | 30 kB 6.6 MB/s eta 0:00:01
+     |█▎                              | 40 kB 3.3 MB/s eta 0:00:01
+     |█▋                              | 51 kB 3.7 MB/s eta 0:00:01
+     |██                              | 61 kB 4.4 MB/s eta 0:00:01
+     |██▎                             | 71 kB 4.3 MB/s eta 0:00:01
+     |██▌                             | 81 kB 4.9 MB/s eta 0:00:01
+     |██▉                             | 92 kB 5.0 MB/s eta 0:00:01
+     |███▏                            | 102 kB 4.2 MB/s eta 0:00:01
+     |███▌                            | 112 kB 4.2 MB/s eta 0:00:01
+     |███▉                            | 122 kB 4.2 MB/s eta 0:00:01
+     |████▏                           | 133 kB 4.2 MB/s eta 0:00:01
+     |████▌                           | 143 kB 4.2 MB/s eta 0:00:01
+     |████▉                           | 153 kB 4.2 MB/s eta 0:00:01
+     |█████                           | 163 kB 4.2 MB/s eta 0:00:01
+     |█████▍                          | 174 kB 4.2 MB/s eta 0:00:01
+     |█████▊                          | 184 kB 4.2 MB/s eta 0:00:01
+     |██████                          | 194 kB 4.2 MB/s eta 0:00:01
+     |██████▍                         | 204 kB 4.2 MB/s eta 0:00:01
+     |██████▊                         | 215 kB 4.2 MB/s eta 0:00:01
+     |███████                         | 225 kB 4.2 MB/s eta 0:00:01
+     |███████▍                        | 235 kB 4.2 MB/s eta 0:00:01
+     |███████▋                        | 245 kB 4.2 MB/s eta 0:00:01
+     |████████                        | 256 kB 4.2 MB/s eta 0:00:01
+     |████████▎                       | 266 kB 4.2 MB/s eta 0:00:01
+     |████████▋                       | 276 kB 4.2 MB/s eta 0:00:01
+     |█████████                       | 286 kB 4.2 MB/s eta 0:00:01
+     |█████████▎                      | 296 kB 4.2 MB/s eta 0:00:01
+     |█████████▋                      | 307 kB 4.2 MB/s eta 0:00:01
+     |█████████▉                      | 317 kB 4.2 MB/s eta 0:00:01
+     |██████████▏                     | 327 kB 4.2 MB/s eta 0:00:01
+     |██████████▌                     | 337 kB 4.2 MB/s eta 0:00:01
+     |██████████▉                     | 348 kB 4.2 MB/s eta 0:00:01
+     |███████████▏                    | 358 kB 4.2 MB/s eta 0:00:01
+     |███████████▌                    | 368 kB 4.2 MB/s eta 0:00:01
+     |███████████▉                    | 378 kB 4.2 MB/s eta 0:00:01
+     |████████████▏                   | 389 kB 4.2 MB/s eta 0:00:01
+     |████████████▍                   | 399 kB 4.2 MB/s eta 0:00:01
+     |████████████▊                   | 409 kB 4.2 MB/s eta 0:00:01
+     |█████████████                   | 419 kB 4.2 MB/s eta 0:00:01
+     |█████████████▍                  | 430 kB 4.2 MB/s eta 0:00:01
+     |█████████████▊                  | 440 kB 4.2 MB/s eta 0:00:01
+     |██████████████                  | 450 kB 4.2 MB/s eta 0:00:01
+     |██████████████▍                 | 460 kB 4.2 MB/s eta 0:00:01
+     |██████████████▊                 | 471 kB 4.2 MB/s eta 0:00:01
+     |███████████████                 | 481 kB 4.2 MB/s eta 0:00:01
+     |███████████████▎                | 491 kB 4.2 MB/s eta 0:00:01
+     |███████████████▋                | 501 kB 4.2 MB/s eta 0:00:01
+     |████████████████                | 512 kB 4.2 MB/s eta 0:00:01
+     |████████████████▎               | 522 kB 4.2 MB/s eta 0:00:01
+     |████████████████▋               | 532 kB 4.2 MB/s eta 0:00:01
+     |█████████████████               | 542 kB 4.2 MB/s eta 0:00:01
+     |█████████████████▏              | 552 kB 4.2 MB/s eta 0:00:01
+     |█████████████████▌              | 563 kB 4.2 MB/s eta 0:00:01
+     |█████████████████▉              | 573 kB 4.2 MB/s eta 0:00:01
+     |██████████████████▏             | 583 kB 4.2 MB/s eta 0:00:01
+     |██████████████████▌             | 593 kB 4.2 MB/s eta 0:00:01
+     |██████████████████▉             | 604 kB 4.2 MB/s eta 0:00:01
+     |███████████████████▏            | 614 kB 4.2 MB/s eta 0:00:01
+     |███████████████████▌            | 624 kB 4.2 MB/s eta 0:00:01
+     |███████████████████▊            | 634 kB 4.2 MB/s eta 0:00:01
+     |████████████████████            | 645 kB 4.2 MB/s eta 0:00:01
+     |████████████████████▍           | 655 kB 4.2 MB/s eta 0:00:01
+     |████████████████████▊           | 665 kB 4.2 MB/s eta 0:00:01
+     |█████████████████████           | 675 kB 4.2 MB/s eta 0:00:01
+     |█████████████████████▍          | 686 kB 4.2 MB/s eta 0:00:01
+     |█████████████████████▊          | 696 kB 4.2 MB/s eta 0:00:01
+     |██████████████████████          | 706 kB 4.2 MB/s eta 0:00:01
+     |██████████████████████▎         | 716 kB 4.2 MB/s eta 0:00:01
+     |██████████████████████▋         | 727 kB 4.2 MB/s eta 0:00:01
+     |███████████████████████         | 737 kB 4.2 MB/s eta 0:00:01
+     |███████████████████████▎        | 747 kB 4.2 MB/s eta 0:00:01
+     |███████████████████████▋        | 757 kB 4.2 MB/s eta 0:00:01
+     |████████████████████████        | 768 kB 4.2 MB/s eta 0:00:01
+     |████████████████████████▎       | 778 kB 4.2 MB/s eta 0:00:01
+     |████████████████████████▋       | 788 kB 4.2 MB/s eta 0:00:01
+     |████████████████████████▉       | 798 kB 4.2 MB/s eta 0:00:01
+     |█████████████████████████▏      | 808 kB 4.2 MB/s eta 0:00:01
+     |█████████████████████████▌      | 819 kB 4.2 MB/s eta 0:00:01
+     |█████████████████████████▉      | 829 kB 4.2 MB/s eta 0:00:01
+     |██████████████████████████▏     | 839 kB 4.2 MB/s eta 0:00:01
+     |██████████████████████████▌     | 849 kB 4.2 MB/s eta 0:00:01
+     |██████████████████████████▉     | 860 kB 4.2 MB/s eta 0:00:01
+     |███████████████████████████     | 870 kB 4.2 MB/s eta 0:00:01
+     |███████████████████████████▍    | 880 kB 4.2 MB/s eta 0:00:01
+     |███████████████████████████▊    | 890 kB 4.2 MB/s eta 0:00:01
+     |████████████████████████████    | 901 kB 4.2 MB/s eta 0:00:01
+     |████████████████████████████▍   | 911 kB 4.2 MB/s eta 0:00:01
+     |████████████████████████████▊   | 921 kB 4.2 MB/s eta 0:00:01
+     |█████████████████████████████   | 931 kB 4.2 MB/s eta 0:00:01
+     |█████████████████████████████▍  | 942 kB 4.2 MB/s eta 0:00:01
+     |█████████████████████████████▋  | 952 kB 4.2 MB/s eta 0:00:01
+     |██████████████████████████████  | 962 kB 4.2 MB/s eta 0:00:01
+     |██████████████████████████████▎ | 972 kB 4.2 MB/s eta 0:00:01
+     |██████████████████████████████▋ | 983 kB 4.2 MB/s eta 0:00:01
+     |███████████████████████████████ | 993 kB 4.2 MB/s eta 0:00:01
+     |███████████████████████████████▎| 1.0 MB 4.2 MB/s eta 0:00:01
+     |███████████████████████████████▋| 1.0 MB 4.2 MB/s eta 0:00:01
+     |████████████████████████████████| 1.0 MB 4.2 MB/s eta 0:00:01
+     |████████████████████████████████| 1.0 MB 4.2 MB/s 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25hCollecting htmldate&gt;=1.3.2
+  Downloading htmldate-1.3.2-py3-none-any.whl (39 kB)
+Requirement already satisfied: lxml&gt;=4.6.4 in /usr/local/lib/python3.7/dist-packages (from trafilatura) (4.9.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting courlan&gt;=0.8.3
+  Downloading courlan-0.8.3-py3-none-any.whl (34 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting urllib3&lt;2,&gt;=1.26
+  Downloading urllib3-1.26.12-py2.py3-none-any.whl (140 kB)
+?25l
+     |██▍                             | 10 kB 33.6 MB/s eta 0:00:01
+     |████▊                           | 20 kB 40.5 MB/s eta 0:00:01
+     |███████                         | 30 kB 48.3 MB/s eta 0:00:01
+     |█████████▍                      | 40 kB 51.2 MB/s eta 0:00:01
+     |███████████▊                    | 51 kB 52.8 MB/s eta 0:00:01
+     |██████████████                  | 61 kB 55.0 MB/s eta 0:00:01
+     |████████████████▍               | 71 kB 55.9 MB/s eta 0:00:01
+     |██████████████████▊             | 81 kB 57.0 MB/s eta 0:00:01
+     |█████████████████████           | 92 kB 59.3 MB/s eta 0:00:01
+     |███████████████████████▍        | 102 kB 60.7 MB/s eta 0:00:01
+     |█████████████████████████▊      | 112 kB 60.7 MB/s eta 0:00:01
+     |████████████████████████████    | 122 kB 60.7 MB/s eta 0:00:01
+     |██████████████████████████████▍ | 133 kB 60.7 MB/s eta 0:00:01
+     |████████████████████████████████| 140 kB 60.7 MB/s 
+?25hRequirement already satisfied: charset-normalizer&gt;=2.1.1 in /usr/local/lib/python3.7/dist-packages (from trafilatura) (2.1.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting justext&gt;=3.0.0
+  Downloading jusText-3.0.0-py2.py3-none-any.whl (837 kB)
+?25l
+     |▍                               | 10 kB 28.8 MB/s eta 0:00:01
+     |▉                               | 20 kB 29.6 MB/s eta 0:00:01
+     |█▏                              | 30 kB 36.2 MB/s eta 0:00:01
+     |█▋                              | 40 kB 40.7 MB/s eta 0:00:01
+     |██                              | 51 kB 44.2 MB/s eta 0:00:01
+     |██▍                             | 61 kB 47.7 MB/s eta 0:00:01
+     |██▊                             | 71 kB 49.5 MB/s eta 0:00:01
+     |███▏                            | 81 kB 52.6 MB/s eta 0:00:01
+     |███▌                            | 92 kB 53.8 MB/s eta 0:00:01
+     |████                            | 102 kB 56.3 MB/s eta 0:00:01
+     |████▎                           | 112 kB 56.3 MB/s eta 0:00:01
+     |████▊                           | 122 kB 56.3 MB/s eta 0:00:01
+     |█████                           | 133 kB 56.3 MB/s eta 0:00:01
+     |█████▌                          | 143 kB 56.3 MB/s eta 0:00:01
+     |█████▉                          | 153 kB 56.3 MB/s eta 0:00:01
+     |██████▎                         | 163 kB 56.3 MB/s eta 0:00:01
+     |██████▋                         | 174 kB 56.3 MB/s eta 0:00:01
+     |███████                         | 184 kB 56.3 MB/s eta 0:00:01
+     |███████▍                        | 194 kB 56.3 MB/s eta 0:00:01
+     |███████▉                        | 204 kB 56.3 MB/s eta 0:00:01
+     |████████▏                       | 215 kB 56.3 MB/s eta 0:00:01
+     |████████▋                       | 225 kB 56.3 MB/s eta 0:00:01
+     |█████████                       | 235 kB 56.3 MB/s eta 0:00:01
+     |█████████▍                      | 245 kB 56.3 MB/s eta 0:00:01
+     |█████████▉                      | 256 kB 56.3 MB/s eta 0:00:01
+     |██████████▏                     | 266 kB 56.3 MB/s eta 0:00:01
+     |██████████▋                     | 276 kB 56.3 MB/s eta 0:00:01
+     |███████████                     | 286 kB 56.3 MB/s eta 0:00:01
+     |███████████▍                    | 296 kB 56.3 MB/s eta 0:00:01
+     |███████████▊                    | 307 kB 56.3 MB/s eta 0:00:01
+     |████████████▏                   | 317 kB 56.3 MB/s eta 0:00:01
+     |████████████▌                   | 327 kB 56.3 MB/s eta 0:00:01
+     |█████████████                   | 337 kB 56.3 MB/s eta 0:00:01
+     |█████████████▎                  | 348 kB 56.3 MB/s eta 0:00:01
+     |█████████████▊                  | 358 kB 56.3 MB/s eta 0:00:01
+     |██████████████                  | 368 kB 56.3 MB/s eta 0:00:01
+     |██████████████▌                 | 378 kB 56.3 MB/s eta 0:00:01
+     |██████████████▉                 | 389 kB 56.3 MB/s eta 0:00:01
+     |███████████████▎                | 399 kB 56.3 MB/s eta 0:00:01
+     |███████████████▋                | 409 kB 56.3 MB/s eta 0:00:01
+     |████████████████                | 419 kB 56.3 MB/s eta 0:00:01
+     |████████████████▍               | 430 kB 56.3 MB/s eta 0:00:01
+     |████████████████▉               | 440 kB 56.3 MB/s eta 0:00:01
+     |█████████████████▏              | 450 kB 56.3 MB/s eta 0:00:01
+     |█████████████████▋              | 460 kB 56.3 MB/s eta 0:00:01
+     |██████████████████              | 471 kB 56.3 MB/s eta 0:00:01
+     |██████████████████▍             | 481 kB 56.3 MB/s eta 0:00:01
+     |██████████████████▊             | 491 kB 56.3 MB/s eta 0:00:01
+     |███████████████████▏            | 501 kB 56.3 MB/s eta 0:00:01
+     |███████████████████▋            | 512 kB 56.3 MB/s eta 0:00:01
+     |████████████████████            | 522 kB 56.3 MB/s eta 0:00:01
+     |████████████████████▍           | 532 kB 56.3 MB/s eta 0:00:01
+     |████████████████████▊           | 542 kB 56.3 MB/s eta 0:00:01
+     |█████████████████████▏          | 552 kB 56.3 MB/s eta 0:00:01
+     |█████████████████████▌          | 563 kB 56.3 MB/s eta 0:00:01
+     |██████████████████████          | 573 kB 56.3 MB/s eta 0:00:01
+     |██████████████████████▎         | 583 kB 56.3 MB/s eta 0:00:01
+     |██████████████████████▊         | 593 kB 56.3 MB/s eta 0:00:01
+     |███████████████████████         | 604 kB 56.3 MB/s eta 0:00:01
+     |███████████████████████▌        | 614 kB 56.3 MB/s eta 0:00:01
+     |███████████████████████▉        | 624 kB 56.3 MB/s eta 0:00:01
+     |████████████████████████▎       | 634 kB 56.3 MB/s eta 0:00:01
+     |████████████████████████▋       | 645 kB 56.3 MB/s eta 0:00:01
+     |█████████████████████████       | 655 kB 56.3 MB/s eta 0:00:01
+     |█████████████████████████▍      | 665 kB 56.3 MB/s eta 0:00:01
+     |█████████████████████████▉      | 675 kB 56.3 MB/s eta 0:00:01
+     |██████████████████████████▏     | 686 kB 56.3 MB/s eta 0:00:01
+     |██████████████████████████▋     | 696 kB 56.3 MB/s eta 0:00:01
+     |███████████████████████████     | 706 kB 56.3 MB/s eta 0:00:01
+     |███████████████████████████▍    | 716 kB 56.3 MB/s eta 0:00:01
+     |███████████████████████████▊    | 727 kB 56.3 MB/s eta 0:00:01
+     |████████████████████████████▏   | 737 kB 56.3 MB/s eta 0:00:01
+     |████████████████████████████▌   | 747 kB 56.3 MB/s eta 0:00:01
+     |█████████████████████████████   | 757 kB 56.3 MB/s eta 0:00:01
+     |█████████████████████████████▍  | 768 kB 56.3 MB/s eta 0:00:01
+     |█████████████████████████████▊  | 778 kB 56.3 MB/s eta 0:00:01
+     |██████████████████████████████▏ | 788 kB 56.3 MB/s eta 0:00:01
+     |██████████████████████████████▌ | 798 kB 56.3 MB/s eta 0:00:01
+     |███████████████████████████████ | 808 kB 56.3 MB/s eta 0:00:01
+     |███████████████████████████████▎| 819 kB 56.3 MB/s eta 0:00:01
+     |███████████████████████████████▊| 829 kB 56.3 MB/s eta 0:00:01
+     |████████████████████████████████| 837 kB 56.3 MB/s 
+?25hRequirement already satisfied: certifi in /usr/local/lib/python3.7/dist-packages (from trafilatura) (2022.9.24)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting tld&gt;=0.12.6
+  Downloading tld-0.12.6-py37-none-any.whl (412 kB)
+?25l
+     |▉                               | 10 kB 27.6 MB/s eta 0:00:01
+     |█▋                              | 20 kB 33.8 MB/s eta 0:00:01
+     |██▍                             | 30 kB 41.9 MB/s eta 0:00:01
+     |███▏                            | 40 kB 45.8 MB/s eta 0:00:01
+     |████                            | 51 kB 50.1 MB/s eta 0:00:01
+     |████▊                           | 61 kB 54.4 MB/s eta 0:00:01
+     |█████▋                          | 71 kB 57.6 MB/s eta 0:00:01
+     |██████▍                         | 81 kB 60.4 MB/s eta 0:00:01
+     |███████▏                        | 92 kB 63.6 MB/s eta 0:00:01
+     |████████                        | 102 kB 66.3 MB/s eta 0:00:01
+     |████████▊                       | 112 kB 66.3 MB/s eta 0:00:01
+     |█████████▌                      | 122 kB 66.3 MB/s eta 0:00:01
+     |██████████▍                     | 133 kB 66.3 MB/s eta 0:00:01
+     |███████████▏                    | 143 kB 66.3 MB/s eta 0:00:01
+     |████████████                    | 153 kB 66.3 MB/s eta 0:00:01
+     |████████████▊                   | 163 kB 66.3 MB/s eta 0:00:01
+     |█████████████▌                  | 174 kB 66.3 MB/s eta 0:00:01
+     |██████████████▎                 | 184 kB 66.3 MB/s eta 0:00:01
+     |███████████████                 | 194 kB 66.3 MB/s eta 0:00:01
+     |████████████████                | 204 kB 66.3 MB/s eta 0:00:01
+     |████████████████▊               | 215 kB 66.3 MB/s eta 0:00:01
+     |█████████████████▌              | 225 kB 66.3 MB/s eta 0:00:01
+     |██████████████████▎             | 235 kB 66.3 MB/s eta 0:00:01
+     |███████████████████             | 245 kB 66.3 MB/s eta 0:00:01
+     |███████████████████▉            | 256 kB 66.3 MB/s eta 0:00:01
+     |████████████████████▊           | 266 kB 66.3 MB/s eta 0:00:01
+     |█████████████████████▌          | 276 kB 66.3 MB/s eta 0:00:01
+     |██████████████████████▎         | 286 kB 66.3 MB/s eta 0:00:01
+     |███████████████████████         | 296 kB 66.3 MB/s eta 0:00:01
+     |███████████████████████▉        | 307 kB 66.3 MB/s eta 0:00:01
+     |████████████████████████▋       | 317 kB 66.3 MB/s eta 0:00:01
+     |█████████████████████████▍      | 327 kB 66.3 MB/s eta 0:00:01
+     |██████████████████████████▎     | 337 kB 66.3 MB/s eta 0:00:01
+     |███████████████████████████     | 348 kB 66.3 MB/s eta 0:00:01
+     |███████████████████████████▉    | 358 kB 66.3 MB/s eta 0:00:01
+     |████████████████████████████▋   | 368 kB 66.3 MB/s eta 0:00:01
+     |█████████████████████████████▍  | 378 kB 66.3 MB/s eta 0:00:01
+     |██████████████████████████████▏ | 389 kB 66.3 MB/s eta 0:00:01
+     |███████████████████████████████ | 399 kB 66.3 MB/s eta 0:00:01
+     |███████████████████████████████▉| 409 kB 66.3 MB/s eta 0:00:01
+     |████████████████████████████████| 412 kB 66.3 MB/s 
+?25hRequirement already satisfied: langcodes&gt;=3.3.0 in /usr/local/lib/python3.7/dist-packages (from courlan&gt;=0.8.3-&gt;trafilatura) (3.3.0)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /usr/local/lib/python3.7/dist-packages (from htmldate&gt;=1.3.2-&gt;trafilatura) (2.8.2)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting dateparser&gt;=1.1.1
+  Downloading dateparser-1.1.1-py2.py3-none-any.whl (288 kB)
+?25l
+     |█▏                              | 10 kB 23.1 MB/s eta 0:00:01
+     |██▎                             | 20 kB 28.3 MB/s eta 0:00:01
+     |███▍                            | 30 kB 32.9 MB/s eta 0:00:01
+     |████▌                           | 40 kB 35.2 MB/s eta 0:00:01
+     |█████▊                          | 51 kB 37.3 MB/s eta 0:00:01
+     |██████▉                         | 61 kB 39.6 MB/s eta 0:00:01
+     |████████                        | 71 kB 41.1 MB/s eta 0:00:01
+     |█████████                       | 81 kB 42.4 MB/s eta 0:00:01
+     |██████████▏                     | 92 kB 43.1 MB/s eta 0:00:01
+     |███████████▍                    | 102 kB 44.1 MB/s eta 0:00:01
+     |████████████▌                   | 112 kB 44.1 MB/s eta 0:00:01
+     |█████████████▋                  | 122 kB 44.1 MB/s eta 0:00:01
+     |██████████████▊                 | 133 kB 44.1 MB/s eta 0:00:01
+     |███████████████▉                | 143 kB 44.1 MB/s eta 0:00:01
+     |█████████████████               | 153 kB 44.1 MB/s eta 0:00:01
+     |██████████████████▏             | 163 kB 44.1 MB/s eta 0:00:01
+     |███████████████████▎            | 174 kB 44.1 MB/s eta 0:00:01
+     |████████████████████▍           | 184 kB 44.1 MB/s eta 0:00:01
+     |█████████████████████▌          | 194 kB 44.1 MB/s eta 0:00:01
+     |██████████████████████▊         | 204 kB 44.1 MB/s eta 0:00:01
+     |███████████████████████▉        | 215 kB 44.1 MB/s eta 0:00:01
+     |█████████████████████████       | 225 kB 44.1 MB/s eta 0:00:01
+     |██████████████████████████      | 235 kB 44.1 MB/s eta 0:00:01
+     |███████████████████████████▎    | 245 kB 44.1 MB/s eta 0:00:01
+     |████████████████████████████▍   | 256 kB 44.1 MB/s eta 0:00:01
+     |█████████████████████████████▌  | 266 kB 44.1 MB/s eta 0:00:01
+     |██████████████████████████████▋ | 276 kB 44.1 MB/s eta 0:00:01
+     |███████████████████████████████▊| 286 kB 44.1 MB/s eta 0:00:01
+     |████████████████████████████████| 288 kB 44.1 MB/s 
+?25hRequirement already satisfied: pytz in /usr/local/lib/python3.7/dist-packages (from dateparser&gt;=1.1.1-&gt;htmldate&gt;=1.3.2-&gt;trafilatura) (2022.4)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting regex!=2019.02.19,!=2021.8.27,&lt;2022.3.15
+  Downloading regex-2022.3.2-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (749 kB)
+?25l
+     |▍                               | 10 kB 28.2 MB/s eta 0:00:01
+     |▉                               | 20 kB 37.3 MB/s eta 0:00:01
+     |█▎                              | 30 kB 47.5 MB/s eta 0:00:01
+     |█▊                              | 40 kB 52.0 MB/s eta 0:00:01
+     |██▏                             | 51 kB 53.8 MB/s eta 0:00:01
+     |██▋                             | 61 kB 58.9 MB/s eta 0:00:01
+     |███                             | 71 kB 62.3 MB/s eta 0:00:01
+     |███▌                            | 81 kB 62.5 MB/s eta 0:00:01
+     |████                            | 92 kB 64.6 MB/s eta 0:00:01
+     |████▍                           | 102 kB 67.0 MB/s eta 0:00:01
+     |████▉                           | 112 kB 67.0 MB/s eta 0:00:01
+     |█████▎                          | 122 kB 67.0 MB/s eta 0:00:01
+     |█████▊                          | 133 kB 67.0 MB/s eta 0:00:01
+     |██████▏                         | 143 kB 67.0 MB/s eta 0:00:01
+     |██████▋                         | 153 kB 67.0 MB/s eta 0:00:01
+     |███████                         | 163 kB 67.0 MB/s eta 0:00:01
+     |███████▍                        | 174 kB 67.0 MB/s eta 0:00:01
+     |███████▉                        | 184 kB 67.0 MB/s eta 0:00:01
+     |████████▎                       | 194 kB 67.0 MB/s eta 0:00:01
+     |████████▊                       | 204 kB 67.0 MB/s eta 0:00:01
+     |█████████▏                      | 215 kB 67.0 MB/s eta 0:00:01
+     |█████████▋                      | 225 kB 67.0 MB/s eta 0:00:01
+     |██████████                      | 235 kB 67.0 MB/s eta 0:00:01
+     |██████████▌                     | 245 kB 67.0 MB/s eta 0:00:01
+     |███████████                     | 256 kB 67.0 MB/s eta 0:00:01
+     |███████████▍                    | 266 kB 67.0 MB/s eta 0:00:01
+     |███████████▉                    | 276 kB 67.0 MB/s eta 0:00:01
+     |████████████▎                   | 286 kB 67.0 MB/s eta 0:00:01
+     |████████████▊                   | 296 kB 67.0 MB/s eta 0:00:01
+     |█████████████▏                  | 307 kB 67.0 MB/s eta 0:00:01
+     |█████████████▋                  | 317 kB 67.0 MB/s eta 0:00:01
+     |██████████████                  | 327 kB 67.0 MB/s eta 0:00:01
+     |██████████████▍                 | 337 kB 67.0 MB/s eta 0:00:01
+     |██████████████▉                 | 348 kB 67.0 MB/s eta 0:00:01
+     |███████████████▎                | 358 kB 67.0 MB/s eta 0:00:01
+     |███████████████▊                | 368 kB 67.0 MB/s eta 0:00:01
+     |████████████████▏               | 378 kB 67.0 MB/s eta 0:00:01
+     |████████████████▋               | 389 kB 67.0 MB/s eta 0:00:01
+     |█████████████████               | 399 kB 67.0 MB/s eta 0:00:01
+     |█████████████████▌              | 409 kB 67.0 MB/s eta 0:00:01
+     |██████████████████              | 419 kB 67.0 MB/s eta 0:00:01
+     |██████████████████▍             | 430 kB 67.0 MB/s eta 0:00:01
+     |██████████████████▉             | 440 kB 67.0 MB/s eta 0:00:01
+     |███████████████████▎            | 450 kB 67.0 MB/s eta 0:00:01
+     |███████████████████▊            | 460 kB 67.0 MB/s eta 0:00:01
+     |████████████████████▏           | 471 kB 67.0 MB/s eta 0:00:01
+     |████████████████████▌           | 481 kB 67.0 MB/s eta 0:00:01
+     |█████████████████████           | 491 kB 67.0 MB/s eta 0:00:01
+     |█████████████████████▍          | 501 kB 67.0 MB/s eta 0:00:01
+     |█████████████████████▉          | 512 kB 67.0 MB/s eta 0:00:01
+     |██████████████████████▎         | 522 kB 67.0 MB/s eta 0:00:01
+     |██████████████████████▊         | 532 kB 67.0 MB/s eta 0:00:01
+     |███████████████████████▏        | 542 kB 67.0 MB/s eta 0:00:01
+     |███████████████████████▋        | 552 kB 67.0 MB/s eta 0:00:01
+     |████████████████████████        | 563 kB 67.0 MB/s eta 0:00:01
+     |████████████████████████▌       | 573 kB 67.0 MB/s eta 0:00:01
+     |█████████████████████████       | 583 kB 67.0 MB/s eta 0:00:01
+     |█████████████████████████▍      | 593 kB 67.0 MB/s eta 0:00:01
+     |█████████████████████████▉      | 604 kB 67.0 MB/s eta 0:00:01
+     |██████████████████████████▎     | 614 kB 67.0 MB/s eta 0:00:01
+     |██████████████████████████▊     | 624 kB 67.0 MB/s eta 0:00:01
+     |███████████████████████████▏    | 634 kB 67.0 MB/s eta 0:00:01
+     |███████████████████████████▌    | 645 kB 67.0 MB/s eta 0:00:01
+     |████████████████████████████    | 655 kB 67.0 MB/s eta 0:00:01
+     |████████████████████████████▍   | 665 kB 67.0 MB/s eta 0:00:01
+     |████████████████████████████▉   | 675 kB 67.0 MB/s eta 0:00:01
+     |█████████████████████████████▎  | 686 kB 67.0 MB/s eta 0:00:01
+     |█████████████████████████████▊  | 696 kB 67.0 MB/s eta 0:00:01
+     |██████████████████████████████▏ | 706 kB 67.0 MB/s eta 0:00:01
+     |██████████████████████████████▋ | 716 kB 67.0 MB/s eta 0:00:01
+     |███████████████████████████████ | 727 kB 67.0 MB/s eta 0:00:01
+     |███████████████████████████████▌| 737 kB 67.0 MB/s eta 0:00:01
+     |████████████████████████████████| 747 kB 67.0 MB/s eta 0:00:01
+     |████████████████████████████████| 749 kB 67.0 MB/s 
+?25hRequirement already satisfied: tzlocal in /usr/local/lib/python3.7/dist-packages (from dateparser&gt;=1.1.1-&gt;htmldate&gt;=1.3.2-&gt;trafilatura) (1.5.1)
+Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.7/dist-packages (from python-dateutil&gt;=2.8.2-&gt;htmldate&gt;=1.3.2-&gt;trafilatura) (1.15.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: regex, urllib3, tld, dateparser, justext, htmldate, courlan, trafilatura
+  Attempting uninstall: regex
+    Found existing installation: regex 2022.6.2
+    Uninstalling regex-2022.6.2:
+      Successfully uninstalled regex-2022.6.2
+  Attempting uninstall: urllib3
+    Found existing installation: urllib3 1.24.3
+    Uninstalling urllib3-1.24.3:
+      Successfully uninstalled urllib3-1.24.3
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Red">ERROR: pip&#39;s dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.</span>
+<span class=" -Color -Color-Red">requests 2.23.0 requires urllib3!=1.25.0,!=1.25.1,&lt;1.26,&gt;=1.21.1, but you have urllib3 1.26.12 which is incompatible.</span>
+<span class=" -Color -Color-Red">google-colab 1.0.0 requires tornado~=5.1.0, but you have tornado 6.2 which is incompatible.</span>
+Successfully installed courlan-0.8.3 dateparser-1.1.1 htmldate-1.3.2 justext-3.0.0 regex-2022.3.2 tld-0.12.6 trafilatura-1.4.0 urllib3-1.26.12
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">trafilatura</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="masukkan-url-berita-yang-akan-dicrawling">
+<h3>Masukkan Url Berita yang Akan dicrawling<a class="headerlink" href="#masukkan-url-berita-yang-akan-dicrawling" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">downloaded</span> <span class="o">=</span> <span class="n">trafilatura</span><span class="o">.</span><span class="n">fetch_url</span><span class="p">(</span><span class="s1">&#39;https://bola.tempo.co/read/1644145/jokowi-akan-terima-presiden-fifa-pada-18-oktober-bahas-transformasi-sepak-bola-indonesia&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="lakukan-crawling-dan-tampilkan-hasilnya">
+<h3>Lakukan Crawling dan Tampilkan Hasilnya<a class="headerlink" href="#lakukan-crawling-dan-tampilkan-hasilnya" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">downloaded</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+   <span class="n">result</span> <span class="o">=</span> <span class="n">trafilatura</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">downloaded</span><span class="p">)</span>
+   <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TEMPO.CO, Jakarta - Presiden Joko Widodo (Jokowi) akan menemui Presiden Federation Internationale de Football Association (FIFA) Gianni Infantino pada 18 Oktober 2022. Pertemuan dilakukan untuk membahas transformasi sepak bola Indonesia menyusul Tragedi Kanjuruhan yang menewaskan 131 orang.
+&quot;Presiden FIFA akan datang ke Indonesia kalau tidak ada perubahan 18 Oktober, Bapak Presiden akan bertemu Presiden FIFA untuk membahas transformasi sepak bola Indonesia, surat yang diberikan FIFA ke Pak Presiden itu,&quot; kata Menteri BUMN Erick Thohir di lingkungan istana kepresidenan Jakarta, Selasa.
+Erick Thohir diketahui bertemu dengan Gianni Infantino di Doha, Qatar pada 5 Oktober 2022. Dalam pertemuan itu Gianni menyebut FIFA siap mendukung sepak bola Indonesia sebagai olahraga paling populer di Indonesia untuk jadi kebanggaan rakyat dan menjadi salah satu pilar yang berkontribusi terhadap kemajuan bangsa.
+&quot;FIFA bersama pemerintah, AFC dan PSSI dalam transformasi itu, tinggal kita tunggu saja hasil rapat Presiden FIFA dan Bapak Presiden karena keduanya sudah berkomunikasi, ada beberapa poin sudah disampaikan Bapak Presiden,&quot; kata Erick.
+Baca Juga: FIFA Disebut Akan Terus Dampingi PSSI Usai Tragedi Kanjuruhan
+Pembicaraan pertama adalah bagaimana audit fasilitas lapangan sepak bola di Indonesia. &quot;Mana stadion (yang) internasional, mana nasional, seperti apa standar nasional, seperti apa standar internasional, tidak lain salah satunya ada CCTV, akses masuk penonton dan pemain tidak boleh bersama,&quot; kata Erick.
+Hal kedua adalah adanya latihan bersama, maupun standarisasi keamanan bersama. &quot;Tentu bersama TNI, Polri, panitia pelaksana supaya semuanya persepsinya sama, supaya jangan saling menyalahkan, apalagi kan kemarin kejadian yang sangat memilukan, memakan korban,&quot; kata Erick.
+Hal ketiga adalah sikap suporter sepak bola itu sendiri. &quot;Suporter tidak mungkin tidak menjadi bagian transformasi, transformasi keberhasilan Inggris dalam persepakbolaan nasionalnya yaitu ketika suporter menjadi bagian transformasinya, ada detail-detailnya, salah satunya bagaimana membentuk &#39;database&#39; bersama,&quot; kata Erick lagi.
+Dengan perubahan sikap suporter tersebut, menurut Erick, sepak bola seharusnya dapat menjadi alat pemersatu, bukan malah memakan korban antarsuporter.
+&quot;Keempat, bagaimana jadwal pertandingan itu harus sesuai dengan kesepakatan berbagai pihak, misalnya musim depan bulan ini sampai bulan, dan izinnya satu atap sudah selesai, tidak boleh ada pergeseran sehingga mungkin keamanan tidak siap, atau masyarakat malah mengalami kemacetan total karena ada pertandingan sepak bola,&quot; kata dia.
+Hal-hal tersebut akan dikaji ulang oleh FIFA. &quot;FIFA akan berkantor di Indonesia, untuk menjaga transformasi sepak bola Indonesia, mungkin 3-6 bulan, bisa setahun, tergantung kesadaran dan kemauan kita. Saya rasa di surat itu jelas, FIFA tidak memprioritaskan untuk memberikan sanksi tapi transofrmasi sepak bola harus terjadi,&quot; kata Erick Thohir.
+Baca Juga: Ketua Panpel Arema Minta Ketua PSSI Ikut Bertanggung Jawab dalam Tragedi Kanjuruhan
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="preprocessing-data">
+<h2>PreProcessing Data<a class="headerlink" href="#preprocessing-data" title="Permalink to this headline">#</a></h2>
+<p>Data preprocessing adalah proses yang mengubah data mentah ke dalam bentuk yang lebih mudah dipahami. Proses ini penting dilakukan karena data mentah sering kali tidak memiliki format yang teratur. Selain itu, data mining juga tidak dapat memproses data mentah, sehingga proses ini sangat penting dilakukan untuk mempermudah proses berikutnya, yakni analisis data.</p>
+<section id="case-folding">
+<h3>Case Folding<a class="headerlink" href="#case-folding" title="Permalink to this headline">#</a></h3>
+<p>Tahap untuk merubah teks yang memiliki huruf kapital menjadi huruf kecil</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="n">result</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;tempo.co, jakarta - presiden joko widodo (jokowi) akan menemui presiden federation internationale de football association (fifa) gianni infantino pada 18 oktober 2022. pertemuan dilakukan untuk membahas transformasi sepak bola indonesia menyusul tragedi kanjuruhan yang menewaskan 131 orang.\n&quot;presiden fifa akan datang ke indonesia kalau tidak ada perubahan 18 oktober, bapak presiden akan bertemu presiden fifa untuk membahas transformasi sepak bola indonesia, surat yang diberikan fifa ke pak presiden itu,&quot; kata menteri bumn erick thohir di lingkungan istana kepresidenan jakarta, selasa.\nerick thohir diketahui bertemu dengan gianni infantino di doha, qatar pada 5 oktober 2022. dalam pertemuan itu gianni menyebut fifa siap mendukung sepak bola indonesia sebagai olahraga paling populer di indonesia untuk jadi kebanggaan rakyat dan menjadi salah satu pilar yang berkontribusi terhadap kemajuan bangsa.\n&quot;fifa bersama pemerintah, afc dan pssi dalam transformasi itu, tinggal kita tunggu saja hasil rapat presiden fifa dan bapak presiden karena keduanya sudah berkomunikasi, ada beberapa poin sudah disampaikan bapak presiden,&quot; kata erick.\nbaca juga: fifa disebut akan terus dampingi pssi usai tragedi kanjuruhan\npembicaraan pertama adalah bagaimana audit fasilitas lapangan sepak bola di indonesia. &quot;mana stadion (yang) internasional, mana nasional, seperti apa standar nasional, seperti apa standar internasional, tidak lain salah satunya ada cctv, akses masuk penonton dan pemain tidak boleh bersama,&quot; kata erick.\nhal kedua adalah adanya latihan bersama, maupun standarisasi keamanan bersama. &quot;tentu bersama tni, polri, panitia pelaksana supaya semuanya persepsinya sama, supaya jangan saling menyalahkan, apalagi kan kemarin kejadian yang sangat memilukan, memakan korban,&quot; kata erick.\nhal ketiga adalah sikap suporter sepak bola itu sendiri. &quot;suporter tidak mungkin tidak menjadi bagian transformasi, transformasi keberhasilan inggris dalam persepakbolaan nasionalnya yaitu ketika suporter menjadi bagian transformasinya, ada detail-detailnya, salah satunya bagaimana membentuk \&#39;database\&#39; bersama,&quot; kata erick lagi.\ndengan perubahan sikap suporter tersebut, menurut erick, sepak bola seharusnya dapat menjadi alat pemersatu, bukan malah memakan korban antarsuporter.\n&quot;keempat, bagaimana jadwal pertandingan itu harus sesuai dengan kesepakatan berbagai pihak, misalnya musim depan bulan ini sampai bulan, dan izinnya satu atap sudah selesai, tidak boleh ada pergeseran sehingga mungkin keamanan tidak siap, atau masyarakat malah mengalami kemacetan total karena ada pertandingan sepak bola,&quot; kata dia.\nhal-hal tersebut akan dikaji ulang oleh fifa. &quot;fifa akan berkantor di indonesia, untuk menjaga transformasi sepak bola indonesia, mungkin 3-6 bulan, bisa setahun, tergantung kesadaran dan kemauan kita. saya rasa di surat itu jelas, fifa tidak memprioritaskan untuk memberikan sanksi tapi transofrmasi sepak bola harus terjadi,&quot; kata erick thohir.\nbaca juga: ketua panpel arema minta ketua pssi ikut bertanggung jawab dalam tragedi kanjuruhan&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">result</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Berita_Asli&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">df</span><span class="p">]</span> <span class="p">}</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Berita_Asli&#39;: [&#39;tempo.co, jakarta - presiden joko widodo (jokowi) akan menemui presiden federation internationale de football association (fifa) gianni infantino pada 18 oktober 2022. pertemuan dilakukan untuk membahas transformasi sepak bola indonesia menyusul tragedi kanjuruhan yang menewaskan 131 orang.\n&quot;presiden fifa akan datang ke indonesia kalau tidak ada perubahan 18 oktober, bapak presiden akan bertemu presiden fifa untuk membahas transformasi sepak bola indonesia, surat yang diberikan fifa ke pak presiden itu,&quot; kata menteri bumn erick thohir di lingkungan istana kepresidenan jakarta, selasa.\nerick thohir diketahui bertemu dengan gianni infantino di doha, qatar pada 5 oktober 2022. dalam pertemuan itu gianni menyebut fifa siap mendukung sepak bola indonesia sebagai olahraga paling populer di indonesia untuk jadi kebanggaan rakyat dan menjadi salah satu pilar yang berkontribusi terhadap kemajuan bangsa.\n&quot;fifa bersama pemerintah, afc dan pssi dalam transformasi itu, tinggal kita tunggu saja hasil rapat presiden fifa dan bapak presiden karena keduanya sudah berkomunikasi, ada beberapa poin sudah disampaikan bapak presiden,&quot; kata erick.\nbaca juga: fifa disebut akan terus dampingi pssi usai tragedi kanjuruhan\npembicaraan pertama adalah bagaimana audit fasilitas lapangan sepak bola di indonesia. &quot;mana stadion (yang) internasional, mana nasional, seperti apa standar nasional, seperti apa standar internasional, tidak lain salah satunya ada cctv, akses masuk penonton dan pemain tidak boleh bersama,&quot; kata erick.\nhal kedua adalah adanya latihan bersama, maupun standarisasi keamanan bersama. &quot;tentu bersama tni, polri, panitia pelaksana supaya semuanya persepsinya sama, supaya jangan saling menyalahkan, apalagi kan kemarin kejadian yang sangat memilukan, memakan korban,&quot; kata erick.\nhal ketiga adalah sikap suporter sepak bola itu sendiri. &quot;suporter tidak mungkin tidak menjadi bagian transformasi, transformasi keberhasilan inggris dalam persepakbolaan nasionalnya yaitu ketika suporter menjadi bagian transformasinya, ada detail-detailnya, salah satunya bagaimana membentuk \&#39;database\&#39; bersama,&quot; kata erick lagi.\ndengan perubahan sikap suporter tersebut, menurut erick, sepak bola seharusnya dapat menjadi alat pemersatu, bukan malah memakan korban antarsuporter.\n&quot;keempat, bagaimana jadwal pertandingan itu harus sesuai dengan kesepakatan berbagai pihak, misalnya musim depan bulan ini sampai bulan, dan izinnya satu atap sudah selesai, tidak boleh ada pergeseran sehingga mungkin keamanan tidak siap, atau masyarakat malah mengalami kemacetan total karena ada pertandingan sepak bola,&quot; kata dia.\nhal-hal tersebut akan dikaji ulang oleh fifa. &quot;fifa akan berkantor di indonesia, untuk menjaga transformasi sepak bola indonesia, mungkin 3-6 bulan, bisa setahun, tergantung kesadaran dan kemauan kita. saya rasa di surat itu jelas, fifa tidak memprioritaskan untuk memberikan sanksi tapi transofrmasi sepak bola harus terjadi,&quot; kata erick thohir.\nbaca juga: ketua panpel arema minta ketua pssi ikut bertanggung jawab dalam tragedi kanjuruhan&#39;]}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">berita</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">berita</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-48727285-19a7-4f13-b5a9-b334f8b2e0e9">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Berita_Asli</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>tempo.co, jakarta - presiden joko widodo (joko...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-48727285-19a7-4f13-b5a9-b334f8b2e0e9')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-48727285-19a7-4f13-b5a9-b334f8b2e0e9 button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-48727285-19a7-4f13-b5a9-b334f8b2e0e9');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
+  </div>
+</div></div>
+</div>
+</section>
+<section id="split-paragraph">
+<h3>Split Paragraph<a class="headerlink" href="#split-paragraph" title="Permalink to this headline">#</a></h3>
+<p>Memecah Paragraph menjadi kalimat</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nltk</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;punkt&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">sent_tokenize</span>
+
+<span class="n">df_pisahkalimat</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_pisahkalimat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">sent_tokenize</span><span class="p">(</span><span class="n">df_pisahkalimat</span><span class="p">[</span><span class="s2">&quot;Berita_Asli&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">df_pisahkalimat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df_pisahkalimat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Berita_Asli&quot;</span><span class="p">])</span>
+<span class="n">df_pisahkalimat</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[nltk_data] Downloading package punkt to /root/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-c0fcdb36-62fa-4a9a-9f68-ace53c657f17">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Berita_Asli</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>tempo.co, jakarta - presiden joko widodo (joko...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>"presiden fifa akan datang ke indonesia kalau ...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>erick thohir diketahui bertemu dengan gianni i...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>"fifa bersama pemerintah, afc dan pssi dalam t...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>baca juga: fifa disebut akan terus dampingi ps...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>"mana stadion (yang) internasional, mana nasio...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>hal kedua adalah adanya latihan bersama, maupu...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>"tentu bersama tni, polri, panitia pelaksana s...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>hal ketiga adalah sikap suporter sepak bola it...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>"suporter tidak mungkin tidak menjadi bagian t...</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>dengan perubahan sikap suporter tersebut, menu...</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>"keempat, bagaimana jadwal pertandingan itu ha...</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>hal-hal tersebut akan dikaji ulang oleh fifa.</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>"fifa akan berkantor di indonesia, untuk menja...</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>saya rasa di surat itu jelas, fifa tidak mempr...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>baca juga: ketua panpel arema minta ketua pssi...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-c0fcdb36-62fa-4a9a-9f68-ace53c657f17')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-c0fcdb36-62fa-4a9a-9f68-ace53c657f17 button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-c0fcdb36-62fa-4a9a-9f68-ace53c657f17');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
+  </div>
+</div></div>
+</div>
+</section>
+<section id="tahap-case-folding-dan-menghapus-tanda-baca-angka-karakter-kosong">
+<h3>Tahap Case Folding dan Menghapus tanda baca, angka, karakter kosong<a class="headerlink" href="#tahap-case-folding-dan-menghapus-tanda-baca-angka-karakter-kosong" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">string</span>
+<span class="n">df_casefolding</span> <span class="o">=</span> <span class="n">df_pisahkalimat</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1">#mengubah menjadi huruf kecil</span>
+<span class="n">df_casefolding</span><span class="p">[</span><span class="s1">&#39;Berita_Asli&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_casefolding</span><span class="p">[</span><span class="s1">&#39;Berita_Asli&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+<span class="c1">#menghapus tanda baca</span>
+<span class="n">tanda_baca</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">punctuation</span>
+<span class="n">tanda_baca</span> <span class="o">=</span> <span class="n">tanda_baca</span><span class="o">+</span><span class="s2">&quot;–&quot;</span>
+<span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">tanda_baca</span><span class="p">:</span>
+    <span class="n">df_casefolding</span><span class="p">[</span><span class="s1">&#39;Berita_Asli&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_casefolding</span><span class="p">[</span><span class="s1">&#39;Berita_Asli&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[\</span><span class="si">%s</span><span class="s1">]&#39;</span><span class="o">%</span><span class="k">char</span>,&quot; &quot;, regex=True)
+
+<span class="c1">#menghapus angka</span>
+<span class="n">df_casefolding</span><span class="p">[</span><span class="s1">&#39;Berita_Asli&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_casefolding</span><span class="p">[</span><span class="s1">&#39;Berita_Asli&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#menghapus karakter kosong</span>
+<span class="n">df_casefolding</span><span class="p">[</span><span class="s1">&#39;Berita_Asli&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_casefolding</span><span class="p">[</span><span class="s1">&#39;Berita_Asli&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_casefolding</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-8258bd29-ca95-467a-b90b-0fe1c31f511d">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Berita_Asli</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>tempo co jakarta presiden joko widodo jokowi a...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>presiden fifa akan datang ke indonesia kalau ...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>erick thohir diketahui bertemu dengan gianni i...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>fifa bersama pemerintah afc dan pssi dalam tr...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>baca juga fifa disebut akan terus dampingi pss...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>mana stadion yang internasional mana nasional...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>hal kedua adalah adanya latihan bersama maupun...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>tentu bersama tni polri panitia pelaksana sup...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>hal ketiga adalah sikap suporter sepak bola it...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>suporter tidak mungkin tidak menjadi bagian t...</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>dengan perubahan sikap suporter tersebut menur...</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>keempat bagaimana jadwal pertandingan itu har...</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>hal hal tersebut akan dikaji ulang oleh fifa</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>fifa akan berkantor di indonesia untuk menjag...</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>saya rasa di surat itu jelas fifa tidak mempri...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>baca juga ketua panpel arema minta ketua pssi ...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-8258bd29-ca95-467a-b90b-0fe1c31f511d')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-8258bd29-ca95-467a-b90b-0fe1c31f511d button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-8258bd29-ca95-467a-b90b-0fe1c31f511d');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
+  </div>
+</div></div>
+</div>
+</section>
+<section id="filtering">
+<h3>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">#</a></h3>
+<p>Proses untuk menghapus kata hubung atau kata yang tidak memiliki makna</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">sent_tokenize</span><span class="p">,</span> <span class="n">word_tokenize</span>
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;stopwords&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[nltk_data] Downloading package stopwords to /root/nltk_data...
+[nltk_data]   Package stopwords is already up-to-date!
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">listStopword</span> <span class="o">=</span>  <span class="nb">set</span><span class="p">(</span><span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;indonesian&#39;</span><span class="p">))</span>
+<span class="n">df_stopwords</span> <span class="o">=</span> <span class="n">df_casefolding</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> 
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">listStopword</span><span class="p">:</span>
+    <span class="n">df_stopwords</span><span class="p">[</span><span class="s1">&#39;Berita_Asli&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_stopwords</span><span class="p">[</span><span class="s1">&#39;Berita_Asli&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\b</span><span class="si">%s</span><span class="s1">\b&#39;</span><span class="o">%</span><span class="k">i</span>, &#39;&#39;, regex=True)
+<span class="n">df_stopwords</span><span class="p">[</span><span class="s1">&#39;Berita_Asli&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_stopwords</span><span class="p">[</span><span class="s1">&#39;Berita_Asli&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">df_stopwords</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-a5af407e-fcf1-4c91-9607-fb1067b88b32">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Berita_Asli</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>tempo co jakarta presiden joko widodo jokowi m...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>presiden fifa indonesia perubahan oktober pre...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>erick thohir bertemu gianni infantino doha qat...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>fifa pemerintah afc pssi transformasi tinggal...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>baca fifa dampingi pssi tragedi kanjuruhan pem...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>stadion internasional nasional standar nasion...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>latihan standarisasi keamanan</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>tni polri panitia pelaksana persepsinya menya...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>ketiga sikap suporter sepak bola</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>suporter transformasi transformasi keberhasil...</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>perubahan sikap suporter erick sepak bola ala...</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>keempat jadwal pertandingan sesuai kesepakata...</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>dikaji ulang fifa</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>fifa berkantor indonesia menjaga transformasi...</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>surat fifa memprioritaskan sanksi transofrmas...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>baca ketua panpel arema ketua pssi bertanggung...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-a5af407e-fcf1-4c91-9607-fb1067b88b32')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-a5af407e-fcf1-4c91-9607-fb1067b88b32 button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-a5af407e-fcf1-4c91-9607-fb1067b88b32');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
+  </div>
+</div></div>
+</div>
+</section>
+</section>
+<section id="tahap-pagerank">
+<h2>Tahap PageRank<a class="headerlink" href="#tahap-pagerank" title="Permalink to this headline">#</a></h2>
+<p>PageRank adalah algoritma yang dibuat oleh Larry Page. Algoritma ini digunakan oleh mesin pencarian Google yang memberikan bobot numerik untuk setiap elemen dari kumpulan dokumen hyperlink seperti Word Wide Web dengan tujuan untuk mengukur hubungan kepentingan dalam kumpulan dokumen tersebut. Dalam algoritma PageRank dihasilkan matriks yang menghitung probabilitas bahwa pengguna akan berpindah dari satu halaman ke halaman lainnya.</p>
+<p>Algoritma PageRank umumnya diterapkan pada directed graph, namun dalam kasus undirected graph algoritma pagerank juga dapat digunakan dengan memodifikasi seperti yang diterapkan pada algoritma TextRank . Pada TextRank akan dibangun sebuah graph yang berisi hubungan antar kalimat dalam dokumen. Vertex di dalam graph ini direpresentasikan sebagai unit satuan yang akan diberikan peringkat. Vertex ini memiliki similarity yang dihubungkan oleh edges. Similarity disini dapat ditentukan dengan cosine similarity di mana akan didapat kemiripan dari setiap kalimat satu sama lain.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+<span class="n">cv</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
+<span class="n">cv_matrix</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df_casefolding</span><span class="p">[</span><span class="s1">&#39;Berita_Asli&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Banyaknya kosa kata = &quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">((</span><span class="n">cv</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">())))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Banyaknya kosa kata =  229
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;kosa kata = &quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kosa kata =  [&#39;ada&#39; &#39;adalah&#39; &#39;adanya&#39; &#39;afc&#39; &#39;akan&#39; &#39;akses&#39; &#39;alat&#39; &#39;antarsuporter&#39; &#39;apa&#39;
+ &#39;apalagi&#39; &#39;arema&#39; &#39;association&#39; &#39;atap&#39; &#39;atau&#39; &#39;audit&#39; &#39;baca&#39; &#39;bagaimana&#39;
+ &#39;bagian&#39; &#39;bangsa&#39; &#39;bapak&#39; &#39;beberapa&#39; &#39;berbagai&#39; &#39;berkantor&#39;
+ &#39;berkomunikasi&#39; &#39;berkontribusi&#39; &#39;bersama&#39; &#39;bertanggung&#39; &#39;bertemu&#39; &#39;bisa&#39;
+ &#39;bola&#39; &#39;boleh&#39; &#39;bukan&#39; &#39;bulan&#39; &#39;bumn&#39; &#39;cctv&#39; &#39;co&#39; &#39;dalam&#39; &#39;dampingi&#39;
+ &#39;dan&#39; &#39;dapat&#39; &#39;database&#39; &#39;datang&#39; &#39;de&#39; &#39;dengan&#39; &#39;depan&#39; &#39;detail&#39;
+ &#39;detailnya&#39; &#39;di&#39; &#39;dia&#39; &#39;diberikan&#39; &#39;dikaji&#39; &#39;diketahui&#39; &#39;dilakukan&#39;
+ &#39;disampaikan&#39; &#39;disebut&#39; &#39;doha&#39; &#39;erick&#39; &#39;fasilitas&#39; &#39;federation&#39; &#39;fifa&#39;
+ &#39;football&#39; &#39;gianni&#39; &#39;hal&#39; &#39;harus&#39; &#39;hasil&#39; &#39;ikut&#39; &#39;indonesia&#39; &#39;infantino&#39;
+ &#39;inggris&#39; &#39;ini&#39; &#39;internasional&#39; &#39;internationale&#39; &#39;istana&#39; &#39;itu&#39; &#39;izinnya&#39;
+ &#39;jadi&#39; &#39;jadwal&#39; &#39;jakarta&#39; &#39;jangan&#39; &#39;jawab&#39; &#39;jelas&#39; &#39;joko&#39; &#39;jokowi&#39; &#39;juga&#39;
+ &#39;kalau&#39; &#39;kan&#39; &#39;kanjuruhan&#39; &#39;karena&#39; &#39;kata&#39; &#39;ke&#39; &#39;keamanan&#39; &#39;kebanggaan&#39;
+ &#39;keberhasilan&#39; &#39;kedua&#39; &#39;keduanya&#39; &#39;keempat&#39; &#39;kejadian&#39; &#39;kemacetan&#39;
+ &#39;kemajuan&#39; &#39;kemarin&#39; &#39;kemauan&#39; &#39;kepresidenan&#39; &#39;kesadaran&#39; &#39;kesepakatan&#39;
+ &#39;ketiga&#39; &#39;ketika&#39; &#39;ketua&#39; &#39;kita&#39; &#39;korban&#39; &#39;lagi&#39; &#39;lain&#39; &#39;lapangan&#39;
+ &#39;latihan&#39; &#39;lingkungan&#39; &#39;malah&#39; &#39;mana&#39; &#39;masuk&#39; &#39;masyarakat&#39; &#39;maupun&#39;
+ &#39;memakan&#39; &#39;membahas&#39; &#39;membentuk&#39; &#39;memberikan&#39; &#39;memilukan&#39;
+ &#39;memprioritaskan&#39; &#39;mendukung&#39; &#39;menemui&#39; &#39;menewaskan&#39; &#39;mengalami&#39;
+ &#39;menjadi&#39; &#39;menjaga&#39; &#39;menteri&#39; &#39;menurut&#39; &#39;menyalahkan&#39; &#39;menyebut&#39;
+ &#39;menyusul&#39; &#39;minta&#39; &#39;misalnya&#39; &#39;mungkin&#39; &#39;musim&#39; &#39;nasional&#39; &#39;nasionalnya&#39;
+ &#39;oktober&#39; &#39;olahraga&#39; &#39;oleh&#39; &#39;orang&#39; &#39;pada&#39; &#39;pak&#39; &#39;paling&#39; &#39;panitia&#39;
+ &#39;panpel&#39; &#39;pelaksana&#39; &#39;pemain&#39; &#39;pembicaraan&#39; &#39;pemerintah&#39; &#39;pemersatu&#39;
+ &#39;penonton&#39; &#39;pergeseran&#39; &#39;persepakbolaan&#39; &#39;persepsinya&#39; &#39;pertama&#39;
+ &#39;pertandingan&#39; &#39;pertemuan&#39; &#39;perubahan&#39; &#39;pihak&#39; &#39;pilar&#39; &#39;poin&#39; &#39;polri&#39;
+ &#39;populer&#39; &#39;presiden&#39; &#39;pssi&#39; &#39;qatar&#39; &#39;rakyat&#39; &#39;rapat&#39; &#39;rasa&#39; &#39;saja&#39;
+ &#39;salah&#39; &#39;saling&#39; &#39;sama&#39; &#39;sampai&#39; &#39;sangat&#39; &#39;sanksi&#39; &#39;satu&#39; &#39;satunya&#39;
+ &#39;saya&#39; &#39;sebagai&#39; &#39;seharusnya&#39; &#39;sehingga&#39; &#39;selasa&#39; &#39;selesai&#39; &#39;semuanya&#39;
+ &#39;sendiri&#39; &#39;sepak&#39; &#39;seperti&#39; &#39;sesuai&#39; &#39;setahun&#39; &#39;siap&#39; &#39;sikap&#39; &#39;stadion&#39;
+ &#39;standar&#39; &#39;standarisasi&#39; &#39;sudah&#39; &#39;supaya&#39; &#39;suporter&#39; &#39;surat&#39; &#39;tapi&#39;
+ &#39;tempo&#39; &#39;tentu&#39; &#39;tergantung&#39; &#39;terhadap&#39; &#39;terjadi&#39; &#39;tersebut&#39; &#39;terus&#39;
+ &#39;thohir&#39; &#39;tidak&#39; &#39;tinggal&#39; &#39;tni&#39; &#39;total&#39; &#39;tragedi&#39; &#39;transformasi&#39;
+ &#39;transformasinya&#39; &#39;transofrmasi&#39; &#39;tunggu&#39; &#39;ulang&#39; &#39;untuk&#39; &#39;usai&#39; &#39;widodo&#39;
+ &#39;yaitu&#39; &#39;yang&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfTransformer</span>
+<span class="n">normal_matrix</span> <span class="o">=</span> <span class="n">TfidfTransformer</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">cv_matrix</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">normal_matrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">normal_matrix</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">toarray</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0.         0.         0.         ... 0.19366891 0.         0.12591013]
+ [0.10375749 0.         0.         ... 0.         0.         0.10375749]
+ [0.         0.         0.         ... 0.         0.         0.11125027]
+ ...
+ [0.         0.         0.         ... 0.         0.         0.        ]
+ [0.         0.         0.         ... 0.         0.         0.        ]
+ [0.         0.         0.         ... 0.         0.         0.        ]]
+&lt;bound method _cs_matrix.toarray of &lt;229x16 sparse matrix of type &#39;&lt;class &#39;numpy.float64&#39;&gt;&#39;
+	with 368 stored elements in Compressed Sparse Column format&gt;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">vektorkalimat</span><span class="o">=</span><span class="n">normal_matrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="n">A</span><span class="o">=</span><span class="n">vektorkalimat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">B</span><span class="o">=</span><span class="n">vektorkalimat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">dot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+<span class="n">norma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">normb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">cos</span> <span class="o">=</span> <span class="n">dot</span> <span class="o">/</span> <span class="p">(</span><span class="n">norma</span> <span class="o">*</span> <span class="n">normb</span><span class="p">)</span>
+<span class="n">cos</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.34711106589769236
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_graph</span> <span class="o">=</span> <span class="n">normal_matrix</span> <span class="o">*</span> <span class="n">normal_matrix</span><span class="o">.</span><span class="n">T</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">res_graph</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  (0, 12)	0.05124484658048467
+  (0, 11)	0.014222411506966726
+  (0, 10)	0.024493514479312646
+  (0, 8)	0.03954466634232524
+  (0, 15)	0.06322397198343767
+  (0, 4)	0.13775591709102308
+  (0, 9)	0.030533371245354116
+  (0, 3)	0.15994022854461787
+  (0, 14)	0.060345434723571824
+  (0, 13)	0.14978482128506004
+  (0, 7)	0.01672818760074659
+  (0, 5)	0.013441257065140716
+  (0, 2)	0.22657191118174594
+  (0, 1)	0.34711106589769236
+  (0, 0)	1.0
+  (1, 12)	0.10097193742975975
+  (1, 10)	0.0639261649151968
+  (1, 8)	0.05735914463314294
+  (1, 4)	0.1376435594651221
+  (1, 11)	0.07001939713495381
+  (1, 9)	0.08026758158110289
+  (1, 3)	0.3495141552408056
+  (1, 14)	0.20701561244409136
+  (1, 13)	0.21982754146446398
+  (1, 7)	0.032811601557093575
+  :	:
+  (13, 14)	0.1147176183408275
+  (13, 13)	1.0
+  (13, 2)	0.19102153257493362
+  (13, 1)	0.21982754146446398
+  (13, 0)	0.14978482128506004
+  (14, 12)	0.02757323858404265
+  (14, 7)	0.03176788737617392
+  (14, 3)	0.07102321044879714
+  (14, 10)	0.05295051354523804
+  (14, 8)	0.09577020499866155
+  (14, 4)	0.07897178710151334
+  (14, 11)	0.113329326189553
+  (14, 9)	0.07100323359247067
+  (14, 5)	0.06251341900661218
+  (14, 14)	1.0000000000000002
+  (14, 13)	0.1147176183408275
+  (14, 2)	0.14840395655387975
+  (14, 1)	0.20701561244409136
+  (14, 0)	0.060345434723571824
+  (15, 9)	0.02514304501056392
+  (15, 2)	0.023069322830631886
+  (15, 3)	0.05340301101242834
+  (15, 15)	1.0
+  (15, 4)	0.22744576444908612
+  (15, 0)	0.06322397198343767
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="n">nx_graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_scipy_sparse_matrix</span><span class="p">(</span><span class="n">res_graph</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="menampilkan-gambar-pagerank">
+<h3>Menampilkan Gambar PageRank<a class="headerlink" href="#menampilkan-gambar-pagerank" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">draw_circular</span><span class="p">(</span><span class="n">nx_graph</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/uts-nomor2_32_0.png" src="_images/uts-nomor2_32_0.png" />
+</div>
+</div>
+</section>
+<section id="menampilkan-hasil-pagerank">
+<h3>Menampilkan Hasil PageRank<a class="headerlink" href="#menampilkan-hasil-pagerank" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scores</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">pagerank</span><span class="p">(</span><span class="n">nx_graph</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.88</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="p">)</span>
+<span class="n">scores</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{0: 0.06802823785513502,
+ 1: 0.08310069540536275,
+ 2: 0.06961013897665005,
+ 3: 0.06891249543653953,
+ 4: 0.06762161822991962,
+ 5: 0.05281848986409361,
+ 6: 0.053990600542403365,
+ 7: 0.049332850522842156,
+ 8: 0.0664408414953283,
+ 9: 0.0631206520427369,
+ 10: 0.05956853254264052,
+ 11: 0.06050771106968682,
+ 12: 0.05665309057320426,
+ 13: 0.06829858925993311,
+ 14: 0.0636258154922767,
+ 15: 0.048369640691247266}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title Persentase Ringkasan</span>
+<span class="c1">#@markdown ---</span>
+<span class="c1">#@markdown ### Tentukan persentase ringkasan : total kalimat:</span>
+<span class="n">persentase_ringkasan</span> <span class="o">=</span> <span class="mi">90</span> <span class="c1">#@param {type:&quot;slider&quot;, min:50, max:90, step:10}</span>
+<span class="c1">#@markdown ---</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">top_sentence</span><span class="o">=</span><span class="p">{</span><span class="n">sentence</span><span class="p">:</span><span class="n">scores</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span><span class="n">sentence</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">df_pisahkalimat</span><span class="p">[</span><span class="s2">&quot;Berita_Asli&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)}</span>
+
+<span class="n">persentase</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_pisahkalimat</span><span class="p">[</span><span class="s2">&quot;Berita_Asli&quot;</span><span class="p">])</span><span class="o">*</span><span class="n">persentase_ringkasan</span><span class="o">//</span><span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah Kalimat pada Ringkasan : &quot;</span><span class="p">,</span><span class="n">persentase</span><span class="p">)</span>
+<span class="n">top</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">top_sentence</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)[:</span><span class="n">persentase</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah Kalimat pada Ringkasan :  14
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ringkasan</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">df_pisahkalimat</span><span class="p">[</span><span class="s2">&quot;Berita_Asli&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">top</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">ringkasan</span> <span class="o">=</span> <span class="n">ringkasan</span><span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span><span class="n">sent</span>
+
+<span class="c1">#ringkasan</span>
+<span class="n">perbandingan</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Teks asli&#39;</span> <span class="p">:</span> <span class="n">berita</span><span class="p">[</span><span class="s2">&quot;Berita_Asli&quot;</span><span class="p">],</span> <span class="s1">&#39;Hasil Ringkasan&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="n">ringkasan</span><span class="p">]}</span>
+<span class="n">df_perbandingan</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">perbandingan</span><span class="p">)</span>
+<span class="n">df_perbandingan</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-b160e608-697b-4f52-8b42-2041d6e3b2c7">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Teks asli</th>
+      <th>Hasil Ringkasan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>tempo.co, jakarta - presiden joko widodo (joko...</td>
+      <td>tempo.co, jakarta - presiden joko widodo (jok...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-b160e608-697b-4f52-8b42-2041d6e3b2c7')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-b160e608-697b-4f52-8b42-2041d6e3b2c7 button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-b160e608-697b-4f52-8b42-2041d6e3b2c7');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
+  </div>
+</div></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="uts-nomor1.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Analisa Clustering dengan menggunakan K-means</p>
+        </div>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The Jupyter Book Community<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
